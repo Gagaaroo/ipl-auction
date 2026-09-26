@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { AuctionState, LogEntry, Player, TeamState } from '../engine/types';
-import { bidBlock, endAuction, hammer, nextBid, overseasCount, placeBid, remainingInSet, type BidBlock } from '../engine/auction';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { AuctionState, LogEntry, Player, Role, TeamState } from '../engine/types';
+import { bidBlock, endAuction, hammer, nextBid, overseasCount, placeBid, remainingInSet, setSummaries, upcomingLots, type BidBlock } from '../engine/auction';
 import { AI_TICK_MS, aiPickBidder, simulateSet, simulateToEnd } from '../engine/ai';
 import { formatLakh } from '../engine/money';
 import { makeRng } from '../engine/rng';
@@ -411,8 +411,9 @@ function Paddle({
   );
 }
 
-function SidePanel({ state }: { state: AuctionState }) {
-  const [tab, setTab] = useState<'squads' | 'log'>('squads');
+// Memoised: the room re-renders ten times a second for the clock, the panel only when the auction changes.
+const SidePanel = memo(function SidePanel({ state }: { state: AuctionState }) {
+  const [tab, setTab] = useState<'next' | 'squads' | 'log'>('next');
   const firstHuman = state.teams.find((t) => t.human)?.code ?? state.teams[0].code;
   const [code, setCode] = useState(firstHuman);
   const t = state.teams.find((x) => x.code === code) ?? state.teams[0];
@@ -421,6 +422,9 @@ function SidePanel({ state }: { state: AuctionState }) {
   return (
     <aside className="side">
       <div className="tabs" role="tablist">
+        <button role="tab" type="button" aria-selected={tab === 'next'} onClick={() => setTab('next')}>
+          Up next
+        </button>
         <button role="tab" type="button" aria-selected={tab === 'squads'} onClick={() => setTab('squads')}>
           Squads
         </button>
@@ -428,7 +432,9 @@ function SidePanel({ state }: { state: AuctionState }) {
           Log ({state.log.filter((l) => l.kind === 'sold').length} sold)
         </button>
       </div>
-      {tab === 'squads' ? (
+      {tab === 'next' ? (
+        <UpNext state={state} />
+      ) : tab === 'squads' ? (
         <div className="side-body">
           <select value={t.code} onChange={(e) => setCode(e.target.value)} aria-label="Team">
             {state.teams.map((x) => (
@@ -484,5 +490,102 @@ function SidePanel({ state }: { state: AuctionState }) {
         </div>
       )}
     </aside>
+  );
+});
+
+const ROLE_FILTERS: (Role | 'ALL')[] = ['ALL', 'BAT', 'AR', 'WK', 'BOWL'];
+const SHOW_FIRST = 40;
+
+function UpNext({ state }: { state: AuctionState }) {
+  const [role, setRole] = useState<Role | 'ALL'>('ALL');
+  const [showAll, setShowAll] = useState(false);
+  const sets = useMemo(() => setSummaries(state), [state]);
+  const upcoming = useMemo(() => upcomingLots(state), [state]);
+  const filtered = role === 'ALL' ? upcoming : upcoming.filter((u) => u.player.role === role);
+  const shown = showAll ? filtered : filtered.slice(0, SHOW_FIRST);
+  const setListRef = useRef<HTMLOListElement>(null);
+  const currentSet = sets.find((st) => st.status === 'current')?.name;
+
+  // Keep the set on the block in view inside its own little scroller.
+  useEffect(() => {
+    const list = setListRef.current;
+    const li = list?.querySelector<HTMLElement>('.set-current');
+    if (list && li) list.scrollTop = li.offsetTop - list.offsetTop - list.clientHeight / 3;
+  }, [currentSet]);
+
+  return (
+    <div className="side-body upnext">
+      <details className="sets" open>
+        <summary>
+          Sets <span className="muted small">({sets.length}, in running order)</span>
+        </summary>
+        <ol className="set-list" ref={setListRef}>
+          {sets.map((st) => (
+            <li key={st.name} className={`set-${st.status}`}>
+              <span className="set-mark" aria-label={st.status}>
+                {st.status === 'done' ? '✓' : st.status === 'current' ? '▶' : '○'}
+              </span>
+              <span className="grow">
+                <b>{st.name}</b>
+                <span className="set-lots">
+                  lots {st.firstLot}–{st.lastLot}
+                </span>
+              </span>
+              <span className="small set-count">
+                {st.status === 'upcoming' ? `${st.total} players` : `${st.sold} sold · ${st.unsold} unsold`}
+              </span>
+            </li>
+          ))}
+          {state.round === 'main' && (
+            <li className="set-upcoming">
+              <span className="set-mark">○</span>
+              <span className="grow">
+                <b>Accelerated</b>
+                <span className="set-lots">after the last set</span>
+              </span>
+              <span className="small set-count">{state.unsoldMain.length} so far, half base</span>
+            </li>
+          )}
+        </ol>
+      </details>
+
+      <div className="chips" role="group" aria-label="Filter by role">
+        {ROLE_FILTERS.map((r) => (
+          <button key={r} type="button" className={role === r ? 'on' : ''} aria-pressed={role === r} onClick={() => setRole(r)}>
+            {r === 'ALL' ? 'All' : r}
+          </button>
+        ))}
+      </div>
+
+      {filtered.length === 0 ? (
+        <p className="muted">{upcoming.length === 0 ? 'This is the last lot.' : 'Nobody in that role left to come.'}</p>
+      ) : (
+        <ol className="next-list">
+          {shown.map((u, i) => {
+            const newSet = i === 0 || shown[i - 1].lot.setName !== u.lot.setName;
+            return (
+              <li key={u.lotNumber}>
+                {newSet && <div className="next-set">{u.lot.setName}</div>}
+                <div className={`next-row ${i === 0 && role === 'ALL' ? 'next-first' : ''}`}>
+                  <span className="lot-no">{u.lotNumber}</span>
+                  <span className={`role role-${u.player.role}`}>{u.player.role}</span>
+                  <span className="grow">
+                    {u.player.name} {u.player.overseas && <OS />}
+                    <span className="muted small"> {u.player.country}</span>
+                  </span>
+                  <span className="ovr" title="Overall">{u.player.overall}</span>
+                  <span className="price">{formatLakh(u.lot.basePriceLakh)}</span>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+      {filtered.length > shown.length && (
+        <button type="button" className="btn btn-small show-all" onClick={() => setShowAll(true)}>
+          Show all {filtered.length}
+        </button>
+      )}
+    </div>
   );
 }

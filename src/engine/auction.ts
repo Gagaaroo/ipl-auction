@@ -209,3 +209,63 @@ export function remainingInSet(state: AuctionState): number {
   for (let i = state.lotIndex + 1; i < state.queue.length && state.queue[i].setName === cur.lot.setName; i++) n++;
   return n;
 }
+
+// ---------- running order ----------
+
+export type SetStatus = 'done' | 'current' | 'upcoming';
+
+export interface SetSummary {
+  name: string;
+  /** 1-based lot number of the set's first player. */
+  firstLot: number;
+  lastLot: number;
+  total: number;
+  sold: number;
+  unsold: number;
+  status: SetStatus;
+  accelerated: boolean;
+}
+
+/** Every set in running order, with where it sits in the queue and how it went. */
+export function setSummaries(state: AuctionState): SetSummary[] {
+  const out: SetSummary[] = [];
+  const current = state.current ? state.lotIndex : -1;
+  state.queue.forEach((lot, i) => {
+    let s = out[out.length - 1];
+    if (!s || s.name !== lot.setName) {
+      s = { name: lot.setName, firstLot: i + 1, lastLot: i + 1, total: 0, sold: 0, unsold: 0, status: 'upcoming', accelerated: lot.accelerated };
+      out.push(s);
+    }
+    s.lastLot = i + 1;
+    s.total++;
+  });
+  const bySet = new Map(out.map((s) => [s.name, s]));
+  for (const l of state.log) {
+    const s = bySet.get(l.setName);
+    if (!s) continue;
+    if (l.kind === 'sold') s.sold++;
+    else s.unsold++;
+  }
+  for (const s of out) {
+    const lo = s.firstLot - 1, hi = s.lastLot - 1;
+    if (current >= lo && current <= hi) s.status = 'current';
+    else if (state.finished || hi < state.lotIndex || (hi === state.lotIndex && !state.current)) s.status = 'done';
+  }
+  return out;
+}
+
+export interface UpcomingLot {
+  lotNumber: number;
+  lot: Lot;
+  player: Player;
+}
+
+/** Lots still to come after the one on the block, in running order. */
+export function upcomingLots(state: AuctionState): UpcomingLot[] {
+  if (state.finished) return [];
+  return state.queue.slice(state.lotIndex + 1).map((lot, i) => ({
+    lotNumber: state.lotIndex + 2 + i,
+    lot,
+    player: state.players[lot.playerId],
+  }));
+}

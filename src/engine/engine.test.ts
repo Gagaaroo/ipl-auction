@@ -3,7 +3,7 @@ import data from '../data/players.json';
 import { IPL_TEAMS } from '../data/teams';
 import type { AuctionState, Player, PlayerRecord, Rules } from './types';
 import { increment, nextBidAmount, formatLakh } from './money';
-import { DEFAULT_RULES, bidBlock, canBid, createAuction, hammer, maxSpend, placeBid, team } from './auction';
+import { DEFAULT_RULES, setSummaries, upcomingLots, bidBlock, canBid, createAuction, hammer, maxSpend, placeBid, team } from './auction';
 import { aiPickBidder, simulateToEnd, valuation } from './ai';
 import { acceleratedPrice, buildLots, parsePlayersCsv, withIds } from './pool';
 import { bestXI } from './xi';
@@ -124,6 +124,29 @@ describe('auction engine', () => {
     expect(s.round).toBe('accelerated');
     const again = s.queue.find((l) => l.accelerated && l.playerId === first.playerId)!;
     expect(again.basePriceLakh).toBe(acceleratedPrice(first.basePriceLakh));
+  });
+});
+
+describe('running order', () => {
+  it('lists sets in order with lot positions and status', () => {
+    let s = newAuction({ poolMode: 'full' });
+    let sets = setSummaries(s);
+    expect(sets[0]).toMatchObject({ name: 'Marquee', firstLot: 1, status: 'current' });
+    expect(sets[1].firstLot).toBe(sets[0].lastLot + 1);
+    expect(sets.slice(1).every((x) => x.status === 'upcoming')).toBe(true);
+    expect(sets.reduce((n, x) => n + x.total, 0)).toBe(s.queue.length);
+    // Get through the marquee set with no bids.
+    while (s.current?.lot.setName === 'Marquee') s = hammer(s);
+    sets = setSummaries(s);
+    expect(sets[0]).toMatchObject({ status: 'done', unsold: sets[0].total });
+    expect(sets[1].status).toBe('current');
+  });
+  it('lists upcoming players after the one on the block', () => {
+    const s = newAuction({ poolMode: 'full' });
+    const next = upcomingLots(s);
+    expect(next).toHaveLength(s.queue.length - 1);
+    expect(next[0].lotNumber).toBe(2);
+    expect(next[0].lot).toBe(s.queue[1]);
   });
 });
 

@@ -39,6 +39,7 @@ export function HowToPlay() {
           You can’t bid if it would leave you unable to fill your minimum squad at ₹20 L a head, if your squad is full, or if you’ve hit the
           overseas cap.
         </li>
+        <li>The <b>Up next</b> tab shows every set in running order (with lot numbers and how many sold) and the players still to come, filterable by role.</li>
         <li>Anyone who goes unsold comes back once, at the end, in an accelerated round at half their base price.</li>
         <li>
           Keys: <kbd>space</kbd> bids for the first human team, <kbd>2</kbd>–<kbd>9</kbd> for the others.

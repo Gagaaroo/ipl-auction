@@ -143,6 +143,13 @@ describe('AI', () => {
     const s = simulateToEnd(newAuction({ poolMode: 'full' }, ['MI']), makeRng(3), true);
     expect(team(s, 'MI').squad.length).toBeGreaterThanOrEqual(s.rules.squadMin);
   });
+  it.each([15, 25])('handles a squad size of %i', (squadMax) => {
+    const s = simulateToEnd(newAuction({ poolMode: 'real', squadMax }, []), makeRng(11));
+    for (const t of s.teams) {
+      expect(t.squad.length).toBeLessThanOrEqual(squadMax);
+      expect(t.squad.length).toBeGreaterThanOrEqual(s.rules.squadMin);
+    }
+  });
   it('runs a full auction to a sane finish', () => {
     const s = simulateToEnd(newAuction({ poolMode: 'full' }, []), makeRng(7));
     expect(s.finished).toBe(true);

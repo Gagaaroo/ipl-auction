@@ -7,17 +7,17 @@ export default function App() {
   return (
     <div className="site">
       <header className="top">
-        <a href="#/" className="wordmark">
+        <a href="#play" className="wordmark">
           The Auction Table
         </a>
         <nav>
-          <a href="#/" aria-current={route === 'play' ? 'page' : undefined}>
+          <a href="#play" aria-current={route === 'play' ? 'page' : undefined}>
             Play
           </a>
-          <a href="#/how" aria-current={route === 'how' ? 'page' : undefined}>
+          <a href="#how" aria-current={route === 'how' ? 'page' : undefined}>
             How to play
           </a>
-          <a href="#/about" aria-current={route === 'about' ? 'page' : undefined}>
+          <a href="#about" aria-current={route === 'about' ? 'page' : undefined}>
             About
           </a>
         </nav>

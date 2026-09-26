@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react';
+import { useEffect, type CSSProperties, type ReactNode } from 'react';
 import type { Player, TeamDef } from '../engine/types';
 import { inkFor } from '../data/teams';
 import { formatLakh } from '../engine/money';
@@ -50,4 +50,46 @@ export function Rupees({ lakh }: { lakh: number }) {
 
 export function Board({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <div className={`board ${className}`}>{children}</div>;
+}
+
+export interface Ask {
+  message: string;
+  yes: string;
+  onYes: () => void;
+}
+
+/** In-page confirmation. Browser confirm() is blocked in some embeds, so the game never relies on it. */
+export function ConfirmDialog({ ask, onClose }: { ask: Ask | null; onClose: () => void }) {
+  useEffect(() => {
+    if (!ask) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [ask, onClose]);
+  if (!ask) return null;
+  return (
+    <div className="scrim" onClick={onClose}>
+      <div className="dialog" role="alertdialog" aria-modal="true" aria-labelledby="dialog-msg" onClick={(e) => e.stopPropagation()}>
+        <p id="dialog-msg">{ask.message}</p>
+        <div className="row wrap">
+          <button
+            type="button"
+            className="btn btn-big"
+            autoFocus
+            onClick={() => {
+              onClose();
+              ask.onYes();
+            }}
+          >
+            {ask.yes}
+          </button>
+          <button type="button" className="btn" onClick={onClose}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }

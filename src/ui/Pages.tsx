@@ -16,6 +16,7 @@ export function HowToPlay() {
         <li>
           Playing with friends on one phone? Mark several teams as <b>You</b> — each human team gets its own “Bid” button in the room.
         </li>
+        <li>Squad size can be anything from 15 to 25 players (18 by default). The minimum squad can be set from 11 up to the squad size.</li>
         <li>Don’t fancy any of the ten? “Create your own” gives you an eleventh side with your own name, 2–4 letter code and colour.</li>
         <li>
           <b>Real squads</b>: IPL teams keep their best 2026 players (squad size minus six, max overseas minus two), with a retention cost taken

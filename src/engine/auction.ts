@@ -15,6 +15,10 @@ export interface AuctionConfig {
   seed: number;
 }
 
+/** Players can pick any squad size in this range on the setup screen. */
+export const SQUAD_SIZE_MIN = 15;
+export const SQUAD_SIZE_MAX = 25;
+
 export const DEFAULT_RULES: Rules = {
   purseCr: 100,
   squadMax: 18,

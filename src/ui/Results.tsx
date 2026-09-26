@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { AuctionState } from '../engine/types';
 import { awards, oversText, simulateSeason, strengths, teamResults, type MatchResult } from '../engine/season';
 import { formatLakh } from '../engine/money';
-import { BallRating, Board, OS, TeamBadge } from './bits';
+import { BallRating, Board, ConfirmDialog, OS, TeamBadge, type Ask } from './bits';
 
 interface Props {
   state: AuctionState;
@@ -17,6 +17,8 @@ export function Results({ state, seasonSeed, onReplay, onNew }: Props) {
   const prizes = useMemo(() => awards(state, results), [state, results]);
   const teamOf = (code: string) => state.teams.find((t) => t.code === code)!;
   const champ = teamOf(season.champion);
+  const [ask, setAsk] = useState<Ask | null>(null);
+  const closeAsk = useCallback(() => setAsk(null), []);
   const priceOf = (id: string) => {
     for (const t of state.teams) {
       const e = t.squad.find((x) => x.playerId === id);
@@ -39,10 +41,16 @@ export function Results({ state, seasonSeed, onReplay, onNew }: Props) {
         <button type="button" className="btn btn-big" onClick={onReplay}>
           ↻ Replay season
         </button>
-        <button type="button" className="btn" onClick={onNew}>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => setAsk({ message: 'Start a new auction? These results will be cleared.', yes: 'New auction', onYes: onNew })}
+        >
           New auction
         </button>
       </div>
+
+      <ConfirmDialog ask={ask} onClose={closeAsk} />
 
       <section className="panel">
         <h2>Awards</h2>

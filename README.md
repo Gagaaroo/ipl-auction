@@ -89,7 +89,7 @@ Local Hero,AR,IND,,55,58,,,
 
 ## House rules (defaults)
 
-- Purse: ₹100 Cr (choose 60/80/100/120). Squad: 18. Minimum squad: 11. Overseas cap: 8 (max 4 in an XI)
+- Purse: ₹100 Cr (choose 60/80/100/120). Squad: 18 (pick 15–25). Minimum squad: 11 (up to the squad size). Overseas cap: 8 (max 4 in an XI)
 - Bid clock: 4 / 6 / 9 s. Every bid resets it to the full clock, which is never under 4 s
 - Increments: +₹10 L below ₹1 Cr, +₹20 L to ₹2 Cr, +₹25 L to ₹5 Cr, +₹50 L to ₹10 Cr, then +₹1 Cr
 - A team can't bid if that would leave it unable to fill the minimum squad at ₹20 L a slot

@@ -4,7 +4,7 @@ import { bidBlock, endAuction, hammer, nextBid, overseasCount, placeBid, remaini
 import { AI_TICK_MS, aiPickBidder, simulateSet, simulateToEnd } from '../engine/ai';
 import { formatLakh } from '../engine/money';
 import { makeRng } from '../engine/rng';
-import { BallRating, Board, OS, ROLE_LABEL, Stat, TeamBadge } from './bits';
+import { BallRating, Board, ConfirmDialog, OS, ROLE_LABEL, Stat, TeamBadge, type Ask } from './bits';
 import { playBid, playGavel } from './sound';
 import { inkFor } from '../data/teams';
 import { loadSound, saveSound } from './storage';
@@ -47,6 +47,10 @@ export function AuctionRoom({ initial, initialRemainingMs, resumed, onSave, onDo
   const [, setFrame] = useState(0);
   const lastSaveRef = useRef(0);
 
+  const [ask, setAsk] = useState<Ask | null>(null);
+  const askRef = useRef(ask);
+  askRef.current = ask;
+  const closeAsk = useCallback(() => setAsk(null), []);
   pausedRef.current = paused;
   bannerRef.current = banner;
   soundRef.current = sound;
@@ -74,7 +78,7 @@ export function AuctionRoom({ initial, initialRemainingMs, resumed, onSave, onDo
   }, [save, onDone]);
 
   const bid = useCallback((code: string) => {
-    if (pausedRef.current || bannerRef.current) return;
+    if (pausedRef.current || askRef.current || bannerRef.current) return;
     const s = stateRef.current;
     const n = placeBid(s, code);
     if (n === s) return;
@@ -104,7 +108,7 @@ export function AuctionRoom({ initial, initialRemainingMs, resumed, onSave, onDo
       const dt = now - last;
       last = now;
       const s = stateRef.current;
-      if (pausedRef.current) return;
+      if (pausedRef.current || askRef.current) return;
       const b = bannerRef.current;
       if (b) {
         if (now >= b.until) {
@@ -148,7 +152,7 @@ export function AuctionRoom({ initial, initialRemainingMs, resumed, onSave, onDo
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
-      if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (askRef.current || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.code === 'Space' && humans[0]) {
         e.preventDefault();
         bid(humans[0].code);
@@ -184,18 +188,26 @@ export function AuctionRoom({ initial, initialRemainingMs, resumed, onSave, onDo
     commit(n);
     if (n.finished) finish(n);
   };
-  const simEnd = () => {
-    if (!confirm('Let the AI finish the auction? It will bid for every team — yours included — using the same logic as the AI sides.')) return;
-    const n = simulateToEnd(stateRef.current, rngRef.current, true);
-    commit(n);
-    finish(n);
-  };
-  const end = () => {
-    if (!confirm('End the auction now? Unsold players stay unsold.')) return;
-    const n = endAuction(stateRef.current);
-    commit(n);
-    finish(n);
-  };
+  const simEnd = () =>
+    setAsk({
+      message: 'Let the AI finish the auction? It will bid for every team, yours included, using the same logic as the AI sides.',
+      yes: 'Sim to the end',
+      onYes: () => {
+        const n = simulateToEnd(stateRef.current, rngRef.current, true);
+        commit(n);
+        finish(n);
+      },
+    });
+  const end = () =>
+    setAsk({
+      message: 'End the auction now? Anyone not yet sold stays unsold.',
+      yes: 'End auction',
+      onYes: () => {
+        const n = endAuction(stateRef.current);
+        commit(n);
+        finish(n);
+      },
+    });
 
   return (
     <div className="room">
@@ -310,6 +322,7 @@ export function AuctionRoom({ initial, initialRemainingMs, resumed, onSave, onDo
       </div>
 
       <SidePanel state={state} />
+      <ConfirmDialog ask={ask} onClose={closeAsk} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import type { PlayerRecord, Rules, TeamDef } from '../engine/types';
-import { DEFAULT_RULES, type TeamEntry } from '../engine/auction';
+import { DEFAULT_RULES, SQUAD_SIZE_MAX, SQUAD_SIZE_MIN, type TeamEntry } from '../engine/auction';
 import { parsePlayersCsv } from '../engine/pool';
 import { IPL_TEAMS } from '../data/teams';
 import defaultData from '../data/players.json';
@@ -34,7 +34,11 @@ export interface StartConfig {
 export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
   const [prefs, setPrefsRaw] = useState<SetupPrefs>(() => {
     const saved = loadSetup<SetupPrefs>();
-    return saved ? { ...defaultPrefs(), ...saved, rules: { ...DEFAULT_RULES, ...saved.rules } } : defaultPrefs();
+    if (!saved) return defaultPrefs();
+    const rules = { ...DEFAULT_RULES, ...saved.rules };
+    rules.squadMax = Math.min(SQUAD_SIZE_MAX, Math.max(SQUAD_SIZE_MIN, rules.squadMax));
+    rules.squadMin = Math.min(rules.squadMin, rules.squadMax);
+    return { ...defaultPrefs(), ...saved, rules };
   });
   const setPrefs = (fn: (p: SetupPrefs) => SetupPrefs) =>
     setPrefsRaw((p) => {
@@ -161,11 +165,26 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
           </label>
           <label>
             Squad size
-            <input type="number" min={11} max={30} value={rules.squadMax} onChange={(e) => setRule('squadMax', clampInt(e.target.value, 11, 30))} />
+            <select
+              id="squad-size"
+              value={rules.squadMax}
+              onChange={(e) => {
+                const size = Number(e.target.value);
+                setPrefs((p) => ({ ...p, rules: { ...p.rules, squadMax: size, squadMin: Math.min(p.rules.squadMin, size) } }));
+              }}
+            >
+              {Array.from({ length: SQUAD_SIZE_MAX - SQUAD_SIZE_MIN + 1 }, (_, i) => SQUAD_SIZE_MIN + i).map((v) => (
+                <option key={v} value={v}>{v} players</option>
+              ))}
+            </select>
           </label>
           <label>
             Minimum squad
-            <input type="number" min={11} max={30} value={rules.squadMin} onChange={(e) => setRule('squadMin', clampInt(e.target.value, 11, 30))} />
+            <select id="squad-min" value={rules.squadMin} onChange={(e) => setRule('squadMin', Number(e.target.value))}>
+              {Array.from({ length: rules.squadMax - 11 + 1 }, (_, i) => 11 + i).map((v) => (
+                <option key={v} value={v}>{v} players</option>
+              ))}
+            </select>
           </label>
           <label>
             Overseas cap
@@ -367,7 +386,7 @@ function CsvImport({
       </div>
       <p className="hint">
         Columns: <code>name,role,country,overseas,bat,bowl,overall,basePriceLakh,team2026</code> — only name, role, bat and bowl are required. See{' '}
-        <a href="#/how">How to play</a>.
+        <a href="#how">How to play</a>.
       </p>
       {msg && <p className="note">{msg}</p>}
     </div>

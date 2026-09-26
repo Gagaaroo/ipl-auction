@@ -44,9 +44,7 @@ export function Play() {
         state={saved.auction}
         seasonSeed={saved.seasonSeed}
         onReplay={() => update({ ...saved, seasonSeed: newSeed() })}
-        onNew={() => {
-          if (confirm('Start a new auction? This one will be cleared.')) update(null);
-        }}
+        onNew={() => update(null)}
       />
     );
 

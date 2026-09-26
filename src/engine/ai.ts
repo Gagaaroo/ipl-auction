@@ -54,10 +54,10 @@ export function spendingCap(state: AuctionState, t: TeamState): number {
   return Math.min(maxSpend(t, state.rules), t.purseLakh - reserve, state.rules.purseCr * 100 * 0.28);
 }
 
-export function aiWants(state: AuctionState, t: TeamState): boolean {
+export function aiWants(state: AuctionState, t: TeamState, autopilotHumans = false): boolean {
   const cur = state.current;
   const amount = nextBid(state);
-  if (t.human || !cur || amount === null || !canBid(state, t.code, amount)) return false;
+  if ((t.human && !autopilotHumans) || !cur || amount === null || !canBid(state, t.code, amount)) return false;
   return valuation(state, t, state.players[cur.lot.playerId]) >= amount;
 }
 
@@ -96,11 +96,14 @@ export function aiPickBidder(state: AuctionState, timing: Timing, rng: Rng): str
   return null;
 }
 
-/** Resolve the current lot instantly with AI bidders only. */
-export function simulateLot(state: AuctionState, rng: Rng): AuctionState {
+/**
+ * Resolve the current lot instantly. Human teams pass, unless `autopilotHumans`
+ * is set, in which case the AI bids on their behalf with the same logic.
+ */
+export function simulateLot(state: AuctionState, rng: Rng, autopilotHumans = false): AuctionState {
   let s = state;
   for (let guard = 0; guard < 500; guard++) {
-    const keen = s.teams.filter((t) => aiWants(s, t));
+    const keen = s.teams.filter((t) => aiWants(s, t, autopilotHumans));
     if (!keen.length) break;
     const pick = keen[Math.floor(rng() * keen.length)];
     s = placeBid(s, pick.code);
@@ -116,8 +119,8 @@ export function simulateSet(state: AuctionState, rng: Rng): AuctionState {
   return s;
 }
 
-export function simulateToEnd(state: AuctionState, rng: Rng): AuctionState {
+export function simulateToEnd(state: AuctionState, rng: Rng, autopilotHumans = false): AuctionState {
   let s = state;
-  while (s.current && !s.finished) s = simulateLot(s, rng);
+  while (s.current && !s.finished) s = simulateLot(s, rng, autopilotHumans);
   return s;
 }

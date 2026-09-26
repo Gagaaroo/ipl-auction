@@ -3,7 +3,7 @@ import data from '../data/players.json';
 import { IPL_TEAMS } from '../data/teams';
 import type { AuctionState, Player, PlayerRecord, Rules } from './types';
 import { increment, nextBidAmount, formatLakh } from './money';
-import { DEFAULT_RULES, bidBlock, canBid, createAuction, hammer, maxSpend, nextBid, placeBid, team } from './auction';
+import { DEFAULT_RULES, bidBlock, canBid, createAuction, hammer, maxSpend, placeBid, team } from './auction';
 import { aiPickBidder, simulateToEnd, valuation } from './ai';
 import { acceleratedPrice, buildLots, parsePlayersCsv, withIds } from './pool';
 import { bestXI } from './xi';
@@ -138,6 +138,10 @@ describe('AI', () => {
   it('waits a human-like beat after a bid', () => {
     const s = newAuction({ poolMode: 'full' });
     expect(aiPickBidder(s, { remainingMs: 3000, sinceLastBidMs: 100 }, makeRng(1))).toBeNull();
+  });
+  it('autopilot drafts for human teams when simulating to the end', () => {
+    const s = simulateToEnd(newAuction({ poolMode: 'full' }, ['MI']), makeRng(3), true);
+    expect(team(s, 'MI').squad.length).toBeGreaterThanOrEqual(s.rules.squadMin);
   });
   it('runs a full auction to a sane finish', () => {
     const s = simulateToEnd(newAuction({ poolMode: 'full' }, []), makeRng(7));

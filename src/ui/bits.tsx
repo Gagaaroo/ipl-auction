@@ -16,10 +16,17 @@ export function TeamBadge({ team, size = 'md' }: { team: Pick<TeamDef, 'code' | 
 export function BallRating({ value, size = 44 }: { value: number; size?: number }) {
   return (
     <svg className="ball" width={size} height={size} viewBox="0 0 44 44" role="img" aria-label={`Overall ${value}`}>
-      <circle cx="22" cy="22" r="20" fill="var(--ball)" stroke="var(--ink)" strokeWidth="2" />
-      <path d="M12 6 C 17 15, 17 29, 12 38" fill="none" stroke="#f3e6d0" strokeWidth="1.2" strokeDasharray="1.6 2.2" />
-      <path d="M32 6 C 27 15, 27 29, 32 38" fill="none" stroke="#f3e6d0" strokeWidth="1.2" strokeDasharray="1.6 2.2" />
-      <text x="22" y="27.5" textAnchor="middle" className="ball-num">
+      <defs>
+        <radialGradient id="ballShade" cx="35%" cy="30%" r="70%">
+          <stop offset="0" stopColor="#e8504f" />
+          <stop offset="0.45" stopColor="#cf2a2e" />
+          <stop offset="1" stopColor="#8f1619" />
+        </radialGradient>
+      </defs>
+      <circle cx="22" cy="22" r="21" fill="url(#ballShade)" />
+      <path d="M14 4 C 19 14, 19 30, 14 40" fill="none" stroke="rgba(255,240,230,0.6)" strokeWidth="1.3" strokeDasharray="1.6 2.2" />
+      <path d="M30 4 C 25 14, 25 30, 30 40" fill="none" stroke="rgba(255,240,230,0.6)" strokeWidth="1.3" strokeDasharray="1.6 2.2" />
+      <text x="22" y="28" textAnchor="middle" className="ball-num">
         {value}
       </text>
     </svg>

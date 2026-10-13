@@ -7,9 +7,12 @@ export default function App() {
   return (
     <div className="site">
       <header className="top">
-        <a href="#play" className="wordmark">
-          The Auction Table
-        </a>
+        <div>
+          <a href="#play" className="wordmark">
+            Auction Table
+          </a>
+          <span className="tagline">IPL 2026 · real prices · pick your XI</span>
+        </div>
         <nav>
           <a href="#play" aria-current={route === 'play' ? 'page' : undefined}>
             Play

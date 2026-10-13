@@ -144,12 +144,30 @@ export function HowToPlay() {
         They also keep money back to finish their squads, and they tend to pounce late when the clock is low.
       </p>
 
-      <h2>Results</h2>
-      <p>
-        Each team’s best legal XI is picked for you: one keeper, at least five bowling options, no more than four overseas. It is rated on
-        batting and bowling, and then a league plus a final is simulated, with a points table and net run rate. Hit <b>Replay season</b> to
-        roll the dice again with the same squads.
-      </p>
+      <h2>The season</h2>
+      <ul>
+        <li>
+          Each team’s best legal XI is picked for you: one keeper, at least five bowling options, no more than four overseas. Best batters
+          open, and the bowling options share the 20 overs (four each at most).
+        </li>
+        <li>
+          Every match is played ball by ball, so there are real scorecards: runs, balls, fours, sixes, how each batter got out, bowling
+          figures, extras, fall of wickets and a runs-per-over chart. Chasing sides speed up when the asking rate climbs.
+        </li>
+        <li>
+          The season follows the IPL format: with 10 teams everyone plays 14 league games, then Qualifier 1 (1st v 2nd, winner to the
+          final), the Eliminator (3rd v 4th), Qualifier 2 and the Final. Smaller leagues play everyone twice.
+        </li>
+        <li>
+          <b>Player stats</b> has the Orange Cap (most runs) and Purple Cap (most wickets), plus top-10 tables for most sixes, most fours,
+          highest scores, best bowling figures, strike rate, economy, fifties, catches, dot balls and Player of the Match awards.
+          Playoffs count, as in the IPL.
+        </li>
+        <li>
+          <b>Lineups</b> shows every team’s XI in batting order with what each player cost, plus the bench. <b>Replay season</b> plays it
+          all again with the same squads.
+        </li>
+      </ul>
 
       <h2 id="csv">Importing players from CSV</h2>
       <p>On the setup screen, “Import CSV…” reads a file with a header row. Columns (in any order):</p>
@@ -191,6 +209,10 @@ export function About() {
 
       <h2>Changelog</h2>
       <ul className="changelog">
+        <li>
+          <b>v2.3</b>: ball-by-ball matches with full scorecards, the IPL playoff format, Orange and Purple Caps, top-10 stat tables and team
+          lineups.
+        </li>
         <li>
           <b>v2.2</b>: the secret draft, challenges in the draft, and live RTM auctions.
         </li>

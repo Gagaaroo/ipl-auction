@@ -7,7 +7,8 @@ import { DEFAULT_RULES, setSummaries, upcomingLots, bidBlock, canBid, createAuct
 import { aiPickBidder, simulateToEnd, valuation } from './ai';
 import { acceleratedPrice, buildLots, parsePlayersCsv, withIds } from './pool';
 import { bestXI } from './xi';
-import { simulateSeason } from './season';
+import { draftSource, playSeason, teamResults } from './season';
+import { leaders, seasonStats } from './stats';
 import { makeRng } from './rng';
 import {
   applyAction,
@@ -227,17 +228,65 @@ describe('best XI', () => {
 });
 
 describe('season', () => {
-  it('plays everyone, awards 2 points a win and crowns a finalist', () => {
-    const teams = ['A', 'B', 'C', 'D'].map((code, i) => ({ code, bat: 60 + i * 5, bowl: 60 + i * 5 }));
-    const s = simulateSeason(teams, 3);
-    expect(s.matches).toHaveLength(12); // 4 teams, double round robin
-    expect(s.table.reduce((n, r) => n + r.points, 0)).toBe(24);
-    expect([s.table[0].code, s.table[1].code]).toContain(s.champion);
-    expect(s.table.every((r) => Number.isFinite(r.nrr))).toBe(true);
+  const realTeams = (n: number, seed = 5) => {
+    let d = createDraft({ rules: { ...DEFAULT_RULES, challenges: false }, teams: IPL_TEAMS.slice(0, n).map((def) => ({ def, human: false })), players, seed });
+    d = runAi(d, makeRng(seed), true);
+    return teamResults(draftSource(d));
+  };
+
+  it('plays 14 league games each with 10 teams, then the IPL playoffs', () => {
+    const s = playSeason(realTeams(10), 3);
+    expect(s.table.every((r) => r.played === 14)).toBe(true);
+    expect(s.league).toHaveLength(70);
+    expect(s.playoffs.map((m) => m.stage)).toEqual(['qualifier1', 'eliminator', 'qualifier2', 'final']);
+    const [t1, t2, t3, t4] = s.table.map((r) => r.code);
+    expect(s.playoffs[0].teams.sort()).toEqual([t1, t2].sort());
+    expect(s.playoffs[1].teams.sort()).toEqual([t3, t4].sort());
+    expect(s.final.teams).toContain(s.playoffs[0].winner);
+    expect(s.champion).toBe(s.final.winner);
+    expect(s.table.reduce((n, r) => n + r.points, 0)).toBe(140);
   });
+
+  it('plays everyone twice with up to 8 teams', () => {
+    const s = playSeason(realTeams(4), 3);
+    expect(s.league).toHaveLength(12);
+    expect(s.table.every((r) => r.played === 6)).toBe(true);
+  });
+
+  it('produces consistent scorecards', () => {
+    const s = playSeason(realTeams(10), 8);
+    for (const m of s.matches) {
+      for (const inn of [m.first, m.second]) {
+        const bat = inn.batting.reduce((n, b) => n + b.runs, 0);
+        const ex = inn.extras.wides + inn.extras.noBalls + inn.extras.byes + inn.extras.legByes;
+        expect(bat + ex).toBe(inn.runs);
+        expect(inn.bowling.reduce((n, b) => n + b.balls, 0)).toBe(inn.balls);
+        expect(inn.bowling.every((b) => b.balls <= 24)).toBe(true);
+        expect(inn.batting.filter((b) => b.out).length).toBe(inn.wickets);
+        expect(inn.balls).toBeLessThanOrEqual(120);
+        expect(inn.batting.length + inn.didNotBat.length).toBe(11);
+      }
+      if (m.second.runs > m.first.runs) expect(m.winner).toBe(m.second.team);
+      if (m.second.runs < m.first.runs) expect(m.winner).toBe(m.first.team);
+    }
+  });
+
+  it('adds up stats the IPL way', () => {
+    const s = playSeason(realTeams(10), 2);
+    const st = seasonStats(s);
+    const runs = s.matches.reduce((n, m) => n + [m.first, m.second].reduce((k, i) => k + i.batting.reduce((x, b) => x + b.runs, 0), 0), 0);
+    expect(st.batting.reduce((n, b) => n + b.runs, 0)).toBe(runs);
+    const o = leaders.orange(st);
+    expect(o).toHaveLength(10);
+    expect(o[0].runs).toBeGreaterThanOrEqual(o[9].runs);
+    const p = leaders.purple(st);
+    expect(p[0].wickets).toBeGreaterThanOrEqual(p[9].wickets);
+    expect(leaders.highest(st)[0].runs).toBe(Math.max(...st.innings.map((i) => i.runs)));
+  });
+
   it('is deterministic for a seed', () => {
-    const teams = [{ code: 'A', bat: 70, bowl: 70 }, { code: 'B', bat: 70, bowl: 70 }];
-    expect(simulateSeason(teams, 9)).toEqual(simulateSeason(teams, 9));
+    const t = realTeams(4);
+    expect(playSeason(t, 9)).toEqual(playSeason(t, 9));
   });
 });
 

@@ -35,7 +35,9 @@ src/
     auction.ts        pure state transitions: bid, hammer, accelerated round
     ai.ts             AI valuation and bid timing, instant simulation
     xi.ts             best legal XI
-    season.ts         league + final, points table with NRR, awards
+    match.ts          ball-by-ball T20 match with a full scorecard
+    season.ts         IPL-format season (league + Q1/Eliminator/Q2/Final), points table with NRR, awards
+    stats.ts          Orange/Purple Cap and the other top-10 tables
     engine.test.ts    Vitest tests
   online/net.ts       online rooms: room codes, invite links, message types, PeerJS options
   ui/                 React screens (Setup, DraftRoom, AuctionRoom, Results, pages)
@@ -119,6 +121,13 @@ Local Hero,AR,IND,,55,58,,,,
 - **Secret**: `list-add` / `list-remove` / `list-move` / `list-auto` / `lock`. Once everyone locks, uncontested players sign at their 2026 price. Contested ones become lots that open at the 2026 price, and the highest-ranking chooser holds the RTM.
 - The auction clock lives on the machine running the game: `hammer` carries the clock's `seq`, so a stale hammer is ignored. Lots between AI teams settle instantly.
 - RTM cards: house rule `rtmCards` (0–6, 99 = unlimited, default 3). Online, guests only receive their own secret list (`redactFor`).
+
+## The season and stats
+
+- `match.ts` plays each match ball by ball. Each delivery pits the batter's `bat` against the bowler's `bowl`, nudged by phase (powerplay, middle, death) and the chase's asking rate. It produces wides and no-balls, byes, fours and sixes, dismissals with fielders (caught, bowled, lbw, stumped, run out), fall of wickets, maidens and dot balls. Bowlers bowl at most 4 overs and never two in a row.
+- `season.ts` uses the IPL format. With 9–11 teams, everyone plays everyone once plus a few twice, so each team plays 14. Up to 8 teams play a double round robin. Then come Qualifier 1, the Eliminator, Qualifier 2 and the Final. NRR treats all-out innings as 20 overs.
+- `stats.ts` adds everything up, playoffs included. It covers the Orange Cap, Purple Cap, most 6s and 4s, highest scores, best bowling figures, best strike rate and economy (with minimums), most fifties, catches, dot balls and Player of the Match awards.
+- With the default ratings, first innings average about 175–185 and the caps land around 650–800 runs and 22–30 wickets.
 
 ## Online rooms
 

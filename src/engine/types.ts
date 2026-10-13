@@ -35,8 +35,12 @@ export interface TeamDef {
 
 export type PoolMode = 'real' | 'full';
 
-/** 'draft': pick current IPL players at their real 2026 price. 'auction': the classic live auction. */
-export type GameMode = 'draft' | 'auction';
+/**
+ * 'draft': take turns picking current IPL players at their real 2026 price (optionally challenging other teams' picks).
+ * 'secret': everyone builds a squad in secret at 2026 prices; players wanted by two or more teams go to an RTM auction.
+ * 'auction': the classic live auction.
+ */
+export type GameMode = 'draft' | 'secret' | 'auction';
 
 export interface Rules {
   purseCr: number;
@@ -47,6 +51,10 @@ export interface Rules {
   clockSec: number;
   poolMode: PoolMode;
   game: GameMode;
+  /** Draft only: on your turn you may challenge a player already in another squad; he is auctioned after the draft. */
+  challenges: boolean;
+  /** Right-to-match cards per team in the RTM auctions. 99 means unlimited. */
+  rtmCards: number;
 }
 
 export interface SquadEntry {

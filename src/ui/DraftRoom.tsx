@@ -1,23 +1,33 @@
-import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { Player, Role, TeamState } from '../engine/types';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import type { TeamState } from '../engine/types';
 import {
   applyAction,
+  challengeBlock,
+  challengeOpen,
   draftMaxSpend,
   draftTeam,
+  heldBack,
   onTheClock,
   overseasIn,
+  ownerOf,
   pickBlock,
   priceOf,
   roundOrder,
+  rtmText,
+  type ChallengeBlock,
   type DraftAction,
   type DraftState,
   type PickBlock,
 } from '../engine/draft';
 import { formatLakh } from '../engine/money';
 import { makeRng } from '../engine/rng';
-import { BallRating, ConfirmDialog, OS, ROLE_LABEL, Stat, TeamBadge, type Ask } from './bits';
+import { ConfirmDialog, OS, TeamBadge, type Ask } from './bits';
+import { PlayerPlate, PlayerTable } from './draftBits';
+import { AuctionLogPanel, RtmStage, SecretView, useAuctionAuthority } from './RtmViews';
 import { playGavel } from './sound';
 import { loadSound, saveSound } from './storage';
+
+export { priceStory } from './draftBits';
 
 interface Props {
   initial: DraftState;
@@ -25,7 +35,7 @@ interface Props {
 }
 
 const BLOCK_TEXT: Record<PickBlock, string> = {
-  finished: 'Draft over',
+  finished: 'Not now',
   'not-your-turn': 'Not your turn',
   taken: 'Taken',
   'squad-full': 'Squad full',
@@ -33,19 +43,16 @@ const BLOCK_TEXT: Record<PickBlock, string> = {
   purse: 'Can’t afford',
 };
 
-const HOW: Record<string, string> = {
-  retained: 'retained',
-  '2025 auction': 'bought at the 2025 auction',
-  '2025 replacement': '2025 replacement signing',
-  traded: 'traded in for 2026',
-  '2026 auction': 'bought at the 2026 auction',
+const CHALLENGE_TEXT: Record<ChallengeBlock, string> = {
+  off: '—',
+  'not-your-turn': 'Not your turn',
+  'not-owned': '—',
+  'own-player': 'Yours',
+  already: 'Challenged',
+  'squad-full': 'No room',
+  'overseas-full': 'Overseas full',
+  purse: 'Can’t afford',
 };
-
-export function priceStory(p: Player): string {
-  const how = p.priceHow ? HOW[p.priceHow] ?? p.priceHow : null;
-  if (p.price2026Lakh == null) return `Base price ${formatLakh(p.basePriceLakh)}`;
-  return `${p.team2026 ?? ''} 2026 price${how ? `, ${how}` : ''}`.trim();
-}
 
 /** Who sits at an online team, for labels. */
 export interface SeatInfo {
@@ -57,7 +64,7 @@ export interface DraftViewProps {
   state: DraftState;
   /** Teams this device may make moves for. */
   mine: string[];
-  /** This device runs the draft: it can pause the AI, change its speed, sim or end. */
+  /** This device runs the game: it can pause the AI, change its speed, sim or end. */
   authority: boolean;
   dispatch: (a: DraftAction) => void;
   paused?: boolean;
@@ -86,7 +93,7 @@ export function useAiTurns(state: DraftState, delayFor: (code: string) => number
   }, [state, code, delay, paused, apply]);
 }
 
-/** Single-device game: humans share this screen, AI teams pick by themselves. */
+/** Single-device game: humans share this screen, AI teams play by themselves. */
 export function DraftRoom({ initial, onChange }: Props) {
   const [state, setState] = useState(initial);
   const stateRef = useRef(initial);
@@ -106,111 +113,47 @@ export function DraftRoom({ initial, onChange }: Props) {
   );
 
   useAiTurns(state, (c) => (draftTeam(state, c).human ? null : SPEEDS[speed]), paused, apply);
+  useAuctionAuthority(state, apply, rngRef.current, paused);
   const mine = useMemo(() => state.teams.filter((t) => t.human).map((t) => t.code), [state.teams]);
 
-  return (
-    <DraftView
-      state={state}
-      mine={mine}
-      authority
-      dispatch={apply}
-      paused={paused}
-      setPaused={setPaused}
-      speed={speed}
-      setSpeed={setSpeed}
-    />
-  );
+  return <DraftView state={state} mine={mine} authority dispatch={apply} paused={paused} setPaused={setPaused} speed={speed} setSpeed={setSpeed} />;
 }
 
 export function DraftView({ state, mine, authority, dispatch, paused = false, setPaused, speed = 'normal', setSpeed, seats, topBar }: DraftViewProps) {
   const [sound, setSound] = useState(loadSound);
   const [ask, setAsk] = useState<Ask | null>(null);
   const closeAsk = useCallback(() => setAsk(null), []);
-  const [selected, setSelected] = useState<string | null>(null);
 
-  const code = onTheClock(state);
-  const team = code ? draftTeam(state, code) : null;
-  const myTurn = !!code && mine.includes(code);
-
-  // The gavel, for every pick, wherever it was made.
-  const pickCount = state.picks.length;
-  const lastCount = useRef(pickCount);
+  // The gavel, for every pick and every settled lot, wherever it happened.
+  const count = state.picks.length + state.auctionLog.length;
+  const lastCount = useRef(count);
   useEffect(() => {
-    if (pickCount > lastCount.current && sound) playGavel(true);
-    lastCount.current = pickCount;
-  }, [pickCount, sound]);
+    if (count > lastCount.current && sound) playGavel(true);
+    lastCount.current = count;
+  }, [count, sound]);
 
-  // Drop the selection once that player is gone.
-  useEffect(() => {
-    if (selected && !state.available.includes(selected)) setSelected(null);
-  }, [state.available, selected]);
-
-  const pick = (playerId: string) => {
-    if (code && myTurn) dispatch({ type: 'pick', team: code, playerId });
-  };
-
-  const lastPick = state.picks[state.picks.length - 1];
   const anyHumans = state.teams.some((t) => t.human);
+  const body =
+    state.phase === 'secret' ? (
+      <SecretView state={state} mine={mine} dispatch={dispatch} />
+    ) : state.phase === 'auction' && state.auction ? (
+      <RtmStage state={state} mine={mine} dispatch={dispatch} seats={seats} />
+    ) : (
+      <PickingBody state={state} mine={mine} dispatch={dispatch} paused={paused} seats={seats} setAsk={setAsk} />
+    );
 
   return (
     <div className="room draft">
       <div className="room-main">
         {topBar}
-        <div className="lot-meta">
-          <span className="set-name">Round {state.round}</span>
-          <span className="eyebrow">
-            Pick {state.picks.length + 1} · {state.available.length} players left on the board
-          </span>
-        </div>
-
-        <div className="lot">
-          <ClockBoard state={state} team={team} myTurn={myTurn} lastPick={lastPick} paused={paused} seats={seats} />
-          <SelectedPlate
-            state={state}
-            playerId={selected ?? (myTurn ? null : lastPick?.playerId ?? null)}
-            code={myTurn ? code : null}
-            onPick={pick}
-            justPicked={!selected && !myTurn && !!lastPick}
-          />
-        </div>
-
-        <div className="controls">
-          {myTurn && (
-            <>
-              <button type="button" className="btn" onClick={() => dispatch({ type: 'auto', team: code! })}>
-                Auto-pick for {team!.code}
-              </button>
-              <button
-                type="button"
-                className="btn"
-                title="Pass without picking. You keep your money and the next team picks."
-                onClick={() => dispatch({ type: 'skip', team: code! })}
-              >
-                Skip my turn
-              </button>
-              <button
-                type="button"
-                className="btn"
-                disabled={team!.squad.length < state.rules.squadMin}
-                title={`Allowed once you have ${state.rules.squadMin} players`}
-                onClick={() =>
-                  setAsk({
-                    message: `Stop picking for ${team!.name}? You keep your ${team!.squad.length} players and ${formatLakh(team!.purseLakh)}.`,
-                    yes: 'Finish squad',
-                    onYes: () => dispatch({ type: 'finish', team: code! }),
-                  })
-                }
-              >
-                Finish my squad
-              </button>
-            </>
-          )}
-          {authority && setPaused && !myTurn && (
+        {body}
+        <div className="controls room-tools">
+          {authority && setPaused && state.phase !== 'secret' && (
             <button type="button" className="btn" onClick={() => setPaused(!paused)} disabled={state.finished}>
-              {paused ? '▶ Resume AI' : '❚❚ Pause AI'}
+              {paused ? '▶ Resume' : '❚❚ Pause'}
             </button>
           )}
-          {authority && setSpeed && (
+          {authority && setSpeed && state.phase === 'picking' && (
             <label className="speed">
               <span>AI speed</span>
               <select id="ai-speed" value={speed} onChange={(e) => setSpeed(e.target.value as Speed)}>
@@ -240,7 +183,7 @@ export function DraftView({ state, mine, authority, dispatch, paused = false, se
                 className="btn"
                 onClick={() =>
                   setAsk({
-                    message: anyHumans ? 'Let the AI finish the draft? It will pick for every team, including people’s.' : 'Skip to the end of the draft?',
+                    message: anyHumans ? 'Let the AI finish the game? It will decide for every team, including people’s.' : 'Skip to the end?',
                     yes: 'Sim to the end',
                     onYes: () => dispatch({ type: 'sim' }),
                   })
@@ -251,26 +194,198 @@ export function DraftView({ state, mine, authority, dispatch, paused = false, se
               <button
                 type="button"
                 className="btn btn-danger"
-                onClick={() =>
-                  setAsk({
-                    message: 'End the draft now? Every squad stays as it is.',
-                    yes: 'End draft',
-                    onYes: () => dispatch({ type: 'end' }),
-                  })
-                }
+                onClick={() => setAsk({ message: 'End the game now? Every squad stays as it is.', yes: 'End now', onYes: () => dispatch({ type: 'end' }) })}
               >
-                End draft
+                End now
               </button>
             </>
           )}
         </div>
-
-        <PlayerBoard state={state} code={myTurn ? code : null} selected={selected} onSelect={setSelected} onPick={pick} />
       </div>
 
       <DraftSide state={state} mine={mine} seats={seats} />
       <ConfirmDialog ask={ask} onClose={closeAsk} />
     </div>
+  );
+}
+
+function PickingBody({
+  state,
+  mine,
+  dispatch,
+  paused,
+  seats,
+  setAsk,
+}: {
+  state: DraftState;
+  mine: string[];
+  dispatch: (a: DraftAction) => void;
+  paused: boolean;
+  seats?: Record<string, SeatInfo>;
+  setAsk: (a: Ask) => void;
+}) {
+  const [selected, setSelected] = useState<string | null>(null);
+  const [tab, setTab] = useState<'free' | 'challenge'>('free');
+  const code = onTheClock(state);
+  const team = code ? draftTeam(state, code) : null;
+  const myTurn = !!code && mine.includes(code);
+  const challengesOn = state.style === 'turns' && state.rules.challenges && !state.auctionDone;
+  const topUp = state.auctionDone;
+
+  const lastPick = state.picks[state.picks.length - 1];
+  const sel = selected ? state.players[selected] : null;
+  const selOwner = sel ? ownerOf(state, sel.id) : null;
+  const shownId = selected ?? (myTurn ? null : lastPick?.playerId ?? null);
+  const shown = shownId ? state.players[shownId] : null;
+
+  const challenged = useMemo(() => {
+    const m = new Map<string, string[]>();
+    for (const c of state.challenges) m.set(c.playerId, c.teams);
+    return m;
+  }, [state.challenges]);
+
+  const plateActions = () => {
+    if (!sel || !myTurn || !code) return [];
+    if (state.available.includes(sel.id)) {
+      const b = pickBlock(state, code, sel.id);
+      return [{ label: b === null ? `Pick for ${formatLakh(priceOf(sel))}` : BLOCK_TEXT[b], disabled: b !== null, onClick: () => dispatch({ type: 'pick', team: code, playerId: sel.id }) }];
+    }
+    if (challengesOn && selOwner && selOwner.code !== code) {
+      const b = challengeBlock(state, code, sel.id);
+      return [
+        {
+          label: b === null ? `Challenge · opens at ${formatLakh(challengeOpen(state, sel.id))}` : CHALLENGE_TEXT[b],
+          disabled: b !== null,
+          onClick: () => dispatch({ type: 'challenge', team: code, playerId: sel.id }),
+        },
+      ];
+    }
+    return [];
+  };
+
+  const owned = useMemo(() => state.teams.flatMap((t) => (mine.includes(t.code) ? [] : t.squad.map((e) => state.players[e.playerId]))), [state.teams, state.players, mine]);
+  const held = code ? heldBack(state, code) : { slots: 0, money: 0 };
+
+  return (
+    <>
+      <div className="lot-meta">
+        <span className="set-name">{topUp ? 'Top-up round' : `Round ${state.round}`}</span>
+        <span className="eyebrow">
+          Pick {state.picks.length + 1} · {state.available.length} players left on the board
+          {challengesOn && state.challenges.length > 0 && ` · ${state.challenges.length} challenged`}
+        </span>
+      </div>
+      {topUp && (
+        <p className="note">
+          The auction is done. Teams with room and money left now fill their squads, one pick at a time, from the players nobody took.
+        </p>
+      )}
+
+      <div className="lot">
+        <ClockBoard state={state} team={team} myTurn={myTurn} lastPick={lastPick} paused={paused} seats={seats} />
+        <PlayerPlate
+          p={shown}
+          scrollOnChange={myTurn && !!selected}
+          priceNote={shown ? undefined : myTurn ? 'Tap a player on the board below to see him here, then pick him.' : 'Waiting for the first pick.'}
+          chips={
+            <>
+              {!selected && !myTurn && lastPick && shownId === lastPick.playerId && <span className="chip chip-picked">Picked by {lastPick.team}</span>}
+              {shown && selOwner && selected && <span className="chip">In {selOwner.code}</span>}
+              {shown && challenged.get(shown.id) && <span className="chip chip-picked">Challenged by {challenged.get(shown.id)!.join(', ')}</span>}
+            </>
+          }
+          actions={plateActions()}
+        />
+      </div>
+
+      {myTurn && (
+        <div className="controls">
+          <button type="button" className="btn" onClick={() => dispatch({ type: 'auto', team: code! })}>
+            Auto-pick for {team!.code}
+          </button>
+          <button type="button" className="btn" title="Pass without picking. You keep your money and the next team picks." onClick={() => dispatch({ type: 'skip', team: code! })}>
+            Skip my turn
+          </button>
+          <button
+            type="button"
+            className="btn"
+            disabled={team!.squad.length < state.rules.squadMin}
+            title={`Allowed once you have ${state.rules.squadMin} players`}
+            onClick={() =>
+              setAsk({
+                message: `Stop picking for ${team!.name}? You keep your ${team!.squad.length} players and ${formatLakh(team!.purseLakh)}.`,
+                yes: 'Finish squad',
+                onYes: () => dispatch({ type: 'finish', team: code! }),
+              })
+            }
+          >
+            Finish my squad
+          </button>
+          {held.slots > 0 && (
+            <span className="muted small-note">
+              Held back for your {held.slots} challenge{held.slots === 1 ? '' : 's'}: {held.slots} slot{held.slots === 1 ? '' : 's'} and {formatLakh(held.money)}
+            </span>
+          )}
+        </div>
+      )}
+
+      <section className="board-list" aria-label="Players">
+        {challengesOn && (
+          <div className="tabs tabs-2 board-tabs" role="tablist">
+            <button role="tab" type="button" aria-selected={tab === 'free'} onClick={() => setTab('free')}>
+              Available ({state.available.length})
+            </button>
+            <button role="tab" type="button" aria-selected={tab === 'challenge'} onClick={() => setTab('challenge')}>
+              Challenge a drafted player
+            </button>
+          </div>
+        )}
+        {tab === 'challenge' && challengesOn ? (
+          <>
+            <p className="hint">
+              Use your turn to challenge a player in another squad. He stays there for now. After the draft he goes to auction, opening one step
+              above what his team paid. Only challengers can bid, and his team can use an RTM card to match the top bid. Each challenge holds back
+              a squad slot and the opening bid until then.
+            </p>
+            <PlayerTable
+              players={owned}
+              priceFor={(p) => challengeOpen(state, p.id)}
+              selected={selected}
+              onSelect={setSelected}
+              extra={{
+                head: 'In squad',
+                cell: (p) => (
+                  <>
+                    {ownerOf(state, p.id)?.code}
+                    {challenged.get(p.id) && <span className="tag">challenged</span>}
+                  </>
+                ),
+              }}
+              canFilter={code && myTurn ? (p) => challengeBlock(state, code, p.id) === null : undefined}
+              canFilterLabel={`Only players ${code} can challenge`}
+              action={(p) => {
+                if (!myTurn || !code) return null;
+                const b = challengeBlock(state, code, p.id);
+                return { label: b === null ? 'Challenge' : CHALLENGE_TEXT[b], disabled: b !== null, title: `Opens at ${formatLakh(challengeOpen(state, p.id))}`, onClick: () => dispatch({ type: 'challenge', team: code, playerId: p.id }) };
+              }}
+            />
+          </>
+        ) : (
+          <PlayerTable
+            players={state.available.map((id) => state.players[id])}
+            selected={selected}
+            onSelect={setSelected}
+            canFilter={code && myTurn ? (p) => pickBlock(state, code, p.id) === null : undefined}
+            canFilterLabel={`Only players ${code} can take`}
+            action={(p) => {
+              if (!myTurn || !code) return null;
+              const b = pickBlock(state, code, p.id);
+              return { label: b === null ? 'Pick' : b === 'purse' ? '₹✗' : '—', disabled: b !== null, title: b ? BLOCK_TEXT[b] : `Pick ${p.name}`, onClick: () => dispatch({ type: 'pick', team: code, playerId: p.id }) };
+            }}
+          />
+        )}
+      </section>
+    </>
   );
 }
 
@@ -306,9 +421,15 @@ function ClockBoard({
   const lastBy = lastPick ? teamOf(lastPick.team) : null;
   const seat = team ? seats?.[team.code] : undefined;
   const lastPass = state.passes[state.passes.length - 1];
-  const passedJustNow = lastPass && lastPass.afterPick === state.picks.length && (!lastPick || state.passes.length > 0);
+  const lastChal = state.challengeLog[state.challengeLog.length - 1];
+  const recent =
+    lastChal && lastChal.afterPick === state.picks.length && (!lastPass || lastPass.afterPick < lastChal.afterPick || state.passes.length === 0)
+      ? { team: lastChal.team, text: `challenged for ${state.players[lastChal.playerId].name} (${lastChal.owner})` }
+      : lastPass && lastPass.afterPick === state.picks.length
+        ? { team: lastPass.team, text: 'skipped their turn' }
+        : null;
   const label = !team
-    ? 'Draft complete'
+    ? 'Picking complete'
     : myTurn
       ? 'Your pick'
       : seat
@@ -334,7 +455,7 @@ function ClockBoard({
           </div>
           <div>
             <dt>Can spend</dt>
-            <dd className="digits-sm">{formatLakh(Math.max(0, draftMaxSpend(state, team)))}</dd>
+            <dd className="digits-sm">{formatLakh(Math.max(0, draftMaxSpend(state, team) - heldBack(state, team.code).money))}</dd>
           </div>
           <div>
             <dt>Squad</dt>
@@ -351,11 +472,11 @@ function ClockBoard({
         </dl>
       )}
       {team && !myTurn && !paused && (!team.human || (seat && !seat.online)) && <div className="thinking">{team.code} is picking…</div>}
-      {passedJustNow && (
+      {recent && (
         <div className="last-pick">
           <span className="eyebrow">Just now</span>
           <span>
-            <TeamBadge team={teamOf(lastPass.team)} size="sm" /> skipped their turn
+            <TeamBadge team={teamOf(recent.team)} size="sm" /> {recent.text}
           </span>
         </div>
       )}
@@ -381,229 +502,26 @@ function ClockBoard({
   );
 }
 
-function SelectedPlate({
-  state,
-  playerId,
-  code,
-  onPick,
-  justPicked,
-}: {
-  state: DraftState;
-  playerId: string | null;
-  code: string | null;
-  onPick: (id: string) => void;
-  justPicked: boolean;
-}) {
-  const ref = useRef<HTMLElement>(null);
-  // On a phone the plate sits above the list: bring it into view when you choose someone.
-  useEffect(() => {
-    const el = ref.current;
-    if (!code || !playerId || !el) return;
-    const r = el.getBoundingClientRect();
-    if (r.top < 0 || r.bottom > window.innerHeight) {
-      const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
-    }
-  }, [playerId, code]);
-  if (!playerId)
-    return (
-      <article className="plate plate-empty" ref={ref}>
-        <p className="plate-hint">
-          {code ? 'Tap a player on the board below to see him here, then pick him.' : 'Waiting for the first pick.'}
-        </p>
-      </article>
-    );
-  const p = state.players[playerId];
-  const block = code ? pickBlock(state, code, playerId) : null;
-  const owner = state.teams.find((t) => t.squad.some((e) => e.playerId === playerId));
-  return (
-    <article className="plate" ref={ref}>
-      <div className="chips-row">
-        <span className="chip">{ROLE_LABEL[p.role]}</span>
-        <span className={`chip ${p.overseas ? 'chip-os' : ''}`}>{p.overseas ? `${p.country} · overseas` : 'India'}</span>
-        {justPicked && owner && <span className="chip chip-picked">Picked by {owner.code}</span>}
-      </div>
-      <div className="plate-main">
-        <h2 className="pname">{p.name}</h2>
-        <BallRating value={p.overall} size={70} />
-      </div>
-      <div className="plate-stats">
-        <Stat label="Bat" value={p.bat} />
-        <Stat label="Bowl" value={p.bowl} />
-      </div>
-      <p className="plate-price">
-        <span className="price-big">{formatLakh(priceOf(p))}</span>
-        <span className="price-story">{priceStory(p)}</span>
-      </p>
-      {p.history.length > 0 && (
-        <ul className="history">
-          {p.history.map((h) => (
-            <li key={h.year}>
-              <b>{h.year}</b> {h.result === 'sold' ? `sold to ${h.team} for ${formatLakh(h.priceLakh)}` : `unsold at ${formatLakh(h.basePriceLakh)}`}
-            </li>
-          ))}
-        </ul>
-      )}
-      {code && !owner && (
-        <button type="button" className="btn btn-big pick-btn" disabled={block !== null} onClick={() => onPick(playerId)}>
-          {block === null ? `Pick for ${formatLakh(priceOf(p))}` : BLOCK_TEXT[block]}
-        </button>
-      )}
-    </article>
-  );
-}
-
-const ROLE_FILTERS: (Role | 'ALL')[] = ['ALL', 'BAT', 'WK', 'AR', 'BOWL'];
-type Sort = 'price' | 'rating' | 'value' | 'name';
-const PAGE = 60;
-
-function PlayerBoard({
-  state,
-  code,
-  selected,
-  onSelect,
-  onPick,
-}: {
-  state: DraftState;
-  code: string | null;
-  selected: string | null;
-  onSelect: (id: string) => void;
-  onPick: (id: string) => void;
-}) {
-  const [role, setRole] = useState<Role | 'ALL'>('ALL');
-  const [sort, setSort] = useState<Sort>('price');
-  const [query, setQuery] = useState('');
-  const [team2026, setTeam2026] = useState('ALL');
-  const [affordable, setAffordable] = useState(false);
-  const [limit, setLimit] = useState(PAGE);
-  const q = useDeferredValue(query.trim().toLowerCase());
-
-  const rows = useMemo(() => {
-    let list = state.available.map((id) => state.players[id]);
-    if (role !== 'ALL') list = list.filter((p) => p.role === role);
-    if (team2026 !== 'ALL') list = list.filter((p) => p.team2026 === team2026);
-    if (q) list = list.filter((p) => p.name.toLowerCase().includes(q));
-    if (affordable && code) list = list.filter((p) => pickBlock(state, code, p.id) === null);
-    const by: Record<Sort, (a: Player, b: Player) => number> = {
-      price: (a, b) => priceOf(b) - priceOf(a) || b.overall - a.overall,
-      rating: (a, b) => b.overall - a.overall || priceOf(a) - priceOf(b),
-      value: (a, b) => b.overall / Math.sqrt(priceOf(b)) - a.overall / Math.sqrt(priceOf(a)),
-      name: (a, b) => a.name.localeCompare(b.name),
-    };
-    return list.sort(by[sort]);
-  }, [state, role, team2026, q, affordable, code, sort]);
-
-  const realTeams = useMemo(() => [...new Set(Object.values(state.players).map((p) => p.team2026).filter(Boolean))].sort() as string[], [state.players]);
-
-  return (
-    <section className="board-list" aria-label="Players still available">
-      <div className="board-tools">
-        <div className="chips" role="group" aria-label="Filter by role">
-          {ROLE_FILTERS.map((r) => (
-            <button key={r} type="button" className={role === r ? 'on' : ''} aria-pressed={role === r} onClick={() => setRole(r)}>
-              {r === 'ALL' ? 'All' : r}
-            </button>
-          ))}
-        </div>
-        <input id="player-search" type="search" placeholder="Search players" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search players" />
-        <select id="player-team" value={team2026} onChange={(e) => setTeam2026(e.target.value)} aria-label="2026 team">
-          <option value="ALL">All 2026 teams</option>
-          {realTeams.map((t) => (
-            <option key={t} value={t}>
-              Now at {t}
-            </option>
-          ))}
-        </select>
-        <select id="player-sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)} aria-label="Sort">
-          <option value="price">Price, high first</option>
-          <option value="rating">Rating, high first</option>
-          <option value="value">Best value</option>
-          <option value="name">Name</option>
-        </select>
-        {code && (
-          <label className="check">
-            <input id="only-affordable" type="checkbox" checked={affordable} onChange={(e) => setAffordable(e.target.checked)} /> Only players {code} can take
-          </label>
-        )}
-      </div>
-
-      {rows.length === 0 ? (
-        <p className="muted">Nobody matches.</p>
-      ) : (
-        <div className="table-wrap">
-          <table className="players">
-            <thead>
-              <tr>
-                <th>Player</th>
-                <th className="hide-sm">Now at</th>
-                <th>Ovr</th>
-                <th className="hide-sm">Bat / Bowl</th>
-                <th>Price</th>
-                <th aria-label="Pick" />
-              </tr>
-            </thead>
-            <tbody>
-              {rows.slice(0, limit).map((p) => {
-                const block = code ? pickBlock(state, code, p.id) : 'not-your-turn';
-                return (
-                  <tr key={p.id} className={selected === p.id ? 'sel' : ''} onClick={() => onSelect(p.id)}>
-                    <td>
-                      <span className={`role role-${p.role}`}>{p.role}</span> <span className="pn">{p.name}</span> {p.overseas && <OS />}
-                    </td>
-                    <td className="hide-sm muted">{p.team2026 ?? '—'}</td>
-                    <td>
-                      <span className="ovr">{p.overall}</span>
-                    </td>
-                    <td className="hide-sm muted num">
-                      {p.bat} / {p.bowl}
-                    </td>
-                    <td className="price num">{formatLakh(priceOf(p))}</td>
-                    <td>
-                      {code && (
-                        <button
-                          type="button"
-                          className="btn btn-small pick-small"
-                          disabled={block !== null}
-                          title={block ? BLOCK_TEXT[block] : `Pick ${p.name}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onPick(p.id);
-                          }}
-                        >
-                          {block === null ? 'Pick' : block === 'purse' ? '₹✗' : '—'}
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {rows.length > limit && (
-        <button type="button" className="btn btn-small show-all" onClick={() => setLimit((l) => l + PAGE * 3)}>
-          Show more ({rows.length - limit} left)
-        </button>
-      )}
-    </section>
-  );
-}
-
 function DraftSide({ state, mine, seats }: { state: DraftState; mine: string[]; seats?: Record<string, SeatInfo> }) {
   const [tab, setTab] = useState<'teams' | 'picks'>('teams');
   const first = mine[0] ?? state.teams[0].code;
   const [code, setCode] = useState(first);
   const t = state.teams.find((x) => x.code === code) ?? state.teams[0];
   const closed = new Set(state.closed);
-  type Row = { kind: 'pick'; pk: DraftState['picks'][number] } | { kind: 'pass'; ps: DraftState['passes'][number]; i: number };
+  type Row =
+    | { kind: 'pick'; at: number; pk: DraftState['picks'][number] }
+    | { kind: 'pass'; at: number; team: string; i: number }
+    | { kind: 'challenge'; at: number; team: string; playerId: string; owner: string; i: number };
   const log = useMemo(() => {
-    const rows: Row[] = state.picks.map((pk) => ({ kind: 'pick', pk }));
-    state.passes.forEach((ps, i) => rows.push({ kind: 'pass', ps, i }));
-    const at = (r: Row) => (r.kind === 'pick' ? r.pk.pickNo - 1 + 0.5 : r.ps.afterPick + 0.25 + r.i * 1e-6);
-    return rows.sort((a, b) => at(b) - at(a)).slice(0, 150);
-  }, [state.picks, state.passes]);
-  const who = (x: TeamState) => (mine.includes(x.code) && seats ? 'you' : seats?.[x.code]?.name ?? (x.human ? 'human' : null));
+    const rows: Row[] = state.picks.map((pk) => ({ kind: 'pick', at: pk.pickNo - 1 + 0.5, pk }));
+    state.passes.forEach((ps, i) => rows.push({ kind: 'pass', at: ps.afterPick + 0.25 + i * 1e-6, team: ps.team, i }));
+    state.challengeLog.forEach((c, i) => rows.push({ kind: 'challenge', at: c.afterPick + 0.25 + i * 1e-6, team: c.team, playerId: c.playerId, owner: c.owner, i }));
+    return rows.sort((a, b) => b.at - a.at).slice(0, 150);
+  }, [state.picks, state.passes, state.challengeLog]);
+  const who = (x: TeamState) =>
+    mine.includes(x.code) && (seats || mine.length === 1) ? 'you' : seats?.[x.code]?.name ?? (x.human ? 'person' : null);
+  const secret = state.phase === 'secret';
+  const showRtm = state.style === 'secret' || state.rules.challenges;
 
   return (
     <aside className="side">
@@ -612,7 +530,7 @@ function DraftSide({ state, mine, seats }: { state: DraftState; mine: string[]; 
           Squads
         </button>
         <button role="tab" type="button" aria-selected={tab === 'picks'} onClick={() => setTab('picks')}>
-          Picks ({state.picks.length})
+          Log ({state.picks.length + state.auctionLog.length})
         </button>
       </div>
       {tab === 'teams' ? (
@@ -629,9 +547,10 @@ function DraftSide({ state, mine, seats }: { state: DraftState; mine: string[]; 
                       {w ?? 'AI'}
                       {seat && !seat.online && <span className="tag">offline</span>}
                     </span>
+                    {showRtm && <span className="rtm-mini" title="RTM cards left">RTM {rtmText(state.rtmLeft[x.code] ?? 0)}</span>}
                     <span className="num">{x.squad.length}</span>
                     <span className="num price">{formatLakh(x.purseLakh)}</span>
-                    {closed.has(x.code) && <span className="tag">done</span>}
+                    {closed.has(x.code) && state.phase === 'picking' && <span className="tag">done</span>}
                   </button>
                 </li>
               );
@@ -640,8 +559,10 @@ function DraftSide({ state, mine, seats }: { state: DraftState; mine: string[]; 
           <h3 className="squad-head">
             {t.name} <span className="muted small">spent {formatLakh(t.squad.reduce((s, e) => s + e.priceLakh, 0))}</span>
           </h3>
-          {t.squad.length === 0 ? (
-            <p className="muted">No picks yet.</p>
+          {secret ? (
+            <p className="muted">Squads are secret until every team locks in.</p>
+          ) : t.squad.length === 0 ? (
+            <p className="muted">No players yet.</p>
           ) : (
             <ul className="squad-list">
               {[...t.squad]
@@ -652,6 +573,7 @@ function DraftSide({ state, mine, seats }: { state: DraftState; mine: string[]; 
                     <span className={`role role-${p.role}`}>{p.role}</span>
                     <span className="grow">
                       {p.name} {p.overseas && <OS />}
+                      {state.challenges.some((c) => c.playerId === p.id) && state.phase === 'picking' && !state.auctionDone && <span className="tag">challenged</span>}
                     </span>
                     <span className="muted num">{p.overall}</span>
                     <span className="price">{formatLakh(e.priceLakh)}</span>
@@ -662,16 +584,17 @@ function DraftSide({ state, mine, seats }: { state: DraftState; mine: string[]; 
         </div>
       ) : (
         <div className="side-body">
-          {log.length === 0 && <p className="muted">No picks yet.</p>}
+          {state.auctionLog.length > 0 && <AuctionLogPanel state={state} rows={[...state.auctionLog].reverse()} title="RTM auction" />}
+          {log.length === 0 && state.auctionLog.length === 0 && <p className="muted">Nothing yet.</p>}
           <ol className="log-list">
             {log.map((r) => {
-              if (r.kind === 'pass') {
-                const by = state.teams.find((x) => x.code === r.ps.team)!;
+              if (r.kind === 'pass' || r.kind === 'challenge') {
+                const by = state.teams.find((x) => x.code === r.team)!;
                 return (
-                  <li key={`pass-${r.i}`} className="unsold">
+                  <li key={`${r.kind}-${r.i}`} className="unsold">
                     <span className="lot-no">–</span>
                     <TeamBadge team={by} size="sm" />
-                    <span className="grow">skipped their turn</span>
+                    <span className="grow">{r.kind === 'pass' ? 'skipped their turn' : `challenged ${r.owner} for ${state.players[r.playerId].name}`}</span>
                   </li>
                 );
               }
@@ -679,7 +602,7 @@ function DraftSide({ state, mine, seats }: { state: DraftState; mine: string[]; 
               const by = state.teams.find((x) => x.code === pk.team)!;
               return (
                 <li key={pk.pickNo}>
-                  <span className="lot-no">{pk.pickNo}</span>
+                  <span className="lot-no">{pk.round === 0 ? '•' : pk.pickNo}</span>
                   <TeamBadge team={by} size="sm" />
                   <span className="grow">{state.players[pk.playerId].name}</span>
                   <span className="price">{formatLakh(pk.priceLakh)}</span>

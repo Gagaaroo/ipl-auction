@@ -28,7 +28,11 @@ export const DEFAULT_RULES: Rules = {
   clockSec: 6,
   poolMode: 'real',
   game: 'draft',
+  challenges: true,
+  rtmCards: 3,
 };
+
+export const UNLIMITED_RTM = 99;
 
 export function createAuction(cfg: AuctionConfig): AuctionState {
   const rng = makeRng(cfg.seed);

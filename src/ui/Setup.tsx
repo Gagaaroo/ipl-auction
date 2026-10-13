@@ -78,7 +78,7 @@ export function Setup({ onStart, onStartOnline }: { onStart: (cfg: StartConfig) 
     });
 
   const rules = prefs.rules;
-  const isDraft = rules.game === 'draft';
+  const isDraft = rules.game !== 'auction';
   const poolSize = isDraft ? draftPool(players).length : players.length;
   const problems = useMemo(() => {
     const out: string[] = [];
@@ -163,26 +163,62 @@ export function Setup({ onStart, onStartOnline }: { onStart: (cfg: StartConfig) 
 
       <section className="panel">
         <h2>2. House rules</h2>
-        <fieldset className="radio-row game-row">
+        <fieldset className="radio-row game-row game-row-3">
           <legend>Game</legend>
-          <label className={isDraft ? 'on' : ''}>
-            <input type="radio" name="game" checked={isDraft} onChange={() => setRule('game', 'draft')} />
+          <label className={rules.game === 'draft' ? 'on' : ''}>
+            <input type="radio" name="game" checked={rules.game === 'draft'} onChange={() => setRule('game', 'draft')} />
             <span>
               <b>Real-price draft</b>
               <small>
-                Teams take turns picking current IPL players. Each player costs his real 2026 price: pick KL Rahul and{' '}
-                {formatLakh(1400)} comes off your purse.
+                Take turns picking current IPL players at their real 2026 price: pick KL Rahul and {formatLakh(1400)} comes off your purse. With
+                challenges on, you can go after another team’s pick; he’s auctioned after the draft and they can RTM.
               </small>
             </span>
           </label>
-          <label className={!isDraft ? 'on' : ''}>
-            <input type="radio" name="game" checked={!isDraft} onChange={() => setRule('game', 'auction')} />
+          <label className={rules.game === 'secret' ? 'on' : ''}>
+            <input type="radio" name="game" checked={rules.game === 'secret'} onChange={() => setRule('game', 'secret')} />
+            <span>
+              <b>Secret draft</b>
+              <small>
+                Everyone builds a whole squad at once, in secret, at 2026 prices. On reveal, anyone two teams wanted goes to an RTM auction:
+                whoever ranked him higher can match.
+              </small>
+            </span>
+          </label>
+          <label className={rules.game === 'auction' ? 'on' : ''}>
+            <input type="radio" name="game" checked={rules.game === 'auction'} onChange={() => setRule('game', 'auction')} />
             <span>
               <b>Classic auction</b>
               <small>Live bidding against the clock, from base prices, with 610 players from the last three auctions.</small>
             </span>
           </label>
         </fieldset>
+        {isDraft && (
+          <div className="rules rtm-rules">
+            {rules.game === 'draft' && (
+              <label className="check-row">
+                <input id="challenges" type="checkbox" checked={rules.challenges} onChange={(e) => setRule('challenges', e.target.checked)} />
+                <span>
+                  <b>Challenges and RTM</b>
+                  <small>Spend a turn to challenge a player in another squad</small>
+                </span>
+              </label>
+            )}
+            {(rules.game === 'secret' || rules.challenges) && (
+              <label>
+                RTM cards per team
+                <select id="rtm-cards" value={rules.rtmCards} onChange={(e) => setRule('rtmCards', Number(e.target.value))}>
+                  {[0, 1, 2, 3, 4, 5, 6, 99].map((v) => (
+                    <option key={v} value={v}>
+                      {v === 99 ? 'Unlimited' : v}
+                    </option>
+                  ))}
+                </select>
+                <small>match the top bid to keep a player</small>
+              </label>
+            )}
+          </div>
+        )}
         <div className="rules">
           <label>
             Purse per team
@@ -231,7 +267,7 @@ export function Setup({ onStart, onStartOnline }: { onStart: (cfg: StartConfig) 
             </label>
           )}
         </div>
-        {isDraft && (
+        {rules.game === 'draft' && (
           <p className="hint">
             Picking order is drawn at random and snakes: whoever picks last in round 1 picks first in round 2. You always keep enough
             back to fill your minimum squad with the cheapest players.

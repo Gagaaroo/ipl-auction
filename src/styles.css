@@ -539,3 +539,69 @@ details > summary { cursor: pointer; }
 .btn-alt { background: var(--plate); color: var(--plate-ink); border-color: var(--plate); }
 .btn-alt:hover:not(:disabled) { background: var(--plate); filter: brightness(1.05); }
 .start-hint { text-align: right; margin-left: auto; }
+
+/* ---------- three game modes, RTM ---------- */
+
+.game-row-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.rtm-rules { margin-top: 0.4rem; }
+.check-row { flex-direction: row !important; align-items: flex-start; gap: 0.55rem !important; }
+.check-row input { margin-top: 0.25rem; }
+.check-row b { display: block; }
+.room-tools { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+.small-note { font: 12px var(--mono); color: var(--muted); margin: 0; }
+.board-tabs { padding: 0 0 10px; }
+.plate-alt { width: 100%; margin-top: 8px; background: transparent; color: var(--plate-ink); border-color: #9aa391; }
+.pick-small.is-on { background: var(--brass); border-color: var(--brass); color: var(--brass-ink); }
+
+.rtm-tag {
+  display: inline-block; font: 600 10px var(--mono); letter-spacing: 0.12em; padding: 1px 6px; border-radius: 3px;
+  background: var(--ball); color: #fff; vertical-align: 1px;
+}
+.rtm-mini { font: 10px var(--mono); color: var(--muted); white-space: nowrap; }
+.rtm-line { font-size: 0.85rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.rtm-call {
+  margin: 14px 0 0; background: var(--board-3); border: 1px solid var(--line-2); border-left: 6px solid var(--team);
+  border-radius: 8px; padding: 12px 14px;
+}
+.rtm-call p { margin: 0 0 0.6rem; }
+.rtm-call.mine { border-color: var(--brass); box-shadow: 0 0 0 1px var(--brass) inset; }
+.rtm-call:not(.mine) p { margin: 0; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+.draft .paddles { margin-top: 16px; }
+.rtm-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+.rtm-lists .panel { margin: 0; }
+
+/* secret draft */
+.lock-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 14px; }
+.lock-strip .eyebrow { margin-right: 4px; }
+.lock-chip { display: inline-flex; align-items: center; gap: 3px; font: 12px var(--mono); color: var(--muted); opacity: 0.6; }
+.lock-chip.on { opacity: 1; color: var(--good); }
+.handoff { border-top: 5px solid var(--team); text-align: left; }
+.handoff h2 { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.secret-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; align-items: start; margin-bottom: 16px; }
+.secret-list { border-top: 5px solid var(--team); margin: 0; }
+.secret-head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.secret-head select { margin-left: auto; font: 14px var(--body); text-transform: none; }
+.budget { margin: 8px 0 10px; }
+.budget-bar { height: 10px; background: var(--well); border: 1px solid #000; border-radius: 5px; overflow: hidden; }
+.budget-bar span { display: block; height: 100%; background: var(--brass); }
+.budget-nums { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font: 12px var(--mono); color: var(--muted); margin-top: 5px; }
+.budget-nums b { color: var(--brass); font-weight: 500; }
+.rank-list { list-style: none; margin: 0; padding: 0; max-height: 420px; overflow-y: auto; }
+.rank-list li { display: flex; align-items: center; gap: 0.45rem; padding: 0.32rem 0; border-top: 1px solid var(--line); font-size: 0.87rem; }
+.rank-list li:first-child { border-top: 0; }
+.rank-name { color: var(--chalk); text-decoration: none; text-align: left; font-weight: 600; }
+.rank-btns { display: inline-flex; gap: 2px; }
+.rank-btns button {
+  width: 1.7rem; height: 1.7rem; border: 1px solid var(--line-2); background: var(--board); color: var(--chalk);
+  border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+}
+.rank-btns button:disabled { opacity: 0.3; cursor: default; }
+.secret-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; margin-top: 12px; }
+
+@media (max-width: 900px) {
+  .game-row-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  .secret-grid, .rtm-lists { grid-template-columns: 1fr; }
+}
+.lot-teams { display: block; font: 11px var(--mono); color: var(--muted); letter-spacing: 0.04em; }

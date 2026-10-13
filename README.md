@@ -1,8 +1,9 @@
 # Auction Table
 
-A small IPL squad-building game with two modes:
+A small IPL squad-building game with three modes:
 
-- **Real-price draft** (default): teams take turns picking current IPL players, and each pick costs that player's real 2026 price. Pick KL Rahul and ₹14 Cr comes off your purse; Venkatesh Iyer costs ₹7 Cr.
+- **Real-price draft** (default): teams take turns picking current IPL players, and each pick costs that player's real 2026 price. Pick KL Rahul and ₹14 Cr comes off your purse; Venkatesh Iyer costs ₹7 Cr. With **challenges** on, you can spend a turn challenging another team's pick; challenged players are auctioned after the draft and their team can use an **RTM** card to match.
+- **Secret draft**: everyone builds a squad at once, in secret. Players wanted by two or more teams go to a live RTM auction; whoever ranked him highest can match.
 - **Classic auction**: live bidding against the clock, from base prices, with 610 players from the last three auctions.
 
 Play solo against AI franchises, pass one phone round the room, or **play online**: create a room, send the link, and friends join from their own phones. You can also create an 11th team of your own. The squads then play out a simulated season.
@@ -110,6 +111,14 @@ Local Hero,AR,IND,,55,58,,,,
 - **Skip my turn** passes without picking (no money spent).
 - A team stops when its squad is full, when nothing on the board is affordable, or when a human taps **Finish my squad** (after reaching the minimum squad).
 - AI teams weigh rating, squad needs (keepers, bowlers…), overseas slots and what they can still afford, and they will stretch for genuine stars.
+
+## Challenges, secret draft and RTM
+
+- Every move goes through `applyAction()` in `src/engine/draft.ts`. A game moves through the phases `secret` → `picking` → `auction` → (top-up) `picking` → `done`.
+- **Challenge**: on your turn, `challenge` a player in another squad. It holds back a slot and the opening bid (paid + one increment). After picking, each challenged player is a lot: only challengers bid, and the owner can match with an RTM card (paying the difference), or let him go and get a refund.
+- **Secret**: `list-add` / `list-remove` / `list-move` / `list-auto` / `lock`. Once everyone locks, uncontested players sign at their 2026 price. Contested ones become lots that open at the 2026 price, and the highest-ranking chooser holds the RTM.
+- The auction clock lives on the machine running the game: `hammer` carries the clock's `seq`, so a stale hammer is ignored. Lots between AI teams settle instantly.
+- RTM cards: house rule `rtmCards` (0–6, 99 = unlimited, default 3). Online, guests only receive their own secret list (`redactFor`).
 
 ## Online rooms
 

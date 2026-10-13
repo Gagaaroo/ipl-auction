@@ -177,7 +177,8 @@ export function draftSource(state: DraftState): ResultSource {
     teams: state.teams,
     players: state.players,
     rules: state.rules,
-    buys: state.picks.map((p) => ({ playerId: p.playerId, team: p.team, priceLakh: p.priceLakh })),
+    // From the final squads: RTM auctions can move players and change what was paid.
+    buys: state.teams.flatMap((t) => t.squad.map((e) => ({ playerId: e.playerId, team: t.code, priceLakh: e.priceLakh }))),
     leftover: undrafted(state),
   };
 }

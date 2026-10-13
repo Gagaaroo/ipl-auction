@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { DataConnection, Peer as PeerT } from 'peerjs';
-import { applyAction, createDraft, draftTeam, type DraftAction, type DraftState } from '../../engine/draft';
+import { applyAction, createDraft, draftTeam, PLAYER_ACTIONS, redactFor, type DraftAction, type DraftState } from '../../engine/draft';
 import { draftSource } from '../../engine/season';
 import { formatLakh } from '../../engine/money';
 import { makeRng } from '../../engine/rng';
 import { joinLink, keepAwake, peerOptions, roomPeerId, slim, type GuestMsg, type HostMsg, type LobbyView, type SeatInfo } from '../../online/net';
 import { ConfirmDialog, TeamBadge, type Ask } from '../bits';
 import { DraftView, SPEEDS, useAiTurns, type Speed } from '../DraftRoom';
+import { useAuctionAuthority } from '../RtmViews';
 import { Results } from '../Results';
 import { saveHost, saveName, type HostSaved } from '../storage';
 import { ShareLink } from './bits';
@@ -40,7 +41,7 @@ export function HostRoom({ initial, onClose }: { initial: HostSaved; onClose: ()
     const r = s.config.rules;
     return {
       hostName: s.hostName,
-      rulesLine: `₹${r.purseCr} Cr purse · squads of ${r.squadMin}–${r.squadMax} · ${r.overseasMax} overseas`,
+      rulesLine: `${r.game === 'secret' ? 'Secret draft' : r.challenges ? 'Draft with challenges' : 'Real-price draft'} · ₹${r.purseCr} Cr purse · squads of ${r.squadMin}–${r.squadMax} · ${r.overseasMax} overseas${r.game === 'secret' || r.challenges ? ` · ${r.rtmCards >= 99 ? 'unlimited' : r.rtmCards} RTM` : ''}`,
       seats: s.config.teams.map(({ def, human }) => {
         const who = s.seats[def.code];
         const isHost = def.code === s.hostSeat;
@@ -75,9 +76,9 @@ export function HostRoom({ initial, onClose }: { initial: HostSaved; onClose: ()
       if (!s.draft) return send(conn, { t: 'lobby', lobby: lobbyView(s, live), yourSeat });
       if (!snapshotSent.current.has(clientId)) {
         snapshotSent.current.add(clientId);
-        return send(conn, { t: 'snapshot', draft: s.draft, seats: seatInfo(s, live), yourSeat, seasonSeed: s.seasonSeed });
+        return send(conn, { t: 'snapshot', draft: redactFor(s.draft, yourSeat), seats: seatInfo(s, live), yourSeat, seasonSeed: s.seasonSeed });
       }
-      send(conn, { t: 'update', draft: slim(s.draft), seats: seatInfo(s, live), seasonSeed: s.seasonSeed });
+      send(conn, { t: 'update', draft: slim(redactFor(s.draft, yourSeat)), seats: seatInfo(s, live), seasonSeed: s.seasonSeed });
     },
     [lobbyView, seatInfo],
   );
@@ -134,7 +135,7 @@ export function HostRoom({ initial, onClose }: { initial: HostSaved; onClose: ()
         if (!s.draft) return;
         const seat = seatOf(s, clientId);
         const a = msg.action;
-        if (!seat || !('team' in a) || a.team !== seat) return;
+        if (!seat || !PLAYER_ACTIONS.has(a.type) || !('team' in a) || a.team !== seat) return;
         const n = applyAction(s.draft, a, rngRef.current);
         if (n !== s.draft) commit({ ...s, draft: n });
       }
@@ -237,6 +238,7 @@ export function HostRoom({ initial, onClose }: { initial: HostSaved; onClose: ()
     [speed, live],
   );
   useAiTurns(draft ?? EMPTY, delayFor, paused || !draft, dispatch);
+  useAuctionAuthority(draft ?? EMPTY, dispatch, rngRef.current, paused || !draft);
 
   const closeRoom = () => {
     for (const conn of connsRef.current.values()) send(conn, { t: 'closed' });
@@ -300,7 +302,7 @@ export function HostRoom({ initial, onClose }: { initial: HostSaved; onClose: ()
   return <HostLobby saved={saved} status={status} live={live} commit={commit} onClose={askClose} ask={ask} closeAsk={closeAsk} setAsk={setAsk} snapshotSent={snapshotSent} />;
 }
 
-const EMPTY = { finished: true } as DraftState;
+const EMPTY = { finished: true, phase: 'done', auction: null } as unknown as DraftState;
 
 function HostLobby({
   saved,
@@ -379,7 +381,10 @@ function HostLobby({
             }}
           />
         </label>
-        <p className="hint">{`₹${r.purseCr} Cr purse · squads of ${r.squadMin}–${r.squadMax} · ${r.overseasMax} overseas · real 2026 prices`}</p>
+        <p className="hint">
+          {`${r.game === 'secret' ? 'Secret draft' : r.challenges ? 'Draft with challenges' : 'Real-price draft'} · ₹${r.purseCr} Cr purse · squads of ${r.squadMin}–${r.squadMax} · ${r.overseasMax} overseas`}
+          {(r.game === 'secret' || r.challenges) && ` · ${r.rtmCards >= 99 ? 'unlimited' : r.rtmCards} RTM card${r.rtmCards === 1 ? '' : 's'}`}
+        </p>
         <div className="start-buttons">
           <button type="button" className="btn" onClick={onClose}>
             Close room

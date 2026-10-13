@@ -48,7 +48,7 @@ export function Play() {
   };
 
   const start = (cfg: StartConfig) => {
-    if (cfg.rules.game === 'draft') {
+    if (cfg.rules.game !== 'auction') {
       update(null);
       updateDraft({ draft: createDraft({ ...cfg, seed: newSeed() }), seasonSeed: newSeed() });
     } else {

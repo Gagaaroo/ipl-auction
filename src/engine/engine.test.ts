@@ -9,7 +9,25 @@ import { acceleratedPrice, buildLots, parsePlayersCsv, withIds } from './pool';
 import { bestXI } from './xi';
 import { simulateSeason } from './season';
 import { makeRng } from './rng';
-import { applyAction, autoPick, createDraft, draftTeam, finishTeam, makePick, onTheClock, pickBlock, priceOf, runAi, skipTurn, type DraftState } from './draft';
+import {
+  applyAction,
+  autoPick,
+  challengeOpen,
+  createDraft,
+  currentLot,
+  draftTeam,
+  finishTeam,
+  listTotals,
+  makePick,
+  onTheClock,
+  ownerOf,
+  pickBlock,
+  priceOf,
+  redactFor,
+  runAi,
+  skipTurn,
+  type DraftState,
+} from './draft';
 
 const players = data.players as PlayerRecord[];
 
@@ -283,8 +301,9 @@ describe('real-price draft', () => {
         expect(t.squad.filter((e) => s.players[e.playerId].overseas).length).toBeLessThanOrEqual(s.rules.overseasMax);
         expect(bestXI(t.squad.map((e) => s.players[e.playerId])).hasKeeper).toBe(true);
       }
+      // Money is conserved: what every squad cost plus what's left is the starting purses.
       const spent = s.teams.reduce((n, t) => n + t.squad.reduce((m, e) => m + e.priceLakh, 0), 0);
-      expect(spent).toBe(s.picks.reduce((n, p) => n + p.priceLakh, 0));
+      expect(spent + s.teams.reduce((n, t) => n + t.purseLakh, 0)).toBe(s.teams.length * s.rules.purseCr * 100);
     }
   });
 
@@ -316,5 +335,88 @@ describe('real-price draft', () => {
     expect(applyAction(s, { type: 'auto', team: notUp }, makeRng(1))).toBe(s);
     expect(applyAction(s, { type: 'skip', team: notUp }, makeRng(1))).toBe(s);
     expect(applyAction(s, { type: 'pick', team: onTheClock(s)!, playerId: id }, makeRng(1)).picks.length).toBe(1);
+  });
+});
+
+describe('challenges and RTM', () => {
+  const teams = (humans: string[]) => IPL_TEAMS.map((def) => ({ def, human: humans.includes(def.code) }));
+  const rng = makeRng(11);
+
+  it('lets a team challenge another squad’s player, then auctions him with an RTM for his team', () => {
+    // Everyone is a person here, so only the challenges we make happen (auto-pick never challenges for people).
+    let s = createDraft({ rules: { ...DEFAULT_RULES, game: 'draft', challenges: true, rtmCards: 1, squadMax: 15 }, teams: teams(IPL_TEAMS.map((t) => t.code)), players, seed: 4 });
+    // Play until MI is up and CSK owns somebody.
+    for (let g = 0; g < 400 && !(onTheClock(s) === 'MI' && draftTeam(s, 'CSK').squad.length > 0); g++) s = applyAction(s, { type: 'auto', team: onTheClock(s)! }, rng);
+    expect(onTheClock(s)).toBe('MI');
+    const target = draftTeam(s, 'CSK').squad[0];
+    const open = challengeOpen(s, target.playerId);
+    expect(open).toBeGreaterThan(target.priceLakh);
+    s = applyAction(s, { type: 'challenge', team: 'MI', playerId: target.playerId }, rng);
+    expect(s.challenges[0]).toMatchObject({ playerId: target.playerId, owner: 'CSK', teams: ['MI'] });
+    // The challenge holds a slot and the opening bid back from MI.
+    expect(onTheClock(s)).not.toBe('MI');
+    // Finish the picking with the AI for everyone except the auction.
+    for (let g = 0; g < 2000 && s.phase === 'picking'; g++) s = applyAction(s, { type: 'auto', team: onTheClock(s)! }, rng);
+    expect(s.phase).toBe('auction');
+    let lot = currentLot(s)!;
+    while (lot.playerId !== target.playerId) {
+      s = applyAction(s, { type: 'hammer', seq: s.auction!.seq }, rng);
+      lot = currentLot(s)!;
+    }
+    expect(lot).toMatchObject({ kind: 'challenge', holder: 'CSK', bidders: ['MI'], openLakh: open });
+    s = applyAction(s, { type: 'bid', team: 'MI' }, rng);
+    expect(s.auction!.bid).toBe(open);
+    // Clock runs out: CSK (a person) gets the RTM call.
+    s = applyAction(s, { type: 'hammer', seq: s.auction!.seq }, rng);
+    expect(s.auction!.stage).toBe('rtm');
+    const cskPurse = draftTeam(s, 'CSK').purseLakh;
+    s = applyAction(s, { type: 'rtm', team: 'CSK', use: true }, rng);
+    expect(ownerOf(s, target.playerId)?.code).toBe('CSK');
+    expect(draftTeam(s, 'CSK').purseLakh).toBe(cskPurse - (open - target.priceLakh));
+    expect(s.rtmLeft.CSK).toBe(0);
+    expect(s.auctionLog.find((r) => r.playerId === target.playerId)).toMatchObject({ rtm: true, to: 'CSK', priceLakh: open });
+  });
+
+  it('moves the player and refunds his old team when the RTM is declined', () => {
+    let s = createDraft({ rules: { ...DEFAULT_RULES, game: 'draft', challenges: true, rtmCards: 3, squadMax: 15 }, teams: teams(IPL_TEAMS.map((t) => t.code)), players, seed: 4 });
+    for (let g = 0; g < 400 && !(onTheClock(s) === 'MI' && draftTeam(s, 'CSK').squad.length > 0); g++) s = applyAction(s, { type: 'auto', team: onTheClock(s)! }, rng);
+    const target = draftTeam(s, 'CSK').squad[0];
+    s = applyAction(s, { type: 'challenge', team: 'MI', playerId: target.playerId }, rng);
+    for (let g = 0; g < 2000 && s.phase === 'picking'; g++) s = applyAction(s, { type: 'auto', team: onTheClock(s)! }, rng);
+    while (currentLot(s)!.playerId !== target.playerId) s = applyAction(s, { type: 'hammer', seq: s.auction!.seq }, rng);
+    s = applyAction(s, { type: 'bid', team: 'MI' }, rng);
+    const bid = s.auction!.bid!;
+    const before = { csk: draftTeam(s, 'CSK').purseLakh, mi: draftTeam(s, 'MI').purseLakh };
+    s = applyAction(s, { type: 'hammer', seq: s.auction!.seq }, rng);
+    // CSK gets the RTM call if it can afford to match; either way it lets him go here.
+    if (s.auction?.stage === 'rtm') s = applyAction(s, { type: 'rtm', team: 'CSK', use: false }, rng);
+    expect(ownerOf(s, target.playerId)?.code).toBe('MI');
+    expect(draftTeam(s, 'CSK').purseLakh).toBe(before.csk + target.priceLakh);
+    expect(draftTeam(s, 'MI').purseLakh).toBe(before.mi - bid);
+  });
+
+  it('runs a secret draft: lists stay private, clashes are auctioned, everyone ends with one owner per player', () => {
+    let s = createDraft({ rules: { ...DEFAULT_RULES, game: 'secret' }, teams: teams(['MI']), players, seed: 8 });
+    expect(s.phase).toBe('secret');
+    expect(s.secret!.locked.length).toBe(9); // the AI teams lock in at once
+    const bumrah = Object.values(s.players).find((p) => p.name === 'Jasprit Bumrah')!;
+    s = applyAction(s, { type: 'list-add', team: 'MI', playerId: bumrah.id }, rng);
+    expect(listTotals(s, 'MI')).toMatchObject({ count: 1, spend: priceOf(bumrah) });
+    expect(applyAction(s, { type: 'lock', team: 'MI' }, rng)).toBe(s); // not enough players yet
+    // A guest only sees their own list.
+    expect(Object.keys(redactFor(s, 'MI').secret!.lists)).toEqual(['MI']);
+    s = applyAction(s, { type: 'list-auto', team: 'MI' }, rng);
+    expect(listTotals(s, 'MI').count).toBeGreaterThanOrEqual(s.rules.squadMin);
+    s = applyAction(s, { type: 'lock', team: 'MI' }, rng);
+    expect(s.phase === 'auction' || s.phase === 'picking').toBe(true);
+    s = runAi(s, rng, true);
+    expect(s.finished).toBe(true);
+    const seen = new Set<string>();
+    for (const t of s.teams) for (const e of t.squad) {
+      expect(seen.has(e.playerId)).toBe(false);
+      seen.add(e.playerId);
+    }
+    expect(s.auctionLog.length).toBeGreaterThan(0);
+    expect(s.teams.every((t) => t.purseLakh >= 0)).toBe(true);
   });
 });

@@ -51,6 +51,39 @@ export function HowToPlay() {
         </li>
       </ul>
 
+      <h2>Challenges and RTM (real-price draft)</h2>
+      <ul>
+        <li>
+          With <b>Challenges and RTM</b> switched on, you can spend a turn to challenge a player already in another squad, instead of
+          picking. He stays where he is for now.
+        </li>
+        <li>
+          After the draft, every challenged player goes to a live auction. Bidding opens one step above what his team paid, and only his
+          challengers can bid. When the hammer falls, his team can use an <b>RTM card</b> to match the top bid and keep him, paying the
+          difference. If they let him go, they get back what they paid and the top bidder takes him.
+        </li>
+        <li>
+          Each open challenge holds back a squad slot and the opening bid, so you can afford to bid when he comes up. A short top-up
+          round after the auction lets anyone with room and money fill their squad.
+        </li>
+      </ul>
+
+      <h2>The secret draft</h2>
+      <ul>
+        <li>
+          Everyone builds a whole squad at the same time, in secret, at 2026 prices. Use ↑ and ↓ to rank your list. <b>Fill with AI
+          picks</b> keeps your choices and fills the rest. Lock in when you’re happy. Playing on one phone? Each person gets a “pass the
+          phone” screen so nobody peeks.
+        </li>
+        <li>
+          On reveal, a player only one team chose joins that team at his 2026 price. A player two or more teams chose goes to a live RTM
+          auction, opening at his 2026 price. The team that ranked him highest holds the RTM and can match the winning bid. If nobody
+          else bids, that team signs him at his price.
+        </li>
+        <li>Lots between AI teams settle instantly; you only wait for the ones you’re in. Then a top-up round fills any gaps.</li>
+        <li>RTM cards per team are a house rule: 0 to 6, or unlimited (3 by default).</li>
+      </ul>
+
       <h2>Playing online with friends</h2>
       <ul>
         <li>
@@ -158,6 +191,9 @@ export function About() {
 
       <h2>Changelog</h2>
       <ul className="changelog">
+        <li>
+          <b>v2.2</b>: the secret draft, challenges in the draft, and live RTM auctions.
+        </li>
         <li>
           <b>v2.1</b>: online rooms with a shareable link, and Skip my turn.
         </li>

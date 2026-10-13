@@ -2,6 +2,8 @@ import { useMemo, useRef, useState } from 'react';
 import type { PlayerRecord, Rules, TeamDef } from '../engine/types';
 import { DEFAULT_RULES, SQUAD_SIZE_MAX, SQUAD_SIZE_MIN, type TeamEntry } from '../engine/auction';
 import { parsePlayersCsv } from '../engine/pool';
+import { draftPool } from '../engine/draft';
+import { formatLakh } from '../engine/money';
 import { IPL_TEAMS } from '../data/teams';
 import defaultData from '../data/players.json';
 import { TeamBadge } from './bits';
@@ -76,15 +78,17 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
     });
 
   const rules = prefs.rules;
+  const isDraft = rules.game === 'draft';
+  const poolSize = isDraft ? draftPool(players).length : players.length;
   const problems = useMemo(() => {
     const out: string[] = [];
     if (included.length < 2) out.push('At least two teams need to take part.');
     if (rules.squadMin > rules.squadMax) out.push('Minimum squad can’t be bigger than the squad size.');
     if (rules.squadMin < 11) out.push('Minimum squad must be at least 11 — you need a team to play.');
     if (rules.squadMin * 20 > rules.purseCr * 100) out.push('That purse can’t even fill the minimum squad.');
-    if (players.length < included.length * 11) out.push('Not enough players in the pool for that many teams.');
+    if (poolSize < included.length * 11) out.push('Not enough players in the pool for that many teams.');
     return out;
-  }, [included.length, rules, players.length]);
+  }, [included.length, rules, poolSize]);
 
   const start = () => {
     if (problems.length) return;
@@ -100,8 +104,8 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
       <section className="panel">
         <h2>1. Pick your team</h2>
         <p className="hint">
-          Tap <b>You</b> on the team you want to run. Passing the phone round? Give each friend a team — everything left on{' '}
-          <b>AI</b> bids by itself.
+          Tap <b>You</b> on the team you want to run. Passing the phone round? Give each friend a team. Everything left on{' '}
+          <b>AI</b> {isDraft ? 'picks' : 'bids'} by itself.
         </p>
         <div className="team-grid">
           {IPL_TEAMS.map((t) => (
@@ -136,7 +140,7 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
           )}
         </div>
         <div className="row count-row">
-          <span>Teams in the auction</span>
+          <span>Teams taking part</span>
           <div className="stepper">
             <button type="button" onClick={() => setCount(included.length - 1)} disabled={included.length <= 2} aria-label="Fewer teams">
               −
@@ -154,6 +158,26 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
 
       <section className="panel">
         <h2>2. House rules</h2>
+        <fieldset className="radio-row game-row">
+          <legend>Game</legend>
+          <label className={isDraft ? 'on' : ''}>
+            <input type="radio" name="game" checked={isDraft} onChange={() => setRule('game', 'draft')} />
+            <span>
+              <b>Real-price draft</b>
+              <small>
+                Teams take turns picking current IPL players. Each player costs his real 2026 price: pick KL Rahul and{' '}
+                {formatLakh(1400)} comes off your purse.
+              </small>
+            </span>
+          </label>
+          <label className={!isDraft ? 'on' : ''}>
+            <input type="radio" name="game" checked={!isDraft} onChange={() => setRule('game', 'auction')} />
+            <span>
+              <b>Classic auction</b>
+              <small>Live bidding against the clock, from base prices, with 610 players from the last three auctions.</small>
+            </span>
+          </label>
+        </fieldset>
         <div className="rules">
           <label>
             Purse per team
@@ -191,15 +215,24 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
             <input type="number" min={0} max={30} value={rules.overseasMax} onChange={(e) => setRule('overseasMax', clampInt(e.target.value, 0, 30))} />
             <small>max {rules.overseasXI} in a playing XI</small>
           </label>
-          <label>
-            Bid clock
-            <select value={rules.clockSec} onChange={(e) => setRule('clockSec', Number(e.target.value))}>
-              {[4, 6, 9].map((v) => (
-                <option key={v} value={v}>{v} seconds</option>
-              ))}
-            </select>
-          </label>
+          {!isDraft && (
+            <label>
+              Bid clock
+              <select value={rules.clockSec} onChange={(e) => setRule('clockSec', Number(e.target.value))}>
+                {[4, 6, 9].map((v) => (
+                  <option key={v} value={v}>{v} seconds</option>
+                ))}
+              </select>
+            </label>
+          )}
         </div>
+        {isDraft && (
+          <p className="hint">
+            Picking order is drawn at random and snakes: whoever picks last in round 1 picks first in round 2. You always keep enough
+            back to fill your minimum squad with the cheapest players.
+          </p>
+        )}
+        {!isDraft && (
         <fieldset className="radio-row">
           <legend>Player pool</legend>
           <label>
@@ -211,6 +244,7 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
             goes into the pool, everyone starts empty
           </label>
         </fieldset>
+        )}
         <button type="button" className="linkish" onClick={() => setPrefs((p) => ({ ...p, rules: DEFAULT_RULES }))}>
           Reset house rules
         </button>
@@ -219,7 +253,8 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
       <section className="panel">
         <h2>3. Players</h2>
         <CsvImport
-          count={players.length}
+          isDraft={isDraft}
+          count={poolSize}
           isCustom={customPlayers !== null}
           onImport={(ps) => {
             setCustomPlayers(ps);
@@ -242,7 +277,7 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
           </ul>
         )}
         <button type="button" className="btn btn-big" onClick={start} disabled={problems.length > 0}>
-          Open the auction →
+          {isDraft ? 'Start the draft →' : 'Open the auction →'}
         </button>
       </div>
     </div>
@@ -326,12 +361,14 @@ function CreateTeamCard({ onCreate }: { onCreate: (t: TeamDef) => void }) {
 }
 
 function CsvImport({
+  isDraft,
   count,
   isCustom,
   current,
   onImport,
   onReset,
 }: {
+  isDraft: boolean;
   count: number;
   isCustom: boolean;
   current: PlayerRecord[];
@@ -362,7 +399,8 @@ function CsvImport({
   return (
     <div className="csv">
       <p>
-        <b>{count}</b> players in the pool{isCustom ? ' (your imported list)' : ', from players.json'}.
+        <b>{count}</b> players in the pool
+        {isCustom ? ' (your imported list)' : isDraft ? ': everyone in a 2026 IPL squad, at his 2026 price' : ', from players.json'}.
         {isCustom && (
           <>
             {' '}
@@ -385,7 +423,8 @@ function CsvImport({
         </label>
       </div>
       <p className="hint">
-        Columns: <code>name,role,country,overseas,bat,bowl,overall,basePriceLakh,team2026</code> — only name, role, bat and bowl are required. See{' '}
+        Columns: <code>name,role,country,overseas,bat,bowl,overall,basePriceLakh,team2026,price2026Lakh</code>. Only name, role, bat and bowl
+        are required; in the draft a player without <code>price2026Lakh</code> costs his base price. See{' '}
         <a href="#how">How to play</a>.
       </p>
       {msg && <p className="note">{msg}</p>}

@@ -1,7 +1,8 @@
-import type { AuctionState, Player } from './types';
+import type { AuctionState, GameMode, Player, Rules, TeamState } from './types';
 import { bestXI, type XIResult } from './xi';
 import { gauss, makeRng, type Rng } from './rng';
 import { unsoldPlayers } from './auction';
+import { undrafted, type DraftState } from './draft';
 import { fairValueLakh } from './pool';
 
 export interface Innings {
@@ -143,13 +144,48 @@ export interface Award {
   title: string;
   player?: Player;
   team?: string;
+  /** Short line under the winner, ready to show. */
   detail: string;
 }
 
-export function teamResults(state: AuctionState): TeamResult[] {
-  return state.teams.map((t) => {
-    const squad = t.squad.map((e) => state.players[e.playerId]);
-    return { code: t.code, squad, xi: bestXI(squad, state.rules.overseasXI) };
+/** Everything the results screen needs, from either an auction or a draft. */
+export interface ResultSource {
+  mode: GameMode;
+  teams: TeamState[];
+  players: Record<string, Player>;
+  rules: Rules;
+  /** Every player bought or picked, with what was paid. */
+  buys: { playerId: string; team: string; priceLakh: number }[];
+  /** Players nobody took. */
+  leftover: Player[];
+}
+
+export function auctionSource(state: AuctionState): ResultSource {
+  return {
+    mode: 'auction',
+    teams: state.teams,
+    players: state.players,
+    rules: state.rules,
+    buys: state.log.flatMap((l) => (l.kind === 'sold' ? [{ playerId: l.playerId, team: l.team, priceLakh: l.priceLakh }] : [])),
+    leftover: unsoldPlayers(state),
+  };
+}
+
+export function draftSource(state: DraftState): ResultSource {
+  return {
+    mode: 'draft',
+    teams: state.teams,
+    players: state.players,
+    rules: state.rules,
+    buys: state.picks.map((p) => ({ playerId: p.playerId, team: p.team, priceLakh: p.priceLakh })),
+    leftover: undrafted(state),
+  };
+}
+
+export function teamResults(src: Pick<ResultSource, 'teams' | 'players' | 'rules'>): TeamResult[] {
+  return src.teams.map((t) => {
+    const squad = t.squad.map((e) => src.players[e.playerId]);
+    return { code: t.code, squad, xi: bestXI(squad, src.rules.overseasXI) };
   });
 }
 
@@ -157,21 +193,38 @@ export function strengths(results: TeamResult[]): Strength[] {
   return results.map((r) => ({ code: r.code, bat: r.xi.batting, bowl: r.xi.bowling }));
 }
 
-export function awards(state: AuctionState, results: TeamResult[]): Award[] {
+const money = (lakh: number) => (lakh >= 100 ? `₹${+(lakh / 100).toFixed(2)} Cr` : `₹${lakh} L`);
+
+export function awards(src: ResultSource, results: TeamResult[]): Award[] {
   const out: Award[] = [];
-  const buys = state.log.flatMap((l) => (l.kind === 'sold' ? [l] : []));
-  if (buys.length) {
-    const top = buys.reduce((a, b) => (b.priceLakh > a.priceLakh ? b : a));
-    out.push({ title: 'Costliest buy', player: state.players[top.playerId], team: top.team, detail: `${top.priceLakh}` });
-    const scale = state.rules.purseCr / 100;
+  const draft = src.mode === 'draft';
+  if (src.buys.length) {
+    const top = src.buys.reduce((a, b) => (b.priceLakh > a.priceLakh ? b : a));
+    out.push({
+      title: draft ? 'Costliest pick' : 'Costliest buy',
+      player: src.players[top.playerId],
+      team: top.team,
+      detail: `${money(top.priceLakh)} to ${top.team}`,
+    });
+    const scale = src.rules.purseCr / 100;
     // Biggest gap between what the rating says a player is worth and what was paid.
-    const surplus = (l: (typeof buys)[number]) => fairValueLakh(state.players[l.playerId].overall) * scale - l.priceLakh;
-    const steal = buys.reduce((a, b) => (surplus(b) > surplus(a) ? b : a));
-    out.push({ title: 'Steal of the auction', player: state.players[steal.playerId], team: steal.team, detail: `${steal.priceLakh}` });
+    const surplus = (l: (typeof src.buys)[number]) => fairValueLakh(src.players[l.playerId].overall) * scale - l.priceLakh;
+    const steal = src.buys.reduce((a, b) => (surplus(b) > surplus(a) ? b : a));
+    out.push({
+      title: draft ? 'Best value pick' : 'Steal of the auction',
+      player: src.players[steal.playerId],
+      team: steal.team,
+      detail: `${money(steal.priceLakh)} to ${steal.team}`,
+    });
   }
   const strongest = results.reduce((a, b) => (b.xi.rating > a.xi.rating ? b : a));
-  out.push({ title: 'Strongest XI', team: strongest.code, detail: `${strongest.xi.rating}` });
-  const unsold = unsoldPlayers(state).sort((a, b) => b.overall - a.overall)[0];
-  if (unsold) out.push({ title: 'Best unsold player', player: unsold, detail: `${unsold.overall}` });
+  out.push({ title: 'Strongest XI', team: strongest.code, detail: `XI rating ${strongest.xi.rating}` });
+  const left = [...src.leftover].sort((a, b) => b.overall - a.overall)[0];
+  if (left)
+    out.push({
+      title: draft ? 'Best player nobody picked' : 'Best unsold player',
+      player: left,
+      detail: draft ? `Overall ${left.overall}, ${money(left.price2026Lakh ?? left.basePriceLakh)} was too rich` : `Overall ${left.overall}, nobody bit`,
+    });
   return out;
 }

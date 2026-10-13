@@ -3,9 +3,35 @@ export function HowToPlay() {
     <article className="prose">
       <h1>How to play</h1>
       <p>
-        You run an IPL franchise at the auction table. Build a squad that can field a proper XI, don’t blow the purse on the first shiny
-        name, and then watch your side play out a season.
+        You run an IPL franchise. Build a squad that can field a proper XI, don’t blow the purse on the first big name, and then watch
+        your side play out a season. There are two ways to build it: the <b>real-price draft</b> (the default) and the <b>classic auction</b>.
       </p>
+
+      <h2>The real-price draft</h2>
+      <ul>
+        <li>
+          The pool is every player in an IPL 2026 squad, 250 of them. Each one costs exactly what his franchise pays him for 2026. KL Rahul
+          costs ₹14 Cr (his 2025 auction price), Venkatesh Iyer ₹7 Cr (2026 auction), Virat Kohli ₹21 Cr (retention), Sanju Samson ₹18 Cr
+          (his trade fee).
+        </li>
+        <li>
+          Teams take turns picking one player each. The order is drawn at random and snakes: whoever picks last in round 1 picks first in
+          round 2. When you pick a player, his price comes straight off your purse. There’s no bidding.
+        </li>
+        <li>
+          The board shows who is on the clock, their purse and how much they can spend on this pick. You always keep enough back to fill
+          your minimum squad with the cheapest players, so the game won’t let you strand yourself.
+        </li>
+        <li>
+          Filter the player board by role or 2026 team, search by name, or sort by price, rating or best value. Tick “Only players I can
+          take” to hide anyone you can’t afford or have no room for.
+        </li>
+        <li>
+          <b>Auto-pick for me</b> lets the AI make your pick. <b>Finish my squad</b> stops you picking once you have your minimum squad.{' '}
+          <b>Sim to the end</b> lets the AI finish the whole draft, your team included.
+        </li>
+        <li>AI teams pick on their own. Slow them down or speed them up with the AI speed setting, or pause them between your turns.</li>
+      </ul>
 
       <h2>Setting up</h2>
       <ul>
@@ -19,12 +45,12 @@ export function HowToPlay() {
         <li>Squad size can be anything from 15 to 25 players (18 by default). The minimum squad can be set from 11 up to the squad size.</li>
         <li>Don’t fancy any of the ten? “Create your own” gives you an eleventh side with your own name, 2–4 letter code and colour.</li>
         <li>
-          <b>Real squads</b>: IPL teams keep their best 2026 players (squad size minus six, max overseas minus two), with a retention cost taken
+          In the classic auction, <b>Real squads</b>: IPL teams keep their best 2026 players (squad size minus six, max overseas minus two), with a retention cost taken
           off their purse. Everyone else is in the pool. <b>Full auction</b>: all 610 players go under the hammer and every team starts empty.
         </li>
       </ul>
 
-      <h2>In the room</h2>
+      <h2>The classic auction</h2>
       <ul>
         <li>Players come up in sets: Marquee first, then Batters, All-rounders, Wicketkeepers and Bowlers, top tier first.</li>
         <li>
@@ -86,20 +112,28 @@ export function About() {
     <article className="prose">
       <h1>About</h1>
       <p>
-        The Auction Table is a small, unofficial IPL-style auction game. You can play it alone against nine AI franchises, or pass one
-        phone round the room with your friends. It runs entirely in your browser and needs no account. The only thing it stores is
-        your current auction, saved in this browser so a refresh doesn’t lose it.
+        Auction Table is a small, unofficial IPL squad-building game. Draft today’s IPL players at their real 2026 prices, or run a
+        classic live auction. You can play alone against AI franchises, or pass one phone round the room with your friends. It runs
+        entirely in your browser and needs no account. The only thing it stores is your current game, saved in this browser so a
+        refresh doesn’t lose it.
+      </p>
+      <p>
+        2026 prices come from public reporting of the 2025 retentions, the 2025 and 2026 auctions, 2025 replacement signings and the
+        trades before the 2026 season. If one looks wrong, edit <code>price2026Lakh</code> in <code>players.json</code>.
       </p>
       <p>
         Player ratings are editorial T20 estimates and nothing official; argue about them freely. Teams appear only as their names and
         primary colours. There are no logos, and the game isn’t affiliated with the IPL, the BCCI or any franchise.
       </p>
       <p>
-        Built with Vite, React and TypeScript, plus two Google Fonts. The gavel is synthesised with Web Audio.
+        Built with Vite, React and TypeScript, plus three Google Fonts. The gavel is synthesised with Web Audio.
       </p>
 
       <h2>Changelog</h2>
       <ul className="changelog">
+        <li>
+          <b>v2.0</b>: the real-price draft. Pick current IPL players at their 2026 prices, in snake order. New green-baize look.
+        </li>
         <li>
           <b>v1.0</b> — first public version: real squads or full auction, AI bidders with their own personalities, pass-and-play, best XIs,
           season sim with NRR, awards.

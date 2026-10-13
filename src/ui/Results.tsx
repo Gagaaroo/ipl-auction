@@ -1,11 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
-import type { AuctionState } from '../engine/types';
-import { awards, oversText, simulateSeason, strengths, teamResults, type MatchResult } from '../engine/season';
+import { awards, oversText, simulateSeason, strengths, teamResults, type MatchResult, type ResultSource } from '../engine/season';
 import { formatLakh } from '../engine/money';
 import { BallRating, Board, ConfirmDialog, OS, TeamBadge, type Ask } from './bits';
 
 interface Props {
-  state: AuctionState;
+  state: ResultSource;
   seasonSeed: number;
   onReplay: () => void;
   onNew: () => void;
@@ -19,6 +18,7 @@ export function Results({ state, seasonSeed, onReplay, onNew }: Props) {
   const champ = teamOf(season.champion);
   const [ask, setAsk] = useState<Ask | null>(null);
   const closeAsk = useCallback(() => setAsk(null), []);
+  const word = state.mode === 'draft' ? 'draft' : 'auction';
   const priceOf = (id: string) => {
     for (const t of state.teams) {
       const e = t.squad.find((x) => x.playerId === id);
@@ -44,9 +44,9 @@ export function Results({ state, seasonSeed, onReplay, onNew }: Props) {
         <button
           type="button"
           className="btn"
-          onClick={() => setAsk({ message: 'Start a new auction? These results will be cleared.', yes: 'New auction', onYes: onNew })}
+          onClick={() => setAsk({ message: `Start a new ${word}? These results will be cleared.`, yes: `New ${word}`, onYes: onNew })}
         >
-          New auction
+          New {word}
         </button>
       </div>
 
@@ -68,11 +68,7 @@ export function Results({ state, seasonSeed, onReplay, onNew }: Props) {
                   <TeamBadge team={teamOf(a.team)} /> {teamOf(a.team).name}
                 </p>
               )}
-              <p className="muted">
-                {a.title === 'Strongest XI' && `XI rating ${a.detail}`}
-                {(a.title === 'Costliest buy' || a.title === 'Steal of the auction') && `${formatLakh(Number(a.detail))} to ${a.team}`}
-                {a.title === 'Best unsold player' && `Overall ${a.detail}, nobody bit`}
-              </p>
+              <p className="muted">{a.detail}</p>
             </div>
           ))}
         </div>

@@ -1,7 +1,9 @@
 import type { AuctionState, PlayerRecord } from '../engine/types';
+import type { DraftState } from '../engine/draft';
 
 const KEYS = {
   auction: 'iat:auction:v1',
+  draft: 'iat:draft:v1',
   setup: 'iat:setup:v1',
   players: 'iat:players:v1',
   sound: 'iat:sound',
@@ -36,6 +38,17 @@ export const loadAuction = () => {
   return s?.auction?.version === 1 ? s : null;
 };
 export const saveAuction = (s: SavedAuction | null) => write(KEYS.auction, s);
+
+export interface SavedDraft {
+  draft: DraftState;
+  seasonSeed: number;
+}
+
+export const loadDraft = () => {
+  const s = read<SavedDraft>(KEYS.draft);
+  return s?.draft?.kind === 'draft' && s.draft.version === 1 ? s : null;
+};
+export const saveDraft = (s: SavedDraft | null) => write(KEYS.draft, s);
 
 export const loadSetup = <T,>() => read<T>(KEYS.setup);
 export const saveSetup = (s: unknown) => write(KEYS.setup, s);

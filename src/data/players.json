@@ -15,7 +15,8 @@
    "GT": "Gujarat Titans",
    "LSG": "Lucknow Super Giants"
   },
-  "count": 610
+  "count": 610,
+  "price2026Note": "price2026Lakh is the player's IPL 2026 contract price: 2025 retention, 2025 auction (or replacement fee), 2026 trade fee, or 2026 auction price. Null for players not in a 2026 squad."
  },
  "players": [
   {
@@ -28,7 +29,9 @@
    "overall": 97,
    "basePriceLakh": 200,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1800,
+   "priceHow": "retained"
   },
   {
    "name": "Virat Kohli",
@@ -40,7 +43,9 @@
    "overall": 92,
    "basePriceLakh": 200,
    "team2026": "RCB",
-   "history": []
+   "history": [],
+   "price2026Lakh": 2100,
+   "priceHow": "retained"
   },
   {
    "name": "Heinrich Klaasen",
@@ -52,7 +57,9 @@
    "overall": 90,
    "basePriceLakh": 200,
    "team2026": "SRH",
-   "history": []
+   "history": [],
+   "price2026Lakh": 2300,
+   "priceHow": "retained"
   },
   {
    "name": "Travis Head",
@@ -71,7 +78,9 @@
      "team": "SRH",
      "priceLakh": 680
     }
-   ]
+   ],
+   "price2026Lakh": 1400,
+   "priceHow": "retained"
   },
   {
    "name": "Jos Buttler",
@@ -90,7 +99,9 @@
      "team": "GT",
      "priceLakh": 1575
     }
-   ]
+   ],
+   "price2026Lakh": 1575,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Sunil Narine",
@@ -102,7 +113,9 @@
    "overall": 89,
    "basePriceLakh": 200,
    "team2026": "KKR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1200,
+   "priceHow": "retained"
   },
   {
    "name": "Varun Chakravarthy",
@@ -114,7 +127,9 @@
    "overall": 89,
    "basePriceLakh": 200,
    "team2026": "KKR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1200,
+   "priceHow": "retained"
   },
   {
    "name": "Abhishek Sharma",
@@ -126,7 +141,9 @@
    "overall": 88,
    "basePriceLakh": 200,
    "team2026": "SRH",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1400,
+   "priceHow": "retained"
   },
   {
    "name": "Josh Hazlewood",
@@ -150,7 +167,9 @@
      "team": "RCB",
      "priceLakh": 1250
     }
-   ]
+   ],
+   "price2026Lakh": 1250,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Kuldeep Yadav",
@@ -162,7 +181,9 @@
    "overall": 88,
    "basePriceLakh": 200,
    "team2026": "DC",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1325,
+   "priceHow": "retained"
   },
   {
    "name": "Nicholas Pooran",
@@ -174,7 +195,9 @@
    "overall": 88,
    "basePriceLakh": 200,
    "team2026": "LSG",
-   "history": []
+   "history": [],
+   "price2026Lakh": 2100,
+   "priceHow": "retained"
   },
   {
    "name": "Rashid Khan",
@@ -186,7 +209,9 @@
    "overall": 88,
    "basePriceLakh": 200,
    "team2026": "GT",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1800,
+   "priceHow": "retained"
   },
   {
    "name": "Shubman Gill",
@@ -198,7 +223,9 @@
    "overall": 88,
    "basePriceLakh": 200,
    "team2026": "GT",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1650,
+   "priceHow": "retained"
   },
   {
    "name": "Suryakumar Yadav",
@@ -210,7 +237,9 @@
    "overall": 88,
    "basePriceLakh": 200,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1635,
+   "priceHow": "retained"
   },
   {
    "name": "Yashasvi Jaiswal",
@@ -222,7 +251,9 @@
    "overall": 88,
    "basePriceLakh": 200,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1800,
+   "priceHow": "retained"
   },
   {
    "name": "Arshdeep Singh",
@@ -234,7 +265,9 @@
    "overall": 87,
    "basePriceLakh": 200,
    "team2026": "PBKS",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1800,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Pat Cummins",
@@ -253,7 +286,9 @@
      "team": "SRH",
      "priceLakh": 2050
     }
-   ]
+   ],
+   "price2026Lakh": 1800,
+   "priceHow": "retained"
   },
   {
    "name": "KL Rahul",
@@ -272,7 +307,9 @@
      "team": "DC",
      "priceLakh": 1400
     }
-   ]
+   ],
+   "price2026Lakh": 1400,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Kagiso Rabada",
@@ -291,7 +328,9 @@
      "team": "GT",
      "priceLakh": 1075
     }
-   ]
+   ],
+   "price2026Lakh": 1075,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Mitchell Starc",
@@ -316,7 +355,9 @@
      "team": "DC",
      "priceLakh": 1175
     }
-   ]
+   ],
+   "price2026Lakh": 1175,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Noor Ahmad",
@@ -335,7 +376,9 @@
      "team": "CSK",
      "priceLakh": 1000
     }
-   ]
+   ],
+   "price2026Lakh": 1000,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Sai Sudharsan",
@@ -347,7 +390,9 @@
    "overall": 86,
    "basePriceLakh": 200,
    "team2026": "GT",
-   "history": []
+   "history": [],
+   "price2026Lakh": 850,
+   "priceHow": "retained"
   },
   {
    "name": "Sanju Samson",
@@ -359,7 +404,9 @@
    "overall": 86,
    "basePriceLakh": 200,
    "team2026": "CSK",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1800,
+   "priceHow": "traded"
   },
   {
    "name": "Shreyas Iyer",
@@ -378,7 +425,9 @@
      "team": "PBKS",
      "priceLakh": 2675
     }
-   ]
+   ],
+   "price2026Lakh": 2675,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Trent Boult",
@@ -397,7 +446,9 @@
      "team": "MI",
      "priceLakh": 1250
     }
-   ]
+   ],
+   "price2026Lakh": 1250,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Jofra Archer",
@@ -416,7 +467,9 @@
      "team": "RR",
      "priceLakh": 1250
     }
-   ]
+   ],
+   "price2026Lakh": 1250,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Phil Salt",
@@ -440,7 +493,9 @@
      "team": "RCB",
      "priceLakh": 1150
     }
-   ]
+   ],
+   "price2026Lakh": 1150,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Rohit Sharma",
@@ -452,7 +507,9 @@
    "overall": 85,
    "basePriceLakh": 200,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1630,
+   "priceHow": "retained"
   },
   {
    "name": "Yuzvendra Chahal",
@@ -471,7 +528,9 @@
      "team": "PBKS",
      "priceLakh": 1800
     }
-   ]
+   ],
+   "price2026Lakh": 1800,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Axar Patel",
@@ -483,7 +542,9 @@
    "overall": 84,
    "basePriceLakh": 200,
    "team2026": "DC",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1650,
+   "priceHow": "retained"
   },
   {
    "name": "Cameron Green",
@@ -502,7 +563,9 @@
      "team": "KKR",
      "priceLakh": 2520
     }
-   ]
+   ],
+   "price2026Lakh": 2520,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Hardik Pandya",
@@ -514,7 +577,9 @@
    "overall": 84,
    "basePriceLakh": 200,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1635,
+   "priceHow": "retained"
   },
   {
    "name": "Mitchell Marsh",
@@ -533,7 +598,9 @@
      "team": "LSG",
      "priceLakh": 340
     }
-   ]
+   ],
+   "price2026Lakh": 340,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Mohammed Siraj",
@@ -552,7 +619,9 @@
      "team": "GT",
      "priceLakh": 1225
     }
-   ]
+   ],
+   "price2026Lakh": 1225,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Prasidh Krishna",
@@ -571,7 +640,9 @@
      "team": "GT",
      "priceLakh": 950
     }
-   ]
+   ],
+   "price2026Lakh": 950,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Quinton de Kock",
@@ -590,7 +661,9 @@
      "team": "KKR",
      "priceLakh": 360
     }
-   ]
+   ],
+   "price2026Lakh": 100,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Ravindra Jadeja",
@@ -602,7 +675,9 @@
    "overall": 84,
    "basePriceLakh": 200,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1400,
+   "priceHow": "traded"
   },
   {
    "name": "Rishabh Pant",
@@ -621,7 +696,9 @@
      "team": "LSG",
      "priceLakh": 2700
     }
-   ]
+   ],
+   "price2026Lakh": 2700,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ruturaj Gaikwad",
@@ -633,7 +710,9 @@
    "overall": 84,
    "basePriceLakh": 200,
    "team2026": "CSK",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1800,
+   "priceHow": "retained"
   },
   {
    "name": "Wanindu Hasaranga",
@@ -658,7 +737,9 @@
      "team": "RR",
      "priceLakh": 525
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Matheesha Pathirana",
@@ -677,7 +758,9 @@
      "team": "KKR",
      "priceLakh": 1800
     }
-   ]
+   ],
+   "price2026Lakh": 1800,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Tilak Varma",
@@ -689,7 +772,9 @@
    "overall": 83,
    "basePriceLakh": 150,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 800,
+   "priceHow": "retained"
   },
   {
    "name": "Bhuvneshwar Kumar",
@@ -708,7 +793,9 @@
      "team": "RCB",
      "priceLakh": 1075
     }
-   ]
+   ],
+   "price2026Lakh": 1075,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Daryl Mitchell",
@@ -737,7 +824,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Harry Brook",
@@ -762,7 +851,9 @@
      "team": "DC",
      "priceLakh": 625
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Marco Jansen",
@@ -781,7 +872,9 @@
      "team": "PBKS",
      "priceLakh": 700
     }
-   ]
+   ],
+   "price2026Lakh": 700,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Matt Henry",
@@ -804,7 +897,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Mohammed Shami",
@@ -823,7 +918,9 @@
      "team": "SRH",
      "priceLakh": 1000
     }
-   ]
+   ],
+   "price2026Lakh": 1000,
+   "priceHow": "traded"
   },
   {
    "name": "Rajat Patidar",
@@ -835,7 +932,9 @@
    "overall": 81,
    "basePriceLakh": 150,
    "team2026": "RCB",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1100,
+   "priceHow": "retained"
   },
   {
    "name": "Adam Zampa",
@@ -854,7 +953,9 @@
      "team": "SRH",
      "priceLakh": 240
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Adil Rashid",
@@ -877,7 +978,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Aiden Markram",
@@ -896,7 +999,9 @@
      "team": "LSG",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2025 auction"
   },
   {
    "name": "David Miller",
@@ -921,7 +1026,9 @@
      "team": "DC",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "David Warner",
@@ -939,7 +1046,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Deepak Chahar",
@@ -958,7 +1067,9 @@
      "team": "MI",
      "priceLakh": 925
     }
-   ]
+   ],
+   "price2026Lakh": 925,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Devon Conway",
@@ -982,7 +1093,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dewald Brevis",
@@ -1000,7 +1113,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 220,
+   "priceHow": "2025 replacement"
   },
   {
    "name": "Harshal Patel",
@@ -1025,7 +1140,9 @@
      "team": "SRH",
      "priceLakh": 800
     }
-   ]
+   ],
+   "price2026Lakh": 800,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ishan Kishan",
@@ -1044,7 +1161,9 @@
      "team": "SRH",
      "priceLakh": 1125
     }
-   ]
+   ],
+   "price2026Lakh": 1125,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Jonny Bairstow",
@@ -1067,7 +1186,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Josh Inglis",
@@ -1091,7 +1212,9 @@
      "team": "PBKS",
      "priceLakh": 260
     }
-   ]
+   ],
+   "price2026Lakh": 860,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Kane Williamson",
@@ -1109,7 +1232,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Khaleel Ahmed",
@@ -1128,7 +1253,9 @@
      "team": "CSK",
      "priceLakh": 480
     }
-   ]
+   ],
+   "price2026Lakh": 480,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Lockie Ferguson",
@@ -1153,7 +1280,9 @@
      "team": "PBKS",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Maheesh Theekshana",
@@ -1177,7 +1306,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mustafizur Rahman",
@@ -1201,7 +1332,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 920,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Pathum Nissanka",
@@ -1225,7 +1358,9 @@
      "team": "DC",
      "priceLakh": 400
     }
-   ]
+   ],
+   "price2026Lakh": 400,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Ravi Bishnoi",
@@ -1237,7 +1372,9 @@
    "overall": 80,
    "basePriceLakh": 150,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 720,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Rinku Singh",
@@ -1249,7 +1386,9 @@
    "overall": 80,
    "basePriceLakh": 150,
    "team2026": "KKR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1300,
+   "priceHow": "retained"
   },
   {
    "name": "Tim David",
@@ -1268,7 +1407,9 @@
      "team": "RCB",
      "priceLakh": 300
     }
-   ]
+   ],
+   "price2026Lakh": 300,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Tristan Stubbs",
@@ -1287,7 +1428,9 @@
      "team": "DC",
      "priceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": 1000,
+   "priceHow": "retained"
   },
   {
    "name": "Akeal Hosein",
@@ -1310,7 +1453,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Ben Duckett",
@@ -1328,7 +1473,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Glenn Phillips",
@@ -1347,7 +1494,9 @@
      "team": "GT",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Mitchell Santner",
@@ -1366,7 +1515,9 @@
      "team": "MI",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Nathan Ellis",
@@ -1385,7 +1536,9 @@
      "team": "CSK",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ryan Rickelton",
@@ -1404,7 +1557,9 @@
      "team": "MI",
      "priceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": 100,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Anrich Nortje",
@@ -1423,7 +1578,9 @@
      "team": "KKR",
      "priceLakh": 650
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Finn Allen",
@@ -1446,7 +1603,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Gus Atkinson",
@@ -1475,7 +1634,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Harshit Rana",
@@ -1487,7 +1648,9 @@
    "overall": 78,
    "basePriceLakh": 100,
    "team2026": "KKR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Jamie Smith",
@@ -1505,7 +1668,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Liam Livingstone",
@@ -1530,7 +1695,9 @@
      "team": "SRH",
      "priceLakh": 1300
     }
-   ]
+   ],
+   "price2026Lakh": 1300,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Lungi Ngidi",
@@ -1549,7 +1716,9 @@
      "team": "RCB",
      "priceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Marcus Stoinis",
@@ -1568,7 +1737,9 @@
      "team": "PBKS",
      "priceLakh": 1100
     }
-   ]
+   ],
+   "price2026Lakh": 1100,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Prabhsimran Singh",
@@ -1580,7 +1751,9 @@
    "overall": 78,
    "basePriceLakh": 100,
    "team2026": "PBKS",
-   "history": []
+   "history": [],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Priyansh Arya",
@@ -1604,7 +1777,9 @@
      "team": "PBKS",
      "priceLakh": 380
     }
-   ]
+   ],
+   "price2026Lakh": 380,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Rachin Ravindra",
@@ -1629,7 +1804,9 @@
      "team": "CSK",
      "priceLakh": 400
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Rahmanullah Gurbaz",
@@ -1653,7 +1830,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sam Curran",
@@ -1672,7 +1851,9 @@
      "team": "CSK",
      "priceLakh": 240
     }
-   ]
+   ],
+   "price2026Lakh": 240,
+   "priceHow": "traded"
   },
   {
    "name": "Shai Hope",
@@ -1696,7 +1877,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vaibhav Suryavanshi",
@@ -1715,7 +1898,9 @@
      "team": "RR",
      "priceLakh": 110
     }
-   ]
+   ],
+   "price2026Lakh": 110,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Washington Sundar",
@@ -1734,7 +1919,9 @@
      "team": "GT",
      "priceLakh": 320
     }
-   ]
+   ],
+   "price2026Lakh": 320,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Will Jacks",
@@ -1753,7 +1940,9 @@
      "team": "MI",
      "priceLakh": 525
     }
-   ]
+   ],
+   "price2026Lakh": 525,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ajinkya Rahane",
@@ -1772,7 +1961,9 @@
      "team": "KKR",
      "priceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Allah Ghazanfar",
@@ -1791,7 +1982,9 @@
      "team": "MI",
      "priceLakh": 480
     }
-   ]
+   ],
+   "price2026Lakh": 480,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Azmatullah Omarzai",
@@ -1816,7 +2009,9 @@
      "team": "PBKS",
      "priceLakh": 240
     }
-   ]
+   ],
+   "price2026Lakh": 240,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Gerald Coetzee",
@@ -1846,7 +2041,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jacob Duffy",
@@ -1858,7 +2055,9 @@
    "overall": 77,
    "basePriceLakh": 100,
    "team2026": "RCB",
-   "history": []
+   "history": [],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Mujeeb Ur Rahman",
@@ -1887,7 +2086,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shimron Hetmyer",
@@ -1899,7 +2100,9 @@
    "overall": 77,
    "basePriceLakh": 100,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1100,
+   "priceHow": "retained"
   },
   {
    "name": "Alzarri Joseph",
@@ -1928,7 +2131,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Anshul Kamboj",
@@ -1953,7 +2158,9 @@
      "team": "CSK",
      "priceLakh": 340
     }
-   ]
+   ],
+   "price2026Lakh": 340,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Avesh Khan",
@@ -1972,7 +2179,9 @@
      "team": "LSG",
      "priceLakh": 975
     }
-   ]
+   ],
+   "price2026Lakh": 975,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Devdutt Padikkal",
@@ -1991,7 +2200,9 @@
      "team": "RCB",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Dhruv Jurel",
@@ -2003,7 +2214,9 @@
    "overall": 76,
    "basePriceLakh": 100,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1400,
+   "priceHow": "retained"
   },
   {
    "name": "Faf du Plessis",
@@ -2022,7 +2235,9 @@
      "team": "DC",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Fazalhaq Farooqi",
@@ -2046,7 +2261,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jamie Overton",
@@ -2065,7 +2282,9 @@
      "team": "CSK",
      "priceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Jason Holder",
@@ -2083,7 +2302,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 700,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Keshav Maharaj",
@@ -2101,7 +2322,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Krunal Pandya",
@@ -2120,7 +2343,9 @@
      "team": "RCB",
      "priceLakh": 575
     }
-   ]
+   ],
+   "price2026Lakh": 575,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Kyle Jamieson",
@@ -2143,7 +2368,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Mayank Yadav",
@@ -2155,7 +2382,9 @@
    "overall": 76,
    "basePriceLakh": 100,
    "team2026": "LSG",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1100,
+   "priceHow": "retained"
   },
   {
    "name": "Naveen-ul-Haq",
@@ -2173,7 +2402,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sai Kishore",
@@ -2192,7 +2423,9 @@
      "team": "GT",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Sandeep Sharma",
@@ -2204,7 +2437,9 @@
    "overall": 76,
    "basePriceLakh": 100,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Shashank Singh",
@@ -2223,7 +2458,9 @@
      "team": "PBKS",
      "priceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": 550,
+   "priceHow": "retained"
   },
   {
    "name": "Sherfane Rutherford",
@@ -2248,7 +2485,9 @@
      "team": "GT",
      "priceLakh": 260
     }
-   ]
+   ],
+   "price2026Lakh": 260,
+   "priceHow": "traded"
   },
   {
    "name": "Shivam Dube",
@@ -2260,7 +2499,9 @@
    "overall": 76,
    "basePriceLakh": 100,
    "team2026": "CSK",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1200,
+   "priceHow": "retained"
   },
   {
    "name": "Steve Smith",
@@ -2283,7 +2524,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tabraiz Shamsi",
@@ -2306,7 +2549,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Taskin Ahmed",
@@ -2329,7 +2574,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Xavier Bartlett",
@@ -2348,7 +2595,9 @@
      "team": "PBKS",
      "priceLakh": 80
     }
-   ]
+   ],
+   "price2026Lakh": 80,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Matthew Short",
@@ -2366,7 +2615,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Riyan Parag",
@@ -2378,7 +2629,9 @@
    "overall": 75,
    "basePriceLakh": 100,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1400,
+   "priceHow": "retained"
   },
   {
    "name": "Akash Deep",
@@ -2397,7 +2650,9 @@
      "team": "LSG",
      "priceLakh": 800
     }
-   ]
+   ],
+   "price2026Lakh": 100,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Ashutosh Sharma",
@@ -2422,7 +2677,9 @@
      "team": "DC",
      "priceLakh": 380
     }
-   ]
+   ],
+   "price2026Lakh": 380,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ayush Mhatre",
@@ -2434,7 +2691,9 @@
    "overall": 74,
    "basePriceLakh": 100,
    "team2026": "CSK",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2025 replacement"
   },
   {
    "name": "Brandon King",
@@ -2452,7 +2711,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Brydon Carse",
@@ -2471,7 +2732,9 @@
      "team": "SRH",
      "priceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": 100,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Digvesh Rathi",
@@ -2490,7 +2753,9 @@
      "team": "LSG",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Evin Lewis",
@@ -2508,7 +2773,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ibrahim Zadran",
@@ -2526,7 +2793,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jake Fraser-McGurk",
@@ -2550,7 +2819,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mohsin Khan",
@@ -2562,7 +2833,9 @@
    "overall": 74,
    "basePriceLakh": 100,
    "team2026": "LSG",
-   "history": []
+   "history": [],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Nandre Burger",
@@ -2587,7 +2860,9 @@
      "team": "RR",
      "priceLakh": 350
     }
-   ]
+   ],
+   "price2026Lakh": 350,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Nehal Wadhera",
@@ -2606,7 +2881,9 @@
      "team": "PBKS",
      "priceLakh": 420
     }
-   ]
+   ],
+   "price2026Lakh": 420,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Nitish Rana",
@@ -2625,7 +2902,9 @@
      "team": "RR",
      "priceLakh": 420
     }
-   ]
+   ],
+   "price2026Lakh": 420,
+   "priceHow": "traded"
   },
   {
    "name": "Rahul Chahar",
@@ -2644,7 +2923,9 @@
      "team": "SRH",
      "priceLakh": 320
     }
-   ]
+   ],
+   "price2026Lakh": 520,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Rassie van der Dussen",
@@ -2667,7 +2948,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ravichandran Ashwin",
@@ -2686,7 +2969,9 @@
      "team": "CSK",
      "priceLakh": 975
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rilee Rossouw",
@@ -2710,7 +2995,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rovman Powell",
@@ -2735,7 +3022,9 @@
      "team": "KKR",
      "priceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Sean Abbott",
@@ -2758,7 +3047,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shakib Al Hasan",
@@ -2776,7 +3067,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shamar Joseph",
@@ -2795,7 +3088,9 @@
      "team": "LSG",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Spencer Johnson",
@@ -2825,7 +3120,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Suyash Sharma",
@@ -2844,7 +3141,9 @@
      "team": "RCB",
      "priceLakh": 260
     }
-   ]
+   ],
+   "price2026Lakh": 260,
+   "priceHow": "2025 auction"
   },
   {
    "name": "T Natarajan",
@@ -2863,7 +3162,9 @@
      "team": "DC",
      "priceLakh": 1075
     }
-   ]
+   ],
+   "price2026Lakh": 1075,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Yash Dayal",
@@ -2882,7 +3183,9 @@
      "team": "RCB",
      "priceLakh": 500
     }
-   ]
+   ],
+   "price2026Lakh": 500,
+   "priceHow": "retained"
   },
   {
    "name": "Glenn Maxwell",
@@ -2901,7 +3204,9 @@
      "team": "PBKS",
      "priceLakh": 420
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jacob Bethell",
@@ -2920,7 +3225,9 @@
      "team": "RCB",
      "priceLakh": 260
     }
-   ]
+   ],
+   "price2026Lakh": 260,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Jitesh Sharma",
@@ -2939,7 +3246,9 @@
      "team": "RCB",
      "priceLakh": 1100
     }
-   ]
+   ],
+   "price2026Lakh": 1100,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Michael Bracewell",
@@ -2967,7 +3276,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Nuwan Thushara",
@@ -2992,7 +3303,9 @@
      "team": "RCB",
      "priceLakh": 160
     }
-   ]
+   ],
+   "price2026Lakh": 160,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Romario Shepherd",
@@ -3011,7 +3324,9 @@
      "team": "RCB",
      "priceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Vaibhav Arora",
@@ -3030,7 +3345,9 @@
      "team": "KKR",
      "priceLakh": 180
     }
-   ]
+   ],
+   "price2026Lakh": 180,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Wiaan Mulder",
@@ -3053,7 +3370,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Abdul Samad",
@@ -3072,7 +3391,9 @@
      "team": "LSG",
      "priceLakh": 420
     }
-   ]
+   ],
+   "price2026Lakh": 420,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Abishek Porel",
@@ -3084,7 +3405,9 @@
    "overall": 72,
    "basePriceLakh": 75,
    "team2026": "DC",
-   "history": []
+   "history": [],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Adam Milne",
@@ -3107,7 +3430,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 240,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Alex Carey",
@@ -3125,7 +3450,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Angkrish Raghuvanshi",
@@ -3150,7 +3477,9 @@
      "team": "KKR",
      "priceLakh": 300
     }
-   ]
+   ],
+   "price2026Lakh": 300,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ayush Badoni",
@@ -3162,7 +3491,9 @@
    "overall": 72,
    "basePriceLakh": 75,
    "team2026": "LSG",
-   "history": []
+   "history": [],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Charith Asalanka",
@@ -3180,7 +3511,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dushmantha Chameera",
@@ -3204,7 +3537,9 @@
      "team": "DC",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 auction"
   },
   {
    "name": "James Vince",
@@ -3222,7 +3557,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jordan Cox",
@@ -3240,7 +3577,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Kusal Mendis",
@@ -3263,7 +3602,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "MS Dhoni",
@@ -3275,7 +3616,9 @@
    "overall": 72,
    "basePriceLakh": 75,
    "team2026": "CSK",
-   "history": []
+   "history": [],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Matthew Breetzke",
@@ -3294,7 +3637,9 @@
      "team": "LSG",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Mitchell Owen",
@@ -3306,7 +3651,9 @@
    "overall": 72,
    "basePriceLakh": 75,
    "team2026": "PBKS",
-   "history": []
+   "history": [],
+   "price2026Lakh": 300,
+   "priceHow": "2025 replacement"
   },
   {
    "name": "Mukesh Kumar",
@@ -3325,7 +3672,9 @@
      "team": "DC",
      "priceLakh": 800
     }
-   ]
+   ],
+   "price2026Lakh": 800,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Nitish Kumar Reddy",
@@ -3337,7 +3686,9 @@
    "overall": 72,
    "basePriceLakh": 75,
    "team2026": "SRH",
-   "history": []
+   "history": [],
+   "price2026Lakh": 600,
+   "priceHow": "retained"
   },
   {
    "name": "Sarfaraz Khan",
@@ -3366,7 +3717,9 @@
      "team": "CSK",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Shahrukh Khan",
@@ -3385,7 +3738,9 @@
      "team": "GT",
      "priceLakh": 740
     }
-   ]
+   ],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Sikandar Raza",
@@ -3403,7 +3758,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tim Seifert",
@@ -3421,7 +3778,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Tom Banton",
@@ -3439,7 +3798,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Tushar Deshpande",
@@ -3458,7 +3819,9 @@
      "team": "RR",
      "priceLakh": 650
     }
-   ]
+   ],
+   "price2026Lakh": 650,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ben Dwarshuis",
@@ -3481,7 +3844,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 440,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Corbin Bosch",
@@ -3499,7 +3864,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 replacement"
   },
   {
    "name": "Venkatesh Iyer",
@@ -3518,7 +3885,9 @@
      "team": "KKR",
      "priceLakh": 2375
     }
-   ]
+   ],
+   "price2026Lakh": 700,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Aniket Verma",
@@ -3537,7 +3906,9 @@
      "team": "SRH",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Blessing Muzarabani",
@@ -3555,7 +3926,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Cooper Connolly",
@@ -3573,7 +3946,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 300,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Dilshan Madushanka",
@@ -3597,7 +3972,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Eshan Malinga",
@@ -3616,7 +3993,9 @@
      "team": "SRH",
      "priceLakh": 120
     }
-   ]
+   ],
+   "price2026Lakh": 120,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Harpreet Brar",
@@ -3635,7 +4014,9 @@
      "team": "PBKS",
      "priceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ish Sodhi",
@@ -3653,7 +4034,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ishant Sharma",
@@ -3672,7 +4055,9 @@
      "team": "GT",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Jason Behrendorff",
@@ -3690,7 +4075,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jaydev Unadkat",
@@ -3715,7 +4102,9 @@
      "team": "SRH",
      "priceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": 100,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Jhye Richardson",
@@ -3744,7 +4133,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Josh Little",
@@ -3762,7 +4153,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Karun Nair",
@@ -3786,7 +4179,9 @@
      "team": "DC",
      "priceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": 50,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Kusal Perera",
@@ -3804,7 +4199,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kwena Maphaka",
@@ -3823,7 +4220,9 @@
      "team": "RR",
      "priceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Kyle Mayers",
@@ -3841,7 +4240,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Litton Das",
@@ -3859,7 +4260,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Luke Wood",
@@ -3882,7 +4285,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Mark Chapman",
@@ -3900,7 +4305,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mayank Agarwal",
@@ -3918,7 +4325,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mohammad Nabi",
@@ -3942,7 +4351,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Prithvi Shaw",
@@ -3966,7 +4377,9 @@
      "team": "DC",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Rahul Tripathi",
@@ -3985,7 +4398,9 @@
      "team": "CSK",
      "priceLakh": 340
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Reece Topley",
@@ -4004,7 +4419,9 @@
      "team": "MI",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shardul Thakur",
@@ -4028,7 +4445,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": 200,
+   "priceHow": "traded"
   },
   {
    "name": "Shreyas Gopal",
@@ -4053,7 +4472,9 @@
      "team": "CSK",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Tom Latham",
@@ -4071,7 +4492,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Urvil Patel",
@@ -4094,7 +4517,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 replacement"
   },
   {
    "name": "Vipraj Nigam",
@@ -4113,7 +4538,9 @@
      "team": "DC",
      "priceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": 50,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Vyshak Vijaykumar",
@@ -4132,7 +4559,9 @@
      "team": "PBKS",
      "priceLakh": 180
     }
-   ]
+   ],
+   "price2026Lakh": 180,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Will Young",
@@ -4150,7 +4579,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Chris Woakes",
@@ -4169,7 +4600,9 @@
      "team": "PBKS",
      "priceLakh": 420
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kamindu Mendis",
@@ -4188,7 +4621,9 @@
      "team": "SRH",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 auction"
   },
   {
    "name": "William Sutherland",
@@ -4211,7 +4646,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dan Lawrence",
@@ -4234,7 +4671,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Daniel Sams",
@@ -4252,7 +4691,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Donovan Ferreira",
@@ -4271,7 +4712,9 @@
      "team": "DC",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 100,
+   "priceHow": "traded"
   },
   {
    "name": "Dunith Wellalage",
@@ -4289,7 +4732,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Gurjapneet Singh",
@@ -4313,7 +4758,9 @@
      "team": "CSK",
      "priceLakh": 220
     }
-   ]
+   ],
+   "price2026Lakh": 220,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Harry Tector",
@@ -4331,7 +4778,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jack Edwards",
@@ -4350,7 +4799,9 @@
      "team": "SRH",
      "priceLakh": 300
     }
-   ]
+   ],
+   "price2026Lakh": 300,
+   "priceHow": "2026 auction"
   },
   {
    "name": "James Anderson",
@@ -4368,7 +4819,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jimmy Neesham",
@@ -4391,7 +4844,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Johnson Charles",
@@ -4409,7 +4864,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Lhuan-dre Pretorius",
@@ -4428,7 +4885,9 @@
      "team": "RR",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Lizaad Williams",
@@ -4447,7 +4906,9 @@
      "team": "MI",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Manish Pandey",
@@ -4472,7 +4933,9 @@
      "team": "KKR",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Mayank Markande",
@@ -4491,7 +4954,9 @@
      "team": "KKR",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "traded"
   },
   {
    "name": "Moeen Ali",
@@ -4510,7 +4975,9 @@
      "team": "KKR",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Nahid Rana",
@@ -4528,7 +4995,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Najibullah Zadran",
@@ -4546,7 +5015,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Naman Dhir",
@@ -4571,7 +5042,9 @@
      "team": "MI",
      "priceLakh": 525
     }
-   ]
+   ],
+   "price2026Lakh": 525,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Nathan Smith",
@@ -4594,7 +5067,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Obed McCoy",
@@ -4612,7 +5087,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Piyush Chawla",
@@ -4630,7 +5107,9 @@
      "result": "unsold",
      "basePriceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rasikh Salam",
@@ -4655,7 +5134,9 @@
      "team": "RCB",
      "priceLakh": 600
     }
-   ]
+   ],
+   "price2026Lakh": 600,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Richard Gleeson",
@@ -4678,7 +5159,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Riley Meredith",
@@ -4701,7 +5184,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rishad Hossain",
@@ -4719,7 +5204,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Roston Chase",
@@ -4737,7 +5224,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sediqullah Atal",
@@ -4760,7 +5249,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shoriful Islam",
@@ -4778,7 +5269,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tanveer Sangha",
@@ -4796,7 +5289,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tim Southee",
@@ -4814,7 +5309,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Towhid Hridoy",
@@ -4832,7 +5329,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tymal Mills",
@@ -4855,7 +5354,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Umesh Yadav",
@@ -4879,7 +5380,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Umran Malik",
@@ -4898,7 +5401,9 @@
      "team": "KKR",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 auction"
   },
   {
    "name": "William O'Rourke",
@@ -4916,7 +5421,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Yash Thakur",
@@ -4935,7 +5442,9 @@
      "team": "PBKS",
      "priceLakh": 160
     }
-   ]
+   ],
+   "price2026Lakh": 160,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Zak Foulkes",
@@ -4953,7 +5462,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Mehidy Hasan Miraz",
@@ -4971,7 +5482,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Akash Madhwal",
@@ -4995,7 +5508,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Andrew Tye",
@@ -5013,7 +5528,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Arshad Khan",
@@ -5038,7 +5555,9 @@
      "team": "GT",
      "priceLakh": 130
     }
-   ]
+   ],
+   "price2026Lakh": 130,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ashton Agar",
@@ -5056,7 +5575,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ashton Turner",
@@ -5080,7 +5601,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ashwani Kumar",
@@ -5099,7 +5622,9 @@
      "team": "MI",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ben McDermott",
@@ -5117,7 +5642,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Bhanuka Rajapaksa",
@@ -5135,7 +5662,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Chris Jordan",
@@ -5153,7 +5682,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dasun Shanaka",
@@ -5176,7 +5707,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "David Willey",
@@ -5195,7 +5728,9 @@
      "team": "LSG",
      "priceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Gudakesh Motie",
@@ -5213,7 +5748,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Harsh Dubey",
@@ -5231,7 +5768,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 replacement"
   },
   {
    "name": "Jeffrey Vandersay",
@@ -5249,7 +5788,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kartik Sharma",
@@ -5261,7 +5802,9 @@
    "overall": 66,
    "basePriceLakh": 50,
    "team2026": "CSK",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1420,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Kartik Tyagi",
@@ -5285,7 +5828,9 @@
      "result": "unsold",
      "basePriceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Kuldeep Sen",
@@ -5304,7 +5849,9 @@
      "team": "PBKS",
      "priceLakh": 80
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Lahiru Kumara",
@@ -5322,7 +5869,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Lance Morris",
@@ -5345,7 +5894,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Matthew Forde",
@@ -5363,7 +5914,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Matthew Potts",
@@ -5381,7 +5934,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Michael Neser",
@@ -5399,7 +5954,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mohit Sharma",
@@ -5418,7 +5975,9 @@
      "team": "DC",
      "priceLakh": 220
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mukesh Choudhary",
@@ -5437,7 +5996,9 @@
      "team": "CSK",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Olly Stone",
@@ -5455,7 +6016,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ottneil Baartman",
@@ -5473,7 +6036,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Qais Ahmad",
@@ -5496,7 +6061,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rahul Tewatia",
@@ -5508,7 +6075,9 @@
    "overall": 66,
    "basePriceLakh": 50,
    "team2026": "GT",
-   "history": []
+   "history": [],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Ramandeep Singh",
@@ -5527,7 +6096,9 @@
      "team": "KKR",
      "priceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": 400,
+   "priceHow": "retained"
   },
   {
    "name": "Sam Billings",
@@ -5545,7 +6116,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sameer Rizvi",
@@ -5570,7 +6143,9 @@
      "team": "DC",
      "priceLakh": 95
     }
-   ]
+   ],
+   "price2026Lakh": 95,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Saurabh Netravalkar",
@@ -5588,7 +6163,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shivam Mavi",
@@ -5612,7 +6189,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Tom Curran",
@@ -5636,7 +6215,9 @@
      "result": "unsold",
      "basePriceLakh": 200
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tom Kohler-Cadmore",
@@ -5660,7 +6241,9 @@
      "result": "unsold",
      "basePriceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Wayne Parnell",
@@ -5678,7 +6261,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Yudhvir Singh Charak",
@@ -5697,7 +6282,9 @@
      "team": "RR",
      "priceLakh": 35
     }
-   ]
+   ],
+   "price2026Lakh": 35,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Aaron Hardie",
@@ -5716,7 +6303,9 @@
      "team": "PBKS",
      "priceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mahipal Lomror",
@@ -5740,7 +6329,9 @@
      "result": "unsold",
      "basePriceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shubham Dubey",
@@ -5765,7 +6356,9 @@
      "team": "RR",
      "priceLakh": 80
     }
-   ]
+   ],
+   "price2026Lakh": 80,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Smaran Ravichandran",
@@ -5783,7 +6376,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 replacement"
   },
   {
    "name": "Abhinav Manohar",
@@ -5807,7 +6402,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Akash Singh",
@@ -5832,7 +6429,9 @@
      "team": "LSG",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Alick Athanaze",
@@ -5850,7 +6449,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Andre Fletcher",
@@ -5868,7 +6469,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Atharva Taide",
@@ -5892,7 +6495,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Auqib Dar",
@@ -5910,7 +6515,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 840,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Ben Howell",
@@ -5928,7 +6535,9 @@
      "result": "unsold",
      "basePriceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Benjamin Sears",
@@ -5946,7 +6555,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Brendon McMullen",
@@ -5964,7 +6575,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Chetan Sakariya",
@@ -5993,7 +6606,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Chris Green",
@@ -6011,7 +6626,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Colin Munro",
@@ -6029,7 +6646,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Daniel Worrall",
@@ -6047,7 +6666,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "David Payne",
@@ -6065,7 +6686,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Deepak Hooda",
@@ -6089,7 +6712,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dwaine Pretorius",
@@ -6107,7 +6732,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Gurnoor Brar",
@@ -6126,7 +6753,9 @@
      "team": "GT",
      "priceLakh": 130
     }
-   ]
+   ],
+   "price2026Lakh": 130,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Hasan Mahmud",
@@ -6144,7 +6773,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "John Turner",
@@ -6162,7 +6793,9 @@
      "result": "unsold",
      "basePriceLakh": 150
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Josh Philippe",
@@ -6180,7 +6813,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kyle Verreynne",
@@ -6198,7 +6833,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Leus du Plooy",
@@ -6216,7 +6853,9 @@
      "result": "unsold",
      "basePriceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Manimaran Siddharth",
@@ -6241,7 +6880,9 @@
      "team": "LSG",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Navdeep Saini",
@@ -6259,7 +6900,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Nqabayomzi Peter",
@@ -6277,7 +6920,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Prince Yadav",
@@ -6296,7 +6941,9 @@
      "team": "LSG",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Richard Ngarava",
@@ -6314,7 +6961,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shahbaz Ahmed",
@@ -6333,7 +6982,9 @@
      "team": "LSG",
      "priceLakh": 240
     }
-   ]
+   ],
+   "price2026Lakh": 240,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Tanzim Hasan Sakib",
@@ -6351,7 +7002,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vignesh Puthur",
@@ -6370,7 +7023,9 @@
      "team": "MI",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Vijayakanth Viyaskanth",
@@ -6388,7 +7043,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Waqar Salamkheil",
@@ -6416,7 +7073,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Zahir Khan Pakten",
@@ -6434,7 +7093,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dominic Drakes",
@@ -6452,7 +7113,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Keemo Paul",
@@ -6475,7 +7138,9 @@
      "result": "unsold",
      "basePriceLakh": 125
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Musheer Khan",
@@ -6494,7 +7159,9 @@
      "team": "PBKS",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Prashant Veer",
@@ -6506,7 +7173,9 @@
    "overall": 63,
    "basePriceLakh": 50,
    "team2026": "CSK",
-   "history": []
+   "history": [],
+   "price2026Lakh": 1420,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Rishi Dhawan",
@@ -6524,7 +7193,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vijay Shankar",
@@ -6548,7 +7219,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Anmolpreet Singh",
@@ -6571,7 +7244,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Daniel Mousley",
@@ -6589,7 +7264,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Danish Malewar",
@@ -6601,7 +7278,9 @@
    "overall": 62,
    "basePriceLakh": 50,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Duan Jansen",
@@ -6619,7 +7298,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jalaj Saxena",
@@ -6637,7 +7318,9 @@
      "result": "unsold",
      "basePriceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "KS Bharat",
@@ -6666,7 +7349,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Karn Sharma",
@@ -6690,7 +7375,9 @@
      "result": "unsold",
      "basePriceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kumar Kartikeya",
@@ -6714,7 +7401,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mahedi Hasan",
@@ -6732,7 +7421,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Manav Suthar",
@@ -6751,7 +7442,9 @@
      "team": "GT",
      "priceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Mayank Dagar",
@@ -6774,7 +7467,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Michael Pepper",
@@ -6792,7 +7487,9 @@
      "result": "unsold",
      "basePriceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Odean Smith",
@@ -6815,7 +7512,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ollie Pope",
@@ -6833,7 +7532,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Patrick Kruger",
@@ -6851,7 +7552,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Pravin Dubey",
@@ -6870,7 +7573,9 @@
      "team": "PBKS",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Priyam Garg",
@@ -6888,7 +7593,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Robin Minz",
@@ -6913,7 +7620,9 @@
      "team": "MI",
      "priceLakh": 65
     }
-   ]
+   ],
+   "price2026Lakh": 65,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Salil Arora",
@@ -6931,7 +7640,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 150,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Sandeep Warrier",
@@ -6954,7 +7665,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shams Mulani",
@@ -6972,7 +7685,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Siddharth Kaul",
@@ -6990,7 +7705,9 @@
      "result": "unsold",
      "basePriceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Suryansh Shedge",
@@ -7009,7 +7726,9 @@
      "team": "PBKS",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Sushant Mishra",
@@ -7033,7 +7752,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 90,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Swapnil Singh",
@@ -7058,7 +7779,9 @@
      "team": "RCB",
      "priceLakh": 50
     }
-   ]
+   ],
+   "price2026Lakh": 50,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Vidwath Kaverappa",
@@ -7076,7 +7799,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vishnu Vinod",
@@ -7095,7 +7820,9 @@
      "team": "PBKS",
      "priceLakh": 95
     }
-   ]
+   ],
+   "price2026Lakh": 95,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Zeeshan Ansari",
@@ -7114,7 +7841,9 @@
      "team": "SRH",
      "priceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": 40,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Anukul Roy",
@@ -7133,7 +7862,9 @@
      "team": "KKR",
      "priceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": 40,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Atharva Ankolekar",
@@ -7151,7 +7882,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Gulbadin Naib",
@@ -7169,7 +7902,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Lalit Yadav",
@@ -7187,7 +7922,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ramakrishna Ghosh",
@@ -7206,7 +7943,9 @@
      "team": "CSK",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Aman Khan",
@@ -7218,7 +7957,9 @@
    "overall": 60,
    "basePriceLakh": 30,
    "team2026": "CSK",
-   "history": []
+   "history": [],
+   "price2026Lakh": 40,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Aman Rao Perala",
@@ -7230,7 +7971,9 @@
    "overall": 60,
    "basePriceLakh": 30,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Anuj Rawat",
@@ -7249,7 +7992,9 @@
      "team": "GT",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Arya Desai",
@@ -7272,7 +8017,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ashok Sharma",
@@ -7291,7 +8038,9 @@
      "team": "RR",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 90,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Atit Sheth",
@@ -7314,7 +8063,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Bevon Jacobs",
@@ -7333,7 +8084,9 @@
      "team": "MI",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Chama Milind",
@@ -7351,7 +8104,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Daniel Lategan",
@@ -7369,7 +8124,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Daryn Dupavillon",
@@ -7387,7 +8144,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Harnoor Pannu",
@@ -7406,7 +8165,9 @@
      "team": "PBKS",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Himmat Singh",
@@ -7430,7 +8191,9 @@
      "team": "LSG",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Ishan Porel",
@@ -7453,7 +8216,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jagadeesha Suchith",
@@ -7471,7 +8236,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jayant Yadav",
@@ -7490,7 +8257,9 @@
      "team": "GT",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": 75,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Junior Dala",
@@ -7508,7 +8277,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kamlesh Nagarkoti",
@@ -7537,7 +8308,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kanishk Chouhan",
@@ -7549,7 +8322,9 @@
    "overall": 60,
    "basePriceLakh": 30,
    "team2026": "RCB",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Krishnappa Gowtham",
@@ -7567,7 +8342,9 @@
      "result": "unsold",
      "basePriceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mikyle Louis",
@@ -7585,7 +8362,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mohammed Azharuddeen",
@@ -7603,7 +8382,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Naman Tiwari",
@@ -7621,7 +8402,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 100,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Nangeyalia Kharote",
@@ -7639,7 +8422,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Prashant Solanki",
@@ -7657,7 +8442,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Pratham Singh",
@@ -7675,7 +8462,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Raghu Sharma",
@@ -7687,7 +8476,9 @@
    "overall": 60,
    "basePriceLakh": 30,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2025 replacement"
   },
   {
    "name": "Rajvardhan Hangargekar",
@@ -7711,7 +8502,9 @@
      "result": "unsold",
      "basePriceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ricky Bhui",
@@ -7735,7 +8528,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rohan Kunnummal",
@@ -7758,7 +8553,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sachin Dhas",
@@ -7776,7 +8573,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sakib Hussain",
@@ -7800,7 +8599,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Salman Nizar",
@@ -7818,7 +8619,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sarthak Ranjan",
@@ -7830,7 +8633,9 @@
    "overall": 60,
    "basePriceLakh": 30,
    "team2026": "KKR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Saurav Chauhan",
@@ -7854,7 +8659,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Simarjeet Singh",
@@ -7878,7 +8685,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Suyash Prabhudessai",
@@ -7896,7 +8705,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tanush Kotian",
@@ -7924,7 +8735,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vicky Ostwal",
@@ -7942,7 +8755,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Virat Singh",
@@ -7960,7 +8775,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Yash Dhull",
@@ -7983,7 +8800,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Arjun Tendulkar",
@@ -8002,7 +8821,9 @@
      "team": "MI",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "traded"
   },
   {
    "name": "Hilton Cartwright",
@@ -8020,7 +8841,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Karim Janat",
@@ -8039,7 +8862,9 @@
      "team": "GT",
      "priceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Manisankar Murasingh",
@@ -8057,7 +8882,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Nishant Sindhu",
@@ -8076,7 +8903,9 @@
      "team": "GT",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Raj Bawa",
@@ -8100,7 +8929,9 @@
      "team": "MI",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Saransh Jain",
@@ -8118,7 +8949,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tripurana Vijay",
@@ -8137,7 +8970,9 @@
      "team": "DC",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Abhinandan Singh",
@@ -8156,7 +8991,9 @@
      "team": "RCB",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Akshat Raghuwanshi",
@@ -8174,7 +9011,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 220,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Andre Siddarth",
@@ -8193,7 +9032,9 @@
      "team": "CSK",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Arshin Kulkarni",
@@ -8218,7 +9059,9 @@
      "team": "LSG",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Aryan Juyal",
@@ -8237,7 +9080,9 @@
      "team": "LSG",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ashwin Hebbar",
@@ -8255,7 +9100,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "BR Sharath",
@@ -8273,7 +9120,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Baba Aparajith",
@@ -8291,7 +9140,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Basil Thampi",
@@ -8309,7 +9160,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Connor Esterhuizen",
@@ -8327,7 +9180,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Darshan Nalkande",
@@ -8346,7 +9201,9 @@
      "team": "DC",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dinesh Bana",
@@ -8364,7 +9221,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dushan Hemantha",
@@ -8382,7 +9241,9 @@
      "result": "unsold",
      "basePriceLakh": 75
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "KC Cariappa",
@@ -8400,7 +9261,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "KM Asif",
@@ -8423,7 +9286,9 @@
      "result": "unsold",
      "basePriceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kumar Kushagra",
@@ -8448,7 +9313,9 @@
      "team": "GT",
      "priceLakh": 65
     }
-   ]
+   ],
+   "price2026Lakh": 65,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Madhav Kaushik",
@@ -8466,7 +9333,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Manan Vohra",
@@ -8489,7 +9358,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mangesh Yadav",
@@ -8501,7 +9372,9 @@
    "overall": 58,
    "basePriceLakh": 30,
    "team2026": "RCB",
-   "history": []
+   "history": [],
+   "price2026Lakh": 520,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Mayank Rawat",
@@ -8513,7 +9386,9 @@
    "overall": 58,
    "basePriceLakh": 30,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Mukul Choudhary",
@@ -8525,7 +9400,9 @@
    "overall": 58,
    "basePriceLakh": 30,
    "team2026": "LSG",
-   "history": []
+   "history": [],
+   "price2026Lakh": 260,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Murugan Ashwin",
@@ -8553,7 +9430,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Praful Hinge",
@@ -8571,7 +9450,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Prerak Mankad",
@@ -8589,7 +9470,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Prithviraj Yarra",
@@ -8607,7 +9490,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Pyla Avinash",
@@ -8626,7 +9511,9 @@
      "team": "PBKS",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Rajan Kumar",
@@ -8644,7 +9531,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ripal Patel",
@@ -8662,7 +9551,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sachin Baby",
@@ -8681,7 +9572,9 @@
      "team": "SRH",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sahil Parakh",
@@ -8693,7 +9586,9 @@
    "overall": 58,
    "basePriceLakh": 30,
    "team2026": "DC",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Sanvir Singh",
@@ -8716,7 +9611,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Satvik Deswal",
@@ -8728,7 +9625,9 @@
    "overall": 58,
    "basePriceLakh": 30,
    "team2026": "RCB",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Shaik Rasheed",
@@ -8747,7 +9646,9 @@
      "team": "CSK",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shivam Singh",
@@ -8765,7 +9666,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Swastik Chikara",
@@ -8795,7 +9698,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tanay Thyagarajan",
@@ -8824,7 +9729,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tejasvi Singh",
@@ -8842,7 +9749,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 300,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Tushar Raheja",
@@ -8860,7 +9769,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Uday Saharan",
@@ -8878,7 +9789,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Upendra Singh Yadav",
@@ -8896,7 +9809,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vansh Bedi",
@@ -8920,7 +9835,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vihaan Malhotra",
@@ -8932,7 +9849,9 @@
    "overall": 58,
    "basePriceLakh": 30,
    "team2026": "RCB",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Vivrant Sharma",
@@ -8950,7 +9869,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Writtick Chatterjee",
@@ -8968,7 +9889,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Karan Lal",
@@ -8986,7 +9909,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Madhav Tiwari",
@@ -9005,7 +9930,9 @@
      "team": "DC",
      "priceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": 40,
+   "priceHow": "2025 auction"
   },
   {
    "name": "RS Ambrish",
@@ -9023,7 +9950,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shivang Kumar",
@@ -9035,7 +9964,9 @@
    "overall": 57,
    "basePriceLakh": 30,
    "team2026": "SRH",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Abhilash Shetty",
@@ -9058,7 +9989,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Abhinav Tejrana",
@@ -9076,7 +10009,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ajay Mandal",
@@ -9095,7 +10030,9 @@
      "team": "DC",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": 30,
+   "priceHow": "2025 auction"
   },
   {
    "name": "Akash Vashisht",
@@ -9113,7 +10050,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Avanish Aravelly",
@@ -9137,7 +10076,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Chintal Gandhi",
@@ -9160,7 +10101,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Harvik Desai",
@@ -9178,7 +10121,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Hrithik Shokeen",
@@ -9196,7 +10141,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jhathavedh Subramanyan",
@@ -9220,7 +10167,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Manvanth Kumar L",
@@ -9239,7 +10188,9 @@
      "team": "DC",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mohit Avasthi",
@@ -9257,7 +10208,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Prince Choudhary",
@@ -9281,7 +10234,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rajneesh Gurbani",
@@ -9299,7 +10254,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sanjay Yadav",
@@ -9317,7 +10274,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shashwat Rawat",
@@ -9335,7 +10294,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shivalik Sharma",
@@ -9359,7 +10320,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shubhang Hegde",
@@ -9377,7 +10340,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sumit Kumar",
@@ -9396,7 +10361,9 @@
      "team": "DC",
      "priceLakh": 100
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Abid Mushtaq",
@@ -9415,7 +10382,9 @@
      "team": "RR",
      "priceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ajitesh Guruswamy",
@@ -9438,7 +10407,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Amit Kumar",
@@ -9450,7 +10421,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "SRH",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Apoorv Wankhade",
@@ -9468,7 +10441,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Arpit Guleria",
@@ -9486,7 +10461,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Aryaman Singh Dhaliwal",
@@ -9504,7 +10481,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Avinash Singh",
@@ -9522,7 +10501,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Bailapudi Yeswanth",
@@ -9540,7 +10521,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Bipin Saurabh",
@@ -9563,7 +10546,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Brijesh Sharma",
@@ -9575,7 +10560,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Daksh Kamra",
@@ -9587,7 +10574,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "KKR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Digvijay Deshmukh",
@@ -9605,7 +10594,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dumindu Sewmina",
@@ -9623,7 +10614,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Eden Apple Tom",
@@ -9641,7 +10634,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Emanjot Chahal",
@@ -9659,7 +10654,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Himanshu Sharma",
@@ -9677,7 +10674,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Irfan Umair",
@@ -9695,7 +10694,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kartik Chadha",
@@ -9713,7 +10714,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Krains Fuletra",
@@ -9725,7 +10728,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "SRH",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Krishnan Shrijith",
@@ -9749,7 +10754,9 @@
      "team": "MI",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kritagya Singh",
@@ -9767,7 +10774,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kulwant Khejroliya",
@@ -9786,7 +10795,9 @@
      "team": "GT",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kunal Rathore",
@@ -9805,7 +10816,9 @@
      "team": "RR",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "LR Chethan",
@@ -9823,7 +10836,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Luvnith Sisodia",
@@ -9842,7 +10857,9 @@
      "team": "KKR",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Macneil Noronha",
@@ -9860,7 +10877,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Manish Reddy",
@@ -9878,7 +10897,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mohammad Izhar",
@@ -9890,7 +10911,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "MI",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Mohit Rathee",
@@ -9914,7 +10937,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Money Grewal",
@@ -9937,7 +10962,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mujtaba Yousuf",
@@ -9955,7 +10982,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mukhtar Hussain",
@@ -9973,7 +11002,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Onkar Tarmale",
@@ -9985,7 +11016,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "SRH",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Pankaj Jaswal",
@@ -10003,7 +11036,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Pradosh Ranjan Paul",
@@ -10021,7 +11056,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Prayas Ray Barman",
@@ -10039,7 +11076,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Pukhraj Mann",
@@ -10057,7 +11096,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Raghav Goyal",
@@ -10075,7 +11116,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Raj Limbani",
@@ -10093,7 +11136,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ravi Singh",
@@ -10105,7 +11150,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 95,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Rohit Rayudu",
@@ -10123,7 +11170,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ruchit Ahir",
@@ -10141,7 +11190,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Satyanarayana Raju",
@@ -10160,7 +11211,9 @@
      "team": "MI",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shiva Singh",
@@ -10183,7 +11236,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shivam Shukla",
@@ -10201,7 +11256,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shoun Roger",
@@ -10219,7 +11276,9 @@
      "result": "unsold",
      "basePriceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Siddharth Yadav",
@@ -10237,7 +11296,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Utkarsh Singh",
@@ -10260,7 +11321,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vaisakh Chandran",
@@ -10278,7 +11341,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vasu Vats",
@@ -10296,7 +11361,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vijay Kumar",
@@ -10314,7 +11381,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vishal Nishad",
@@ -10326,7 +11395,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "PBKS",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Vishnu Solanki",
@@ -10344,7 +11415,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Wahidullah Zadran",
@@ -10362,7 +11435,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Yash Raj Punja",
@@ -10374,7 +11449,9 @@
    "overall": 55,
    "basePriceLakh": 30,
    "team2026": "RR",
-   "history": []
+   "history": [],
+   "price2026Lakh": 30,
+   "priceHow": "2026 auction"
   },
   {
    "name": "Abdul Basith",
@@ -10392,7 +11469,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ajay Ahlawat",
@@ -10410,7 +11489,9 @@
      "result": "unsold",
      "basePriceLakh": 40
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Arjun Azad",
@@ -10428,7 +11509,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ayush Vartak",
@@ -10451,7 +11534,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dheeraj Kumar",
@@ -10469,7 +11554,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Gaurav Gambhir",
@@ -10487,7 +11574,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Hardik Tamore",
@@ -10505,7 +11594,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kaushik Maity",
@@ -10523,7 +11614,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Manoj Bhandage",
@@ -10542,7 +11635,9 @@
      "team": "RCB",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Roshan Waghsare",
@@ -10560,7 +11655,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sairaj Patil",
@@ -10578,7 +11675,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shreyas Chavan",
@@ -10596,7 +11695,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sumit Kumar Beniwal",
@@ -10614,7 +11715,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Umang Kumar",
@@ -10632,7 +11735,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Yash Dabas",
@@ -10650,7 +11755,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Yuvraj Chaudhary",
@@ -10669,7 +11776,9 @@
      "team": "LSG",
      "priceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Abhishek Saini",
@@ -10687,7 +11796,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Akash Parkar",
@@ -10705,7 +11816,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Anirudh Kanwar",
@@ -10723,7 +11836,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Anshuman Hooda",
@@ -10741,7 +11856,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Arshpreet Singh",
@@ -10759,7 +11876,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Atif Mushtaq",
@@ -10777,7 +11896,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Avneesh Sudha",
@@ -10795,7 +11916,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ayaz Khan",
@@ -10813,7 +11936,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ayush Pandey",
@@ -10831,7 +11956,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Chetan Sharma",
@@ -10849,7 +11976,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Devesh Sharma",
@@ -10867,7 +11996,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dhruv Kaushik",
@@ -10885,7 +12016,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Dipesh Parwani",
@@ -10903,7 +12036,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Faridoon Dawoodzai",
@@ -10921,7 +12056,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Girinath Reddy",
@@ -10939,7 +12076,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Hemanth Kumar",
@@ -10957,7 +12096,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Izaz Sawariya",
@@ -10975,7 +12116,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jafar Jamal",
@@ -10993,7 +12136,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jikku Bright",
@@ -11011,7 +12156,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Jonty Sidhu",
@@ -11029,7 +12176,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Khrievitso Kense",
@@ -11047,7 +12196,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mayank Gusain",
@@ -11065,7 +12216,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mohammed Kaif",
@@ -11083,7 +12236,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Nishunk Birla",
@@ -11101,7 +12256,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "P Vignesh",
@@ -11119,7 +12276,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Prashant Chauhan",
@@ -11137,7 +12296,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Prerit Dutta",
@@ -11155,7 +12316,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ravi Yadav",
@@ -11173,7 +12336,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rithik Easwaran",
@@ -11191,7 +12356,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Ritik Tada",
@@ -11209,7 +12376,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rituraj Sharma",
@@ -11227,7 +12396,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Rohan Rana",
@@ -11245,7 +12416,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sabhay Chadha",
@@ -11263,7 +12436,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Samarth Nagraj",
@@ -11281,7 +12456,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sanskar Rawat",
@@ -11299,7 +12476,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shubham Kapse",
@@ -11317,7 +12496,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Sumeet Verma",
@@ -11335,7 +12516,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tejasvi Jaiswal",
@@ -11353,7 +12536,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tripuresh Singh",
@@ -11371,7 +12556,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vijay Yadav",
@@ -11389,7 +12576,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vishal Godara",
@@ -11407,7 +12596,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Vishwanath Pratap Singh",
@@ -11426,7 +12617,9 @@
      "team": "PBKS",
      "priceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Yogesh Nagar",
@@ -11444,7 +12637,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Abhay Choudhary",
@@ -11462,7 +12657,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Bharat Sharma",
@@ -11480,7 +12677,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Gaurav Chaudhary",
@@ -11498,7 +12697,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kamal Tripathi",
@@ -11516,7 +12717,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Kuldip Yadav",
@@ -11534,7 +12737,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Lakshay Jain",
@@ -11552,7 +12757,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Mohamed Ali",
@@ -11570,7 +12777,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Pradyuman Kumar Singh",
@@ -11588,7 +12797,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Pulkit Narang",
@@ -11606,7 +12817,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shubham Agarwal",
@@ -11624,7 +12837,9 @@
      "result": "unsold",
      "basePriceLakh": 20
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Shubham Garhwal",
@@ -11642,7 +12857,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Tejas Baroka",
@@ -11660,7 +12877,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   },
   {
    "name": "Yajas Sharma",
@@ -11678,7 +12897,9 @@
      "result": "unsold",
      "basePriceLakh": 30
     }
-   ]
+   ],
+   "price2026Lakh": null,
+   "priceHow": null
   }
  ]
 }

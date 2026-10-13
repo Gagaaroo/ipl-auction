@@ -118,7 +118,7 @@ export function retainRealSquads(players: Player[], teamCodes: string[], rules: 
 
 // ---------- CSV import ----------
 
-export const CSV_COLUMNS = ['name', 'role', 'country', 'overseas', 'bat', 'bowl', 'overall', 'basePriceLakh', 'team2026'];
+export const CSV_COLUMNS = ['name', 'role', 'country', 'overseas', 'bat', 'bowl', 'overall', 'basePriceLakh', 'team2026', 'price2026Lakh'];
 
 function splitCsvLine(line: string): string[] {
   const out: string[] = [];
@@ -176,7 +176,11 @@ export function parsePlayersCsv(text: string): CsvResult {
     const overall = Number(get('overall')) || computeOverall(role, bat, bowl);
     const basePriceLakh = Number(get('basePriceLakh')) || baseSlab(overall);
     const team = get('team2026').toUpperCase();
-    players.push({ name, role, country, overseas, bat, bowl, overall, basePriceLakh, team2026: team || null, history: [] });
+    const price = Number(get('price2026Lakh'));
+    players.push({
+      name, role, country, overseas, bat, bowl, overall, basePriceLakh, team2026: team || null, history: [],
+      price2026Lakh: price > 0 ? price : null,
+    });
   });
   return { players, errors };
 }

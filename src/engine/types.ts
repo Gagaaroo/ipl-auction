@@ -16,6 +16,10 @@ export interface PlayerRecord {
   basePriceLakh: number;
   team2026: string | null;
   history: HistoryEntry[];
+  /** IPL 2026 contract price in lakh: what a draft pick costs. Null for players outside a 2026 squad. */
+  price2026Lakh?: number | null;
+  /** How he came by that price: 'retained', '2025 auction', '2025 replacement', 'traded' or '2026 auction'. */
+  priceHow?: string | null;
 }
 
 export interface Player extends PlayerRecord {
@@ -31,6 +35,9 @@ export interface TeamDef {
 
 export type PoolMode = 'real' | 'full';
 
+/** 'draft': pick current IPL players at their real 2026 price. 'auction': the classic live auction. */
+export type GameMode = 'draft' | 'auction';
+
 export interface Rules {
   purseCr: number;
   squadMax: number;
@@ -39,6 +46,7 @@ export interface Rules {
   overseasXI: number;
   clockSec: number;
   poolMode: PoolMode;
+  game: GameMode;
 }
 
 export interface SquadEntry {

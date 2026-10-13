@@ -20,13 +20,14 @@ export const SQUAD_SIZE_MIN = 15;
 export const SQUAD_SIZE_MAX = 25;
 
 export const DEFAULT_RULES: Rules = {
-  purseCr: 100,
+  purseCr: 120,
   squadMax: 18,
   squadMin: 11,
   overseasMax: 8,
   overseasXI: 4,
   clockSec: 6,
   poolMode: 'real',
+  game: 'draft',
 };
 
 export function createAuction(cfg: AuctionConfig): AuctionState {

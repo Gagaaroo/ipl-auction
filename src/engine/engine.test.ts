@@ -9,6 +9,7 @@ import { acceleratedPrice, buildLots, parsePlayersCsv, withIds } from './pool';
 import { bestXI } from './xi';
 import { simulateSeason } from './season';
 import { makeRng } from './rng';
+import { autoPick, createDraft, draftTeam, finishTeam, makePick, onTheClock, pickBlock, priceOf, runAi, type DraftState } from './draft';
 
 const players = data.players as PlayerRecord[];
 
@@ -83,7 +84,7 @@ describe('auction engine', () => {
   });
   it('full auction puts everyone in the pool', () => {
     const s = newAuction({ poolMode: 'full' });
-    expect(s.teams.every((t) => t.squad.length === 0 && t.purseLakh === 10000)).toBe(true);
+    expect(s.teams.every((t) => t.squad.length === 0 && t.purseLakh === DEFAULT_RULES.purseCr * 100)).toBe(true);
     expect(s.queue.length).toBe(players.length);
   });
   it('bids climb by increments and the holder cannot bid again', () => {
@@ -103,7 +104,7 @@ describe('auction engine', () => {
     s = hammer(s);
     const rr = team(s, 'RR');
     expect(rr.squad.map((e) => e.playerId)).toContain(id);
-    expect(rr.purseLakh).toBe(10000 - price);
+    expect(rr.purseLakh).toBe(DEFAULT_RULES.purseCr * 100 - price);
     expect(s.log.at(-1)).toMatchObject({ kind: 'sold', team: 'RR' });
   });
   it('blocks a bid that would leave too little to fill the minimum squad', () => {
@@ -219,5 +220,78 @@ describe('season', () => {
   it('is deterministic for a seed', () => {
     const teams = [{ code: 'A', bat: 70, bowl: 70 }, { code: 'B', bat: 70, bowl: 70 }];
     expect(simulateSeason(teams, 9)).toEqual(simulateSeason(teams, 9));
+  });
+});
+
+describe('real-price draft', () => {
+  const rules: Rules = { ...DEFAULT_RULES, game: 'draft' };
+  const newDraft = (humans: string[] = [], r: Partial<Rules> = {}, seed = 7) =>
+    createDraft({ rules: { ...rules, ...r }, teams: IPL_TEAMS.map((def) => ({ def, human: humans.includes(def.code) })), players, seed });
+  const byName = (s: DraftState, name: string) => Object.values(s.players).find((p) => p.name === name)!;
+
+  it('pools only current IPL players, each at his 2026 price', () => {
+    const s = newDraft();
+    expect(s.available.length).toBe(250);
+    expect(priceOf(byName(s, 'KL Rahul'))).toBe(1400);
+    expect(priceOf(byName(s, 'Venkatesh Iyer'))).toBe(700);
+    expect(priceOf(byName(s, 'Virat Kohli'))).toBe(2100);
+  });
+
+  it('takes the real price off the purse and moves the turn on, snaking each round', () => {
+    let s = newDraft(IPL_TEAMS.map((t) => t.code));
+    const first = onTheClock(s)!;
+    const rahul = byName(s, 'KL Rahul');
+    s = makePick(s, first, rahul.id);
+    expect(draftTeam(s, first).purseLakh).toBe(120 * 100 - 1400);
+    expect(s.available).not.toContain(rahul.id);
+    expect(onTheClock(s)).toBe(s.order[1]);
+    // Someone else can't take him now.
+    expect(pickBlock(s, onTheClock(s)!, rahul.id)).toBe('taken');
+    // Finish round 1: the last team in round 1 opens round 2.
+    for (let i = 1; i < s.order.length; i++) s = autoPick(s, makeRng(i));
+    expect(s.round).toBe(2);
+    expect(onTheClock(s)).toBe(s.order[s.order.length - 1]);
+  });
+
+  it('blocks picks out of turn, over budget and past the overseas cap', () => {
+    let s = newDraft(['MI', 'CSK'], { purseCr: 20, squadMin: 11 });
+    const code = onTheClock(s)!;
+    const other = s.order.find((c) => c !== code)!;
+    const cheap = s.available.map((id) => s.players[id]).find((p) => priceOf(p) === 30 && !p.overseas)!;
+    expect(pickBlock(s, other, cheap.id)).toBe('not-your-turn');
+    // ₹20 Cr less ₹30 L x 10 still-needed slots leaves ₹17 Cr: Kohli at ₹21 Cr is out of reach.
+    expect(pickBlock(s, code, byName(s, 'Virat Kohli').id)).toBe('purse');
+    s = { ...s, rules: { ...s.rules, overseasMax: 0 } };
+    expect(pickBlock(s, code, byName(s, 'Travis Head').id)).toBe('overseas-full');
+  });
+
+  it('lets a team finish once it has its minimum squad', () => {
+    let s = newDraft(['MI']);
+    expect(finishTeam(s, 'MI')).toBe(s);
+    s = runAi(s, makeRng(1), true);
+    expect(s.finished).toBe(true);
+  });
+
+  it('runs an all-AI draft to the end with legal, affordable squads', () => {
+    for (const r of [{}, { purseCr: 60, squadMax: 15 }, { purseCr: 100, squadMax: 25, squadMin: 18 }]) {
+      const s = runAi(newDraft([], r), makeRng(3), true);
+      expect(s.finished).toBe(true);
+      for (const t of s.teams) {
+        expect(t.purseLakh).toBeGreaterThanOrEqual(0);
+        expect(t.squad.length).toBeLessThanOrEqual(s.rules.squadMax);
+        expect(t.squad.length).toBeGreaterThanOrEqual(11);
+        expect(t.squad.filter((e) => s.players[e.playerId].overseas).length).toBeLessThanOrEqual(s.rules.overseasMax);
+        expect(bestXI(t.squad.map((e) => s.players[e.playerId])).hasKeeper).toBe(true);
+      }
+      const spent = s.teams.reduce((n, t) => n + t.squad.reduce((m, e) => m + e.priceLakh, 0), 0);
+      expect(spent).toBe(s.picks.reduce((n, p) => n + p.priceLakh, 0));
+    }
+  });
+
+  it('stops for humans and only auto-picks for them when asked', () => {
+    let s = runAi(newDraft(['RCB']), makeRng(5));
+    expect(onTheClock(s)).toBe('RCB');
+    s = autoPick(s, makeRng(6));
+    expect(s.picks[s.picks.length - 1]).toMatchObject({ team: 'RCB', auto: true });
   });
 });

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { lazy, Suspense, useCallback, useState } from 'react';
 import type { AuctionState } from '../engine/types';
 import { createAuction } from '../engine/auction';
 import { createDraft, type DraftState } from '../engine/draft';
@@ -7,11 +7,15 @@ import { AuctionRoom } from './AuctionRoom';
 import { DraftRoom } from './DraftRoom';
 import { Results } from './Results';
 import { Setup, type StartConfig } from './Setup';
-import { loadAuction, loadDraft, saveAuction, saveDraft, type SavedAuction, type SavedDraft } from './storage';
+import { loadAuction, loadDraft, loadHost, loadName, saveAuction, saveDraft, saveHost, type HostSaved, type SavedAuction, type SavedDraft } from './storage';
+import { newRoomCode } from '../online/net';
+
+const HostRoom = lazy(() => import('./online/HostRoom').then((m) => ({ default: m.HostRoom })));
 
 const newSeed = () => (Math.random() * 2 ** 32) >>> 0;
 
 export function Play() {
+  const [host, setHost] = useState<HostSaved | null>(loadHost);
   const [draft, setDraft] = useState<SavedDraft | null>(loadDraft);
   const [saved, setSaved] = useState<SavedAuction | null>(() => (loadDraft() ? null : loadAuction()));
   const [resumed] = useState(() => saved !== null && !saved.auction.finished);
@@ -26,6 +30,22 @@ export function Play() {
     setDraft(s);
     saveDraft(s);
   }, []);
+
+  const startOnline = (cfg: StartConfig) => {
+    const me = cfg.teams.find((t) => t.human) ?? cfg.teams[0];
+    const h: HostSaved = {
+      code: newRoomCode(),
+      hostName: loadName() || 'Host',
+      hostSeat: me.def.code,
+      config: { teams: cfg.teams.map((t) => ({ def: t.def, human: t.human || t.def.code === me.def.code })), rules: cfg.rules, players: cfg.players },
+      seats: {},
+      draft: null,
+      seasonSeed: newSeed(),
+    };
+    saveHost(h);
+    setHost(h);
+    window.scrollTo(0, 0);
+  };
 
   const start = (cfg: StartConfig) => {
     if (cfg.rules.game === 'draft') {
@@ -62,6 +82,13 @@ export function Play() {
     [updateDraft],
   );
 
+  if (host)
+    return (
+      <Suspense fallback={<p className="status-line">Opening the room…</p>}>
+        <HostRoom initial={host} onClose={() => setHost(null)} />
+      </Suspense>
+    );
+
   if (draft) {
     if (draft.draft.finished)
       return (
@@ -75,7 +102,7 @@ export function Play() {
     return <DraftRoom key={roomKey} initial={draft.draft} onChange={onDraftChange} />;
   }
 
-  if (!saved) return <Setup onStart={start} />;
+  if (!saved) return <Setup onStart={start} onStartOnline={startOnline} />;
 
   if (saved.auction.finished)
     return (

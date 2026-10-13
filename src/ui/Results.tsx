@@ -6,11 +6,13 @@ import { BallRating, Board, ConfirmDialog, OS, TeamBadge, type Ask } from './bit
 interface Props {
   state: ResultSource;
   seasonSeed: number;
-  onReplay: () => void;
-  onNew: () => void;
+  /** Hidden for online guests: only the host replays or starts again. */
+  onReplay?: () => void;
+  onNew?: () => void;
+  newLabel?: string;
 }
 
-export function Results({ state, seasonSeed, onReplay, onNew }: Props) {
+export function Results({ state, seasonSeed, onReplay, onNew, newLabel }: Props) {
   const results = useMemo(() => teamResults(state), [state]);
   const season = useMemo(() => simulateSeason(strengths(results), seasonSeed), [results, seasonSeed]);
   const prizes = useMemo(() => awards(state, results), [state, results]);
@@ -37,18 +39,30 @@ export function Results({ state, seasonSeed, onReplay, onNew }: Props) {
         <div className="board-holder">Final: {finalLine(season.final)}</div>
       </Board>
 
-      <div className="row wrap gap">
-        <button type="button" className="btn btn-big" onClick={onReplay}>
-          ↻ Replay season
-        </button>
-        <button
-          type="button"
-          className="btn"
-          onClick={() => setAsk({ message: `Start a new ${word}? These results will be cleared.`, yes: `New ${word}`, onYes: onNew })}
-        >
-          New {word}
-        </button>
-      </div>
+      {(onReplay || onNew) && (
+        <div className="row wrap gap">
+          {onReplay && (
+            <button type="button" className="btn btn-big" onClick={onReplay}>
+              ↻ Replay season
+            </button>
+          )}
+          {onNew && (
+            <button
+              type="button"
+              className="btn"
+              onClick={() =>
+                setAsk({
+                  message: newLabel ? `${newLabel}? These results will be cleared for everyone.` : `Start a new ${word}? These results will be cleared.`,
+                  yes: newLabel ?? `New ${word}`,
+                  onYes: onNew,
+                })
+              }
+            >
+              {newLabel ?? `New ${word}`}
+            </button>
+          )}
+        </div>
+      )}
 
       <ConfirmDialog ask={ask} onClose={closeAsk} />
 

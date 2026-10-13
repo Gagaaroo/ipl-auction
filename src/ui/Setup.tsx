@@ -33,7 +33,7 @@ export interface StartConfig {
   players: PlayerRecord[];
 }
 
-export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
+export function Setup({ onStart, onStartOnline }: { onStart: (cfg: StartConfig) => void; onStartOnline?: (cfg: StartConfig) => void }) {
   const [prefs, setPrefsRaw] = useState<SetupPrefs>(() => {
     const saved = loadSetup<SetupPrefs>();
     if (!saved) return defaultPrefs();
@@ -90,6 +90,11 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
     return out;
   }, [included.length, rules, poolSize]);
 
+  const config = (): StartConfig => ({
+    teams: included.map((def) => ({ def, human: slotOf(def.code) === 'human' })),
+    rules,
+    players,
+  });
   const start = () => {
     if (problems.length) return;
     onStart({
@@ -276,9 +281,28 @@ export function Setup({ onStart }: { onStart: (cfg: StartConfig) => void }) {
             ))}
           </ul>
         )}
-        <button type="button" className="btn btn-big" onClick={start} disabled={problems.length > 0}>
-          {isDraft ? 'Start the draft →' : 'Open the auction →'}
-        </button>
+        <div className="start-buttons">
+          {isDraft && onStartOnline && (
+            <button
+              type="button"
+              className="btn btn-big btn-alt"
+              disabled={problems.length > 0 || humans.length === 0}
+              title={humans.length === 0 ? 'Mark your own team as You first' : undefined}
+              onClick={() => onStartOnline(config())}
+            >
+              Play online: get a link →
+            </button>
+          )}
+          <button type="button" className="btn btn-big" onClick={start} disabled={problems.length > 0}>
+            {isDraft ? 'Start on this device →' : 'Open the auction →'}
+          </button>
+        </div>
+        {isDraft && (
+          <p className="hint start-hint">
+            <b>Playing online?</b> Mark your team as <b>You</b> (and any teams your friends will play). You get a link to send them; each
+            friend opens it and takes a team. {humans.length === 0 && <b>Mark your own team as You first.</b>}
+          </p>
+        )}
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import { acceleratedPrice, buildLots, parsePlayersCsv, withIds } from './pool';
 import { bestXI } from './xi';
 import { simulateSeason } from './season';
 import { makeRng } from './rng';
-import { autoPick, createDraft, draftTeam, finishTeam, makePick, onTheClock, pickBlock, priceOf, runAi, type DraftState } from './draft';
+import { applyAction, autoPick, createDraft, draftTeam, finishTeam, makePick, onTheClock, pickBlock, priceOf, runAi, skipTurn, type DraftState } from './draft';
 
 const players = data.players as PlayerRecord[];
 
@@ -293,5 +293,28 @@ describe('real-price draft', () => {
     expect(onTheClock(s)).toBe('RCB');
     s = autoPick(s, makeRng(6));
     expect(s.picks[s.picks.length - 1]).toMatchObject({ team: 'RCB', auto: true });
+  });
+
+  it('lets the team on the clock skip its turn, keeping its money', () => {
+    let s = newDraft(IPL_TEAMS.map((t) => t.code));
+    const first = onTheClock(s)!;
+    const other = s.order[1];
+    expect(skipTurn(s, other)).toBe(s); // not their turn
+    s = skipTurn(s, first);
+    expect(draftTeam(s, first).purseLakh).toBe(120 * 100);
+    expect(draftTeam(s, first).squad.length).toBe(0);
+    expect(s.passes).toEqual([{ round: 1, team: first, afterPick: 0 }]);
+    expect(onTheClock(s)).toBe(other);
+    expect(s.picks.length).toBe(0);
+  });
+
+  it('only applies actions for the team on the clock', () => {
+    const s = newDraft(IPL_TEAMS.map((t) => t.code));
+    const notUp = s.order[2];
+    const id = s.available[0];
+    expect(applyAction(s, { type: 'pick', team: notUp, playerId: id }, makeRng(1))).toBe(s);
+    expect(applyAction(s, { type: 'auto', team: notUp }, makeRng(1))).toBe(s);
+    expect(applyAction(s, { type: 'skip', team: notUp }, makeRng(1))).toBe(s);
+    expect(applyAction(s, { type: 'pick', team: onTheClock(s)!, playerId: id }, makeRng(1)).picks.length).toBe(1);
   });
 });

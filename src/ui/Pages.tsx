@@ -27,7 +27,8 @@ export function HowToPlay() {
           take” to hide anyone you can’t afford or have no room for.
         </li>
         <li>
-          <b>Auto-pick for me</b> lets the AI make your pick. <b>Finish my squad</b> stops you picking once you have your minimum squad.{' '}
+          <b>Skip my turn</b> passes without picking: you keep your money and the next team picks. <b>Auto-pick for me</b> lets the AI
+          make your pick. <b>Finish my squad</b> stops you picking once you have your minimum squad.{' '}
           <b>Sim to the end</b> lets the AI finish the whole draft, your team included.
         </li>
         <li>AI teams pick on their own. Slow them down or speed them up with the AI speed setting, or pause them between your turns.</li>
@@ -47,6 +48,32 @@ export function HowToPlay() {
         <li>
           In the classic auction, <b>Real squads</b>: IPL teams keep their best 2026 players (squad size minus six, max overseas minus two), with a retention cost taken
           off their purse. Everyone else is in the pool. <b>Full auction</b>: all 610 players go under the hammer and every team starts empty.
+        </li>
+      </ul>
+
+      <h2>Playing online with friends</h2>
+      <ul>
+        <li>
+          On the setup screen, mark your own team as <b>You</b> (plus any teams your friends will play), then tap <b>Play online: get a
+          link</b>. You get a six-letter room code and an invite link. Send it on WhatsApp or anywhere else.
+        </li>
+        <li>
+          Friends open the link, type their name and tap <b>Take</b> on an open team. In the lobby you can switch any team between{' '}
+          <b>Friend</b> and <b>AI</b>, or change your own team. When everyone is in, start the draft. Open seats nobody took are played by
+          the AI.
+        </li>
+        <li>
+          Everyone sees the same board live. Each person can only pick for their own team, on their own turn. Only the host can pause the
+          AI, change its speed, sim or end the draft.
+        </li>
+        <li>
+          The room runs in the host’s browser, so the host must keep that tab open (the game keeps the screen awake where it can). If a
+          friend’s phone drops off, they just reopen the link and are back in their seat. If they’re away on their turn for 20 seconds,
+          the AI picks for them.
+        </li>
+        <li>
+          Connections go phone-to-phone through the free PeerJS service, with relay servers as a fallback. No account needed. On a few
+          very strict networks (some office Wi-Fi) a friend may not be able to connect; switching to mobile data usually fixes it.
         </li>
       </ul>
 
@@ -131,6 +158,9 @@ export function About() {
 
       <h2>Changelog</h2>
       <ul className="changelog">
+        <li>
+          <b>v2.1</b>: online rooms with a shareable link, and Skip my turn.
+        </li>
         <li>
           <b>v2.0</b>: the real-price draft. Pick current IPL players at their 2026 prices, in snake order. New green-baize look.
         </li>

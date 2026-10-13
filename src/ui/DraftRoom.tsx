@@ -1,18 +1,15 @@
-import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Player, Role, TeamState } from '../engine/types';
 import {
-  autoPick,
+  applyAction,
   draftMaxSpend,
   draftTeam,
-  endDraft,
-  finishTeam,
-  makePick,
   onTheClock,
   overseasIn,
   pickBlock,
   priceOf,
   roundOrder,
-  runAi,
+  type DraftAction,
   type DraftState,
   type PickBlock,
 } from '../engine/draft';
@@ -26,9 +23,6 @@ interface Props {
   initial: DraftState;
   onChange: (s: DraftState) => void;
 }
-
-const SPEEDS = { slow: 1600, normal: 850, fast: 250 } as const;
-type Speed = keyof typeof SPEEDS;
 
 const BLOCK_TEXT: Record<PickBlock, string> = {
   finished: 'Draft over',
@@ -53,56 +47,115 @@ export function priceStory(p: Player): string {
   return `${p.team2026 ?? ''} 2026 price${how ? `, ${how}` : ''}`.trim();
 }
 
+/** Who sits at an online team, for labels. */
+export interface SeatInfo {
+  name: string;
+  online: boolean;
+}
+
+export interface DraftViewProps {
+  state: DraftState;
+  /** Teams this device may make moves for. */
+  mine: string[];
+  /** This device runs the draft: it can pause the AI, change its speed, sim or end. */
+  authority: boolean;
+  dispatch: (a: DraftAction) => void;
+  paused?: boolean;
+  setPaused?: (p: boolean) => void;
+  speed?: Speed;
+  setSpeed?: (s: Speed) => void;
+  seats?: Record<string, SeatInfo>;
+  /** Extra bar above the room, e.g. the online room status. */
+  topBar?: ReactNode;
+}
+
+export const SPEEDS = { slow: 1600, normal: 850, fast: 250 } as const;
+export type Speed = keyof typeof SPEEDS;
+
+/**
+ * On the machine that runs the draft: when the team on the clock is played by the AI
+ * (or covered by it), make its pick after `delayFor(code)` ms. Null means a person picks.
+ */
+export function useAiTurns(state: DraftState, delayFor: (code: string) => number | null, paused: boolean, apply: (a: DraftAction) => void) {
+  const code = onTheClock(state);
+  const delay = code ? delayFor(code) : null;
+  useEffect(() => {
+    if (state.finished || !code || delay === null || paused) return;
+    const id = window.setTimeout(() => apply({ type: 'auto', team: code }), delay);
+    return () => window.clearTimeout(id);
+  }, [state, code, delay, paused, apply]);
+}
+
+/** Single-device game: humans share this screen, AI teams pick by themselves. */
 export function DraftRoom({ initial, onChange }: Props) {
   const [state, setState] = useState(initial);
   const stateRef = useRef(initial);
   const rngRef = useRef(makeRng((Date.now() ^ initial.seed) >>> 0));
   const [speed, setSpeed] = useState<Speed>('normal');
   const [paused, setPaused] = useState(false);
+
+  const apply = useCallback(
+    (a: DraftAction) => {
+      const n = applyAction(stateRef.current, a, rngRef.current);
+      if (n === stateRef.current) return;
+      stateRef.current = n;
+      setState(n);
+      onChange(n);
+    },
+    [onChange],
+  );
+
+  useAiTurns(state, (c) => (draftTeam(state, c).human ? null : SPEEDS[speed]), paused, apply);
+  const mine = useMemo(() => state.teams.filter((t) => t.human).map((t) => t.code), [state.teams]);
+
+  return (
+    <DraftView
+      state={state}
+      mine={mine}
+      authority
+      dispatch={apply}
+      paused={paused}
+      setPaused={setPaused}
+      speed={speed}
+      setSpeed={setSpeed}
+    />
+  );
+}
+
+export function DraftView({ state, mine, authority, dispatch, paused = false, setPaused, speed = 'normal', setSpeed, seats, topBar }: DraftViewProps) {
   const [sound, setSound] = useState(loadSound);
   const [ask, setAsk] = useState<Ask | null>(null);
   const closeAsk = useCallback(() => setAsk(null), []);
   const [selected, setSelected] = useState<string | null>(null);
 
-  const commit = useCallback(
-    (n: DraftState) => {
-      const before = stateRef.current;
-      if (n === before) return;
-      stateRef.current = n;
-      setState(n);
-      onChange(n);
-      if (sound && n.picks.length > before.picks.length) playGavel(true);
-    },
-    [onChange, sound],
-  );
-
   const code = onTheClock(state);
   const team = code ? draftTeam(state, code) : null;
-  const humanTurn = !!team?.human;
+  const myTurn = !!code && mine.includes(code);
 
-  // AI teams pick on their own, one at a time, so you can watch the board move.
+  // The gavel, for every pick, wherever it was made.
+  const pickCount = state.picks.length;
+  const lastCount = useRef(pickCount);
   useEffect(() => {
-    if (state.finished || !team || team.human || paused || ask) return;
-    const id = window.setTimeout(() => commit(autoPick(stateRef.current, rngRef.current)), SPEEDS[speed]);
-    return () => window.clearTimeout(id);
-  }, [state, team, paused, ask, speed, commit]);
+    if (pickCount > lastCount.current && sound) playGavel(true);
+    lastCount.current = pickCount;
+  }, [pickCount, sound]);
 
-  // A human's pick: keep the chosen player in view only while he's still on the board.
+  // Drop the selection once that player is gone.
   useEffect(() => {
     if (selected && !state.available.includes(selected)) setSelected(null);
   }, [state.available, selected]);
 
   const pick = (playerId: string) => {
-    if (!code || !humanTurn) return;
-    commit(makePick(stateRef.current, code, playerId));
+    if (code && myTurn) dispatch({ type: 'pick', team: code, playerId });
   };
 
   const lastPick = state.picks[state.picks.length - 1];
-  const humans = state.teams.filter((t) => t.human);
+  const anyHumans = state.teams.some((t) => t.human);
 
   return (
     <div className="room draft">
       <div className="room-main">
+        {topBar}
         <div className="lot-meta">
           <span className="set-name">Round {state.round}</span>
           <span className="eyebrow">
@@ -111,21 +164,29 @@ export function DraftRoom({ initial, onChange }: Props) {
         </div>
 
         <div className="lot">
-          <ClockBoard state={state} team={team} lastPick={lastPick} paused={paused} />
+          <ClockBoard state={state} team={team} myTurn={myTurn} lastPick={lastPick} paused={paused} seats={seats} />
           <SelectedPlate
             state={state}
-            playerId={selected ?? (humanTurn ? null : lastPick?.playerId ?? null)}
-            code={humanTurn ? code : null}
+            playerId={selected ?? (myTurn ? null : lastPick?.playerId ?? null)}
+            code={myTurn ? code : null}
             onPick={pick}
-            justPicked={!selected && !humanTurn && !!lastPick}
+            justPicked={!selected && !myTurn && !!lastPick}
           />
         </div>
 
         <div className="controls">
-          {humanTurn ? (
+          {myTurn && (
             <>
-              <button type="button" className="btn" onClick={() => commit(autoPick(stateRef.current, rngRef.current))}>
+              <button type="button" className="btn" onClick={() => dispatch({ type: 'auto', team: code! })}>
                 Auto-pick for {team!.code}
+              </button>
+              <button
+                type="button"
+                className="btn"
+                title="Pass without picking. You keep your money and the next team picks."
+                onClick={() => dispatch({ type: 'skip', team: code! })}
+              >
+                Skip my turn
               </button>
               <button
                 type="button"
@@ -136,26 +197,29 @@ export function DraftRoom({ initial, onChange }: Props) {
                   setAsk({
                     message: `Stop picking for ${team!.name}? You keep your ${team!.squad.length} players and ${formatLakh(team!.purseLakh)}.`,
                     yes: 'Finish squad',
-                    onYes: () => commit(finishTeam(stateRef.current, code!)),
+                    onYes: () => dispatch({ type: 'finish', team: code! }),
                   })
                 }
               >
                 Finish my squad
               </button>
             </>
-          ) : (
-            <button type="button" className="btn" onClick={() => setPaused((p) => !p)} disabled={state.finished}>
-              {paused ? '▶ Resume' : '❚❚ Pause'}
+          )}
+          {authority && setPaused && !myTurn && (
+            <button type="button" className="btn" onClick={() => setPaused(!paused)} disabled={state.finished}>
+              {paused ? '▶ Resume AI' : '❚❚ Pause AI'}
             </button>
           )}
-          <label className="speed">
-            <span>AI speed</span>
-            <select id="ai-speed" value={speed} onChange={(e) => setSpeed(e.target.value as Speed)}>
-              <option value="slow">Slow</option>
-              <option value="normal">Normal</option>
-              <option value="fast">Fast</option>
-            </select>
-          </label>
+          {authority && setSpeed && (
+            <label className="speed">
+              <span>AI speed</span>
+              <select id="ai-speed" value={speed} onChange={(e) => setSpeed(e.target.value as Speed)}>
+                <option value="slow">Slow</option>
+                <option value="normal">Normal</option>
+                <option value="fast">Fast</option>
+              </select>
+            </label>
+          )}
           <button
             type="button"
             className="btn"
@@ -169,48 +233,62 @@ export function DraftRoom({ initial, onChange }: Props) {
           >
             {sound ? '🔊 Sound on' : '🔈 Sound off'}
           </button>
-          <button
-            type="button"
-            className="btn"
-            onClick={() =>
-              setAsk({
-                message:
-                  humans.length > 0
-                    ? 'Let the AI finish the draft? It will pick for every team, yours included.'
-                    : 'Skip to the end of the draft?',
-                yes: 'Sim to the end',
-                onYes: () => commit(runAi(stateRef.current, rngRef.current, true)),
-              })
-            }
-          >
-            Sim to the end
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={() =>
-              setAsk({
-                message: 'End the draft now? Every squad stays as it is.',
-                yes: 'End draft',
-                onYes: () => commit(endDraft(stateRef.current)),
-              })
-            }
-          >
-            End draft
-          </button>
+          {authority && (
+            <>
+              <button
+                type="button"
+                className="btn"
+                onClick={() =>
+                  setAsk({
+                    message: anyHumans ? 'Let the AI finish the draft? It will pick for every team, including people’s.' : 'Skip to the end of the draft?',
+                    yes: 'Sim to the end',
+                    onYes: () => dispatch({ type: 'sim' }),
+                  })
+                }
+              >
+                Sim to the end
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() =>
+                  setAsk({
+                    message: 'End the draft now? Every squad stays as it is.',
+                    yes: 'End draft',
+                    onYes: () => dispatch({ type: 'end' }),
+                  })
+                }
+              >
+                End draft
+              </button>
+            </>
+          )}
         </div>
 
-        <PlayerBoard state={state} code={humanTurn ? code : null} selected={selected} onSelect={setSelected} onPick={pick} />
+        <PlayerBoard state={state} code={myTurn ? code : null} selected={selected} onSelect={setSelected} onPick={pick} />
       </div>
 
-      <DraftSide state={state} />
+      <DraftSide state={state} mine={mine} seats={seats} />
       <ConfirmDialog ask={ask} onClose={closeAsk} />
     </div>
   );
 }
 
-function ClockBoard({ state, team, lastPick, paused }: { state: DraftState; team: TeamState | null; lastPick?: DraftState['picks'][number]; paused: boolean }) {
-  const order = roundOrder(state);
+function ClockBoard({
+  state,
+  team,
+  myTurn,
+  lastPick,
+  paused,
+  seats,
+}: {
+  state: DraftState;
+  team: TeamState | null;
+  myTurn: boolean;
+  lastPick?: DraftState['picks'][number];
+  paused: boolean;
+  seats?: Record<string, SeatInfo>;
+}) {
   const upNext = useMemo(() => {
     // The next few teams to pick, skipping anyone who has stopped.
     const out: string[] = [];
@@ -226,10 +304,24 @@ function ClockBoard({ state, team, lastPick, paused }: { state: DraftState; team
   }, [state]);
   const teamOf = (c: string) => state.teams.find((t) => t.code === c)!;
   const lastBy = lastPick ? teamOf(lastPick.team) : null;
+  const seat = team ? seats?.[team.code] : undefined;
+  const lastPass = state.passes[state.passes.length - 1];
+  const passedJustNow = lastPass && lastPass.afterPick === state.picks.length && (!lastPick || state.passes.length > 0);
+  const label = !team
+    ? 'Draft complete'
+    : myTurn
+      ? 'Your pick'
+      : seat
+        ? `${seat.name}${seat.online ? '' : ' (offline: AI covering)'} is picking`
+        : team.human
+          ? 'Pass the phone'
+          : paused
+            ? 'Paused'
+            : 'On the clock';
 
   return (
-    <div className="bidboard" style={team ? { ['--team' as string]: team.color } : undefined}>
-      <div className="eyebrow">{team ? (team.human ? 'Your pick' : paused ? 'Paused' : 'On the clock') : 'Draft complete'}</div>
+    <div className={`bidboard ${myTurn ? 'my-turn' : ''}`} style={team ? { ['--team' as string]: team.color } : undefined}>
+      <div className="eyebrow">{label}</div>
       <div className="clock-team">
         {team && <TeamBadge team={team} size="lg" />}
         <span>{team ? team.name : 'All squads are done'}</span>
@@ -258,7 +350,15 @@ function ClockBoard({ state, team, lastPick, paused }: { state: DraftState; team
           </div>
         </dl>
       )}
-      {!team?.human && team && !paused && <div className="thinking">{team.code} is picking…</div>}
+      {team && !myTurn && !paused && (!team.human || (seat && !seat.online)) && <div className="thinking">{team.code} is picking…</div>}
+      {passedJustNow && (
+        <div className="last-pick">
+          <span className="eyebrow">Just now</span>
+          <span>
+            <TeamBadge team={teamOf(lastPass.team)} size="sm" /> skipped their turn
+          </span>
+        </div>
+      )}
       {lastPick && lastBy && (
         <div className="last-pick">
           <span className="eyebrow">Last pick</span>
@@ -274,7 +374,7 @@ function ClockBoard({ state, team, lastPick, paused }: { state: DraftState; team
           {upNext.map((c, i) => (
             <TeamBadge key={`${c}-${i}`} team={teamOf(c)} size="sm" />
           ))}
-          <span className="muted small">{order.length > 1 && state.round % 2 === 0 ? '(snake: reversed this round)' : ''}</span>
+          <span className="muted small">{state.round % 2 === 0 ? '(snake: reversed this round)' : ''}</span>
         </div>
       )}
     </div>
@@ -490,13 +590,20 @@ function PlayerBoard({
   );
 }
 
-function DraftSide({ state }: { state: DraftState }) {
+function DraftSide({ state, mine, seats }: { state: DraftState; mine: string[]; seats?: Record<string, SeatInfo> }) {
   const [tab, setTab] = useState<'teams' | 'picks'>('teams');
-  const first = state.teams.find((t) => t.human)?.code ?? state.teams[0].code;
+  const first = mine[0] ?? state.teams[0].code;
   const [code, setCode] = useState(first);
   const t = state.teams.find((x) => x.code === code) ?? state.teams[0];
-  const picks = [...state.picks].reverse().slice(0, 120);
   const closed = new Set(state.closed);
+  type Row = { kind: 'pick'; pk: DraftState['picks'][number] } | { kind: 'pass'; ps: DraftState['passes'][number]; i: number };
+  const log = useMemo(() => {
+    const rows: Row[] = state.picks.map((pk) => ({ kind: 'pick', pk }));
+    state.passes.forEach((ps, i) => rows.push({ kind: 'pass', ps, i }));
+    const at = (r: Row) => (r.kind === 'pick' ? r.pk.pickNo - 1 + 0.5 : r.ps.afterPick + 0.25 + r.i * 1e-6);
+    return rows.sort((a, b) => at(b) - at(a)).slice(0, 150);
+  }, [state.picks, state.passes]);
+  const who = (x: TeamState) => (mine.includes(x.code) && seats ? 'you' : seats?.[x.code]?.name ?? (x.human ? 'human' : null));
 
   return (
     <aside className="side">
@@ -511,17 +618,24 @@ function DraftSide({ state }: { state: DraftState }) {
       {tab === 'teams' ? (
         <div className="side-body">
           <ul className="team-strip">
-            {state.teams.map((x) => (
-              <li key={x.code}>
-                <button type="button" className={x.code === t.code ? 'on' : ''} onClick={() => setCode(x.code)} style={{ ['--team' as string]: x.color }}>
-                  <TeamBadge team={x} size="sm" />
-                  <span className="grow">{x.human ? `${x.code} (you)` : x.code}</span>
-                  <span className="num">{x.squad.length}</span>
-                  <span className="num price">{formatLakh(x.purseLakh)}</span>
-                  {closed.has(x.code) && <span className="tag">done</span>}
-                </button>
-              </li>
-            ))}
+            {state.teams.map((x) => {
+              const w = who(x);
+              const seat = seats?.[x.code];
+              return (
+                <li key={x.code}>
+                  <button type="button" className={x.code === t.code ? 'on' : ''} onClick={() => setCode(x.code)} style={{ ['--team' as string]: x.color }}>
+                    <TeamBadge team={x} size="sm" />
+                    <span className="grow seat-name">
+                      {w ?? 'AI'}
+                      {seat && !seat.online && <span className="tag">offline</span>}
+                    </span>
+                    <span className="num">{x.squad.length}</span>
+                    <span className="num price">{formatLakh(x.purseLakh)}</span>
+                    {closed.has(x.code) && <span className="tag">done</span>}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
           <h3 className="squad-head">
             {t.name} <span className="muted small">spent {formatLakh(t.squad.reduce((s, e) => s + e.priceLakh, 0))}</span>
@@ -548,9 +662,20 @@ function DraftSide({ state }: { state: DraftState }) {
         </div>
       ) : (
         <div className="side-body">
-          {picks.length === 0 && <p className="muted">No picks yet.</p>}
+          {log.length === 0 && <p className="muted">No picks yet.</p>}
           <ol className="log-list">
-            {picks.map((pk) => {
+            {log.map((r) => {
+              if (r.kind === 'pass') {
+                const by = state.teams.find((x) => x.code === r.ps.team)!;
+                return (
+                  <li key={`pass-${r.i}`} className="unsold">
+                    <span className="lot-no">–</span>
+                    <TeamBadge team={by} size="sm" />
+                    <span className="grow">skipped their turn</span>
+                  </li>
+                );
+              }
+              const pk = r.pk;
               const by = state.teams.find((x) => x.code === pk.team)!;
               return (
                 <li key={pk.pickNo}>

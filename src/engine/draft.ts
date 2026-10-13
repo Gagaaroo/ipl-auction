@@ -22,6 +22,14 @@ export interface DraftPick {
   auto: boolean;
 }
 
+/** A team that passed on its turn. */
+export interface DraftPass {
+  round: number;
+  team: string;
+  /** How many picks had been made when it passed, to slot it into the log. */
+  afterPick: number;
+}
+
 export interface DraftState {
   kind: 'draft';
   version: 1;
@@ -34,6 +42,7 @@ export interface DraftState {
   /** Player ids still on the board. */
   available: string[];
   picks: DraftPick[];
+  passes: DraftPass[];
   round: number;
   /** Position within this round's order. */
   slot: number;
@@ -90,6 +99,7 @@ export function createDraft(cfg: DraftConfig): DraftState {
     order: shuffle(teams.map((t) => t.code), rng),
     available,
     picks: [],
+    passes: [],
     round: 1,
     slot: 0,
     closed: [],
@@ -193,6 +203,13 @@ export function makePick(state: DraftState, code: string, playerId: string, auto
   );
 }
 
+/** The team on the clock passes: no pick this turn, no money spent, next team up. */
+export function skipTurn(state: DraftState, code: string): DraftState {
+  if (state.finished || onTheClock(state) !== code) return state;
+  const pass: DraftPass = { round: state.round, team: code, afterPick: state.picks.length };
+  return settle(stepSlot({ ...state, passes: [...(state.passes ?? []), pass] }));
+}
+
 /** A team stops picking (allowed once it has its minimum squad). */
 export function finishTeam(state: DraftState, code: string): DraftState {
   if (state.closed.includes(code) || state.finished) return state;
@@ -273,4 +290,37 @@ export function runAi(state: DraftState, rng: Rng, includeHumans = false): Draft
     s = autoPick(s, rng);
   }
   return s;
+}
+
+// ---------- one entry point for every move (local, host or remote guest) ----------
+
+export type DraftAction =
+  | { type: 'pick'; team: string; playerId: string }
+  | { type: 'skip'; team: string }
+  | { type: 'finish'; team: string }
+  | { type: 'auto'; team: string }
+  | { type: 'sim' }
+  | { type: 'end' };
+
+/** Apply a move if it is legal right now; otherwise return the state unchanged. */
+export function applyAction(state: DraftState, a: DraftAction, rng: Rng): DraftState {
+  switch (a.type) {
+    case 'pick':
+      return makePick(state, a.team, a.playerId);
+    case 'skip':
+      return skipTurn(state, a.team);
+    case 'finish':
+      return finishTeam(state, a.team);
+    case 'auto':
+      return onTheClock(state) === a.team ? autoPick(state, rng) : state;
+    case 'sim':
+      return runAi(state, rng, true);
+    case 'end':
+      return endDraft(state);
+  }
+}
+
+/** Older saves predate passes. */
+export function upgradeDraft(s: DraftState): DraftState {
+  return s.passes ? s : { ...s, passes: [] };
 }

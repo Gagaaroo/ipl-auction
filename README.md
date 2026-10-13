@@ -5,7 +5,7 @@ A small IPL squad-building game with two modes:
 - **Real-price draft** (default): teams take turns picking current IPL players, and each pick costs that player's real 2026 price. Pick KL Rahul and ₹14 Cr comes off your purse; Venkatesh Iyer costs ₹7 Cr.
 - **Classic auction**: live bidding against the clock, from base prices, with 610 players from the last three auctions.
 
-Play solo against AI franchises, or pass one phone round the room and give each friend a team. You can also create an 11th team of your own. The squads then play out a simulated season.
+Play solo against AI franchises, pass one phone round the room, or **play online**: create a room, send the link, and friends join from their own phones. You can also create an 11th team of your own. The squads then play out a simulated season.
 
 It's Vite, React and TypeScript, with no backend. Everything runs in the browser, and the game in progress is saved to `localStorage`.
 
@@ -36,7 +36,9 @@ src/
     xi.ts             best legal XI
     season.ts         league + final, points table with NRR, awards
     engine.test.ts    Vitest tests
+  online/net.ts       online rooms: room codes, invite links, message types, PeerJS options
   ui/                 React screens (Setup, DraftRoom, AuctionRoom, Results, pages)
+  ui/online/          HostRoom (lobby + runs the draft) and GuestRoom (join link)
 ```
 
 ## Editing `players.json`
@@ -105,8 +107,18 @@ Local Hero,AR,IND,,55,58,,,,
 - The picking order is drawn at random and snakes (1→10, then 10→1, …).
 - A pick costs the player's `price2026Lakh`, taken straight off the purse. No bidding.
 - A team can't make a pick that would leave it unable to fill its minimum squad at the cheapest price on the board (₹30 L).
+- **Skip my turn** passes without picking (no money spent).
 - A team stops when its squad is full, when nothing on the board is affordable, or when a human taps **Finish my squad** (after reaching the minimum squad).
 - AI teams weigh rating, squad needs (keepers, bowlers…), overseas slots and what they can still afford, and they will stretch for genuine stars.
+
+## Online rooms
+
+The host's browser runs the draft. Friends connect straight to it over WebRTC, using the free [PeerJS](https://peerjs.com) cloud to find each other, plus its TURN relays when a direct connection isn't possible. There's no backend and no account.
+
+- **Play online: get a link** creates a six-letter room. The host registers with PeerJS under `auction-table-v2-<code>`, and the invite link is `https://<site>/?join=<CODE>`.
+- Guests send `hello`, `claim` and `action` messages. The host checks every action (only your own team, only on your turn), applies it, and broadcasts the new state. Guests get one full snapshot, then slim updates without the player list. See `src/online/net.ts`.
+- If a guest drops, they reopen the link and are recognised by a client id kept in their browser. If they're away on their turn for 20 s, the AI picks for them.
+- To test locally against your own PeerJS server, build with `VITE_PEER_HOST`, `VITE_PEER_PORT`, `VITE_PEER_SECURE=false` and optionally `VITE_PEER_ICE=none`.
 
 ## House rules (defaults)
 
